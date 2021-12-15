@@ -5,7 +5,7 @@ import { MainLayoutComponent } from './containers';
 const routes: Routes = [
   {
     path: '',
-    component: MainLayoutComponent,
+    // component: MainLayoutComponent,
     children: [
       {
         path: '',
