@@ -1,1 +1,32 @@
-<p>login-container works!</p>
+<app-purple-background>
+    <section class="login-container">
+        <div class="login-container__logo">
+            <img src="/assets/images/logo_no_text.png" />
+        </div>
+        <h1 class="login-container__title text-style-montserrat-medium-20">Sign in</h1>
+        <form class="login-container__form" [formGroup]="loginFormGroup">
+            <div class="form-control p-float-label">
+                <input 
+                    class="p-inputtext-lg" 
+                    id="email-input" 
+                    formControlName="email" 
+                    pInputText type="email" />
+                <label for="email-input" class="text-style-montserrat-regular-20">Email Address</label>
+            </div>
+            <div class="form-control p-float-label">
+                <input 
+                    class="p-inputtext-lg"  
+                    id="password-input" 
+                    formControlName="password" 
+                    pInputText type="password" />
+                <label for="password-input" class="text-style-montserrat-regular-20">Password</label>
+            </div>
+            <div class="form-control">
+                <p-button class="p-button-lg" type="button" label="Sign in" (click)="onLogin()"></p-button>
+            </div>
+        </form>
+        <p class="login-container__register text-style-montserrat-regular-15">
+            You don't have an account? <a class="sign-up__link" href="#">Sign up</a>
+        </p>
+    </section>
+</app-purple-background>

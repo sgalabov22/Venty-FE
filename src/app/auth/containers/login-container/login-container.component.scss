@@ -1,0 +1,38 @@
+@import "assets/styles/fonts";
+
+.login-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.login-container__logo {
+    height: 300px;
+}
+
+.login-container__form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.form-control,
+.login-container__register {
+    color: darkgrey;
+}
+
+.login-container__title,
+.sign-up__link {
+    color: white;
+}
+
+::ng-deep .p-button {
+    width: 100%;
+    background-color: #00aeec;
+    border: unset;
+    color: white;
+    @extend .text-style-montserrat-medium-15;
+}

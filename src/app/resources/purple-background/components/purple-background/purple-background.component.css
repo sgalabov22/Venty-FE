@@ -1,0 +1,6 @@
+.background {
+    background-image: url('/assets/images/login-container-background.png');
+    background-position: center;
+    background-size: cover;
+    height: 100%;
+}

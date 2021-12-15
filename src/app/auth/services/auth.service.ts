@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { AuthDataInput, UserCredentialsInput } from '..';
+import { AuthDataInput, UserCredentialsInput } from '../interfaces';
 import { environment } from '@env/environment';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class AuthService {
   public loginUser(
     bodyParams: UserCredentialsInput
   ): Observable<AuthDataInput> {
-    const url = environment.baseApiUrl + '/authetication/login';
+    const url = environment.baseApiUrl + '/authentication/login';
 
     return this.http.post<AuthDataInput>(url, bodyParams);
   }
@@ -21,7 +21,7 @@ export class AuthService {
   public registerUser(
     bodyParams: UserCredentialsInput
   ): Observable<AuthDataInput> {
-    const url = environment.baseApiUrl + '/authetication/register';
+    const url = environment.baseApiUrl + '/authentication/register';
 
     return this.http.post<AuthDataInput>(url, bodyParams);
   }
