@@ -1,0 +1,39 @@
+@font-face {
+    font-family: "Montserrat-Medium";
+    src: url("../fonts/Montserrat-Medium.ttf") format("truetype");
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+}
+
+@font-face {
+    font-family: "Montserrat-Regular";
+    src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+}
+
+// Montserrat Medium
+.text-style-montserrat-medium-20 {
+    font-family: "Montserrat-Medium";
+    font-size: 20px;
+}
+
+.text-style-montserrat-medium-15 {
+    font-family: "Montserrat-Medium";
+    font-size: 15px;
+}
+
+// Montserrat Regular
+.text-style-montserrat-regular-20 {
+    font-family: "Montserrat-Regular";
+    font-size: 20px;
+}
+
+.text-style-montserrat-regular-15 {
+    font-family: "Montserrat-Regular";
+    font-size: 15px;
+}
