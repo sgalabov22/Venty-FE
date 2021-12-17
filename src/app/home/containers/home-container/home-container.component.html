@@ -7,25 +7,26 @@
     
         <div class="menu-elements__container">
             <ul class="menu__container" style="list-style-type:none;">
-                <li class="menu-element">Why Venty?</li>
-                <li class="menu-element">Features</li>
-                <li class="menu-element">Pricing</li>
+                <li class="menu-element text-style-roboto-bold">Why Venty?</li>
+                <li class="menu-element text-style-roboto-bold">Features</li>
+                <li class="menu-element text-style-roboto-bold">Pricing</li>
             </ul>
         </div>
     </div>
 
     <div class="home-elements__container">
         <div class="elements__container">
-            <div class="heading-home-element">
+            <div class="heading-home-element text-style-roboto-bold">
                 <p>Event Creation & Managing</p>
             </div>
-            <div class="text-home-element">
+            <div class="text-home-element text-style-roboto-regular">
                 <p>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
                 </p>
             </div>
             <div class="buttons-home__container">
-                <button pButton type="button" label="Click" >Click</button>
+                <button pButton class="sign-in__button text-style-roboto-bold" type="button" label="Sign In" (click)="goToLogin()"></button>
+                <button pButton class="sign-up__button text-style-roboto-bold" type="button" label="Sign Up" (click)="goToRegister()"></button>
             </div>
         </div>
     </div>

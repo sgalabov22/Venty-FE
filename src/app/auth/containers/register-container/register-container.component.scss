@@ -1,6 +1,13 @@
 @import "assets/styles/fonts";
 
-.login-container {
+.logo-panel__container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.register-container {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -10,19 +17,19 @@
     height: 100%;
 }
 
-.login-container__form {
+.register-container__form {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
 .form-control,
-.login-container__register {
+.register-container__login {
     color: #fef8ff;
     width: 350px;
 }
 
-.login-container__register {
+.register-container__login {
     display: flex;
     justify-content: center;
 }
@@ -39,12 +46,12 @@
     border-bottom: 1px solid white;
 }
 
-.login-container__title,
-.sign-up__link {
+.register-container__title,
+.sign-in__link {
     color: white;
 }
 
-.sign-up__link {
+.sign-in__link {
     margin: 0px 0px 0px 3%;
     font-weight: bold;
     cursor: pointer;
@@ -56,8 +63,4 @@
     border: unset;
     color: white;
     @extend .text-style-montserrat-medium-15;
-}
-
-.p-button:hover {
-    background: white;
 }

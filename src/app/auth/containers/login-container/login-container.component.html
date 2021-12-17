@@ -22,11 +22,12 @@
                 <label for="password-input" class="text-style-montserrat-regular-20">Password</label>
             </div>
             <div class="form-control">
-                <p-button class="p-button-lg" type="button" label="Sign in" (click)="onLogin()"></p-button>
+                <p-button class="p-button-lg" type="button"
+                 label="Sign in" (click)="onLogin()" [disabled]="loginFormGroup.invalid"></p-button>
             </div>
         </form>
-        <p class="login-container__register text-style-montserrat-regular-15">
-            You don't have an account? <a class="sign-up__link" href="#">Sign up</a>
-        </p>
+        <div class="login-container__register text-style-montserrat-regular-15">
+            You don't have an account? <p class="sign-up__link" (click)="goToRegister()">Sign up</p>
+        </div>
     </section>
 </app-purple-background>

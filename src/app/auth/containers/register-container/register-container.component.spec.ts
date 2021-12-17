@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PurpleBackgroundComponent } from './purple-background.component';
+import { RegisterContainerComponent } from './register-container.component';
 
-describe('PurpleBackgroundComponent', () => {
-  let component: PurpleBackgroundComponent;
-  let fixture: ComponentFixture<PurpleBackgroundComponent>;
+describe('RegisterContainerComponent', () => {
+  let component: RegisterContainerComponent;
+  let fixture: ComponentFixture<RegisterContainerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PurpleBackgroundComponent]
+      declarations: [RegisterContainerComponent]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PurpleBackgroundComponent);
+    fixture = TestBed.createComponent(RegisterContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

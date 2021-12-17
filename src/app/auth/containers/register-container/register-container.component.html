@@ -1,0 +1,52 @@
+<app-purple-background>
+    <div class="logo-panel__container">
+        <img src="assets/images/logo_no_text.png" alt="Can't find image">
+    </div>
+
+    <section class="register-container">
+        <p-avatar icon="pi pi-user" [style]="{'background-color': '#2196F3', 'color': '#ffffff'}" styleClass="p-mr-2" size="xlarge" shape="circle"></p-avatar>
+
+        <h1 class="register-container__title text-style-montserrat-medium-20">Sign up</h1>
+        <form class="register-container__form" [formGroup]="registerFormGroup">
+            <div class="form-control p-float-label">
+                <input 
+                    class="p-inputtext-lg" 
+                    id="fullName-input" 
+                    formControlName="fullName" 
+                    pInputText type="text" />
+                <label for="fullName-input" class="text-style-montserrat-regular-20">Full Name</label>
+            </div>
+            <div class="form-control p-float-label">
+                <input 
+                    class="p-inputtext-lg" 
+                    id="email-input" 
+                    formControlName="email" 
+                    pInputText type="email" />
+                <label for="email-input" class="text-style-montserrat-regular-20">Email Address</label>
+            </div>
+            <div class="form-control p-float-label">
+                <input 
+                    class="p-inputtext-lg"  
+                    id="password-input" 
+                    formControlName="password" 
+                    pInputText type="password" />
+                <label for="password-input" class="text-style-montserrat-regular-20">Password</label>
+            </div>
+            <div class="form-control p-float-label">
+                <input 
+                    class="p-inputtext-lg"  
+                    id="confirmPassword-input" 
+                    formControlName="confirmPassword" 
+                    pInputText type="password" />
+                <label for="confirmPassword-input" class="text-style-montserrat-regular-20">Confirm Password</label>
+            </div>
+            <div class="form-control">
+                <p-button class="p-button-lg" type="button"
+                 label="Sign up" (click)="onRegister()" [disabled]="registerFormGroup.invalid"></p-button>
+            </div>
+        </form>
+        <div class="register-container__login text-style-montserrat-regular-15">
+            You already have an account? <p class="sign-in__link" (click)="goToLogin()">Sign in</p>
+        </div>
+    </section>
+</app-purple-background>

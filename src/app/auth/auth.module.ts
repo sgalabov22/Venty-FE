@@ -5,15 +5,18 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginContainerComponent } from './containers/login-container/login-container.component';
+import { RegisterContainerComponent } from './containers/register-container/register-container.component';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
-  declarations: [LoginContainerComponent],
+  declarations: [LoginContainerComponent, RegisterContainerComponent],
   imports: [
-    AuthRoutingModule, 
-    ReactiveFormsModule, 
-    ButtonModule, 
+    AuthRoutingModule,
+    ReactiveFormsModule,
+    ButtonModule,
     InputTextModule,
-    PurpleBackgroundModule
+    PurpleBackgroundModule,
+    AvatarModule
   ]
 })
 export class AuthModule {}

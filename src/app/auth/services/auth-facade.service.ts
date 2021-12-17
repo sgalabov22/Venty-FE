@@ -12,16 +12,21 @@ export class AuthFacadeService implements OnDestroy {
   public authDetails$: Observable<AuthDataInput> =
     this.authDetails$$.asObservable();
 
-  private isAuthenticated$$ = new BehaviorSubject<boolean>(true);
+  private isAuthenticated$$ = new BehaviorSubject<boolean>(false);
   public isAuthenticated$: Observable<boolean> =
     this.isAuthenticated$$.asObservable();
 
   private currentUser$$ = new BehaviorSubject<any>(null);
   public currentUser$: Observable<any> = this.currentUser$$.asObservable();
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    if (this.getAuthDetails()) {
+      this.isAuthenticated$$.next(true);
+    }
+  }
 
   public loadLoginUser(bodyParams: UserCredentialsInput): void {
+    console.log(bodyParams);
     this.authService
       .loginUser(bodyParams)
       .pipe(take(1))

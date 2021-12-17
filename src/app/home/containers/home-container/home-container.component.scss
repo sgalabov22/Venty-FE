@@ -1,4 +1,4 @@
-
+@import "assets/styles/fonts";
 
 .home__container {
     background-image: url('/assets/images/home-background.png');
@@ -39,11 +39,9 @@
 
 .menu-element {
     margin: 0px 80px 0px 0px;
-    font-family: 'Roboto', sans-serif;
     font-size: 30px;
     color: #233360;
     cursor: pointer;
-    font-weight: bold;
 }
 
 .home-elements__container {
@@ -64,16 +62,13 @@
 }
 
 .heading-home-element p {
-    font-family: 'Roboto', sans-serif;
     font-size: 65px;
-    font-weight: bold;
     text-align: left;
     color: #233360;
     margin: 0 0 5% 0;
 }
 
 .text-home-element {
-    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-weight: normal;
     font-stretch: normal;
@@ -82,4 +77,27 @@
     letter-spacing: 1.5px;
     text-align: justify;
     color: #495d89;
+}
+
+.buttons-home__container {
+    padding: 5% 0 0 0;
+}
+
+.p-button {
+    margin: 10px;
+    width: 150px;
+    border-radius: 50px;
+    line-height: 1.2;
+    border: none;
+    box-shadow: 2px 5px 16px 0px #0B325E, 0px 0px 10px 5px;
+}
+
+.sign-in__button, .sign-in__button:hover {
+    background-image: url('/assets/images/sign-in-background.png');
+    color: white;
+}
+
+.sign-up__button, .sign-up__button:hover {
+    background-image: url('/assets/images/sign-up-background.png');
+    color: white;
 }

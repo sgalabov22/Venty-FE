@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Montserrat-Medium";
-    src: url("../fonts/Montserrat-Medium.ttf") format("truetype");
+    src: url("./fonts/Montserrat-Medium.ttf") format("truetype");
     font-style: normal;
     font-stretch: normal;
     letter-spacing: normal;
@@ -9,7 +9,7 @@
 
 @font-face {
     font-family: "Montserrat-Regular";
-    src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
+    src: url("./fonts/Montserrat-Regular.ttf") format("truetype");
     font-style: normal;
     font-stretch: normal;
     letter-spacing: normal;
@@ -36,4 +36,30 @@
 .text-style-montserrat-regular-15 {
     font-family: "Montserrat-Regular";
     font-size: 15px;
+}
+
+@font-face {
+    font-family: "Roboto-Bold";
+    src: url("./fonts/Roboto-Bold.ttf") format("truetype");
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+}
+
+@font-face {
+    font-family: "Roboto-Regular";
+    src: url("./fonts/Roboto-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+}
+
+.text-style-roboto-bold {
+    font-family: "Roboto-Bold";
+}
+
+.text-style-roboto-regular {
+    font-family: "Roboto-Regular";
 }

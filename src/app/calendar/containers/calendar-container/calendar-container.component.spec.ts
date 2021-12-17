@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PurpleBackgroundComponent } from './purple-background.component';
+import { CalendarContainerComponent } from './calendar-container.component';
 
-describe('PurpleBackgroundComponent', () => {
-  let component: PurpleBackgroundComponent;
-  let fixture: ComponentFixture<PurpleBackgroundComponent>;
+describe('CalendarContainerComponent', () => {
+  let component: CalendarContainerComponent;
+  let fixture: ComponentFixture<CalendarContainerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PurpleBackgroundComponent]
+      declarations: [CalendarContainerComponent]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PurpleBackgroundComponent);
+    fixture = TestBed.createComponent(CalendarContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
