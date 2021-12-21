@@ -6,7 +6,7 @@ export interface AuthDataInput {
 export interface UserCredentialsInput {
   email: string;
   password: string;
-  profilePictureUrl?: string;
+  profile_picture?: File;
 }
 
 export interface CurrentUserData {

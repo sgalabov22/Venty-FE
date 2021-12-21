@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { AuthDataInput, UserCredentialsInput } from '../interfaces';
 import { environment } from '@env/environment';
+import { toFormData } from '@app/core/functions';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class AuthService {
   ): Observable<AuthDataInput> {
     const url = environment.baseApiUrl + '/authentication/register';
 
-    return this.http.post<AuthDataInput>(url, bodyParams);
+    return this.http.post<AuthDataInput>(url, toFormData(bodyParams));
   }
 
   // TODO

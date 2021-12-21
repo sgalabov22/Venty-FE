@@ -7,16 +7,20 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginContainerComponent } from './containers/login-container/login-container.component';
 import { RegisterContainerComponent } from './containers/register-container/register-container.component';
 import { AvatarModule } from 'primeng/avatar';
+import { FileUploadModule } from 'primeng/fileupload';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [LoginContainerComponent, RegisterContainerComponent],
   imports: [
+    CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
     PurpleBackgroundModule,
-    AvatarModule
+    AvatarModule,
+    FileUploadModule
   ]
 })
 export class AuthModule {}

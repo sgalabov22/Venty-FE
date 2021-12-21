@@ -17,6 +17,10 @@
     height: 100%;
 }
 
+.register-container__picture-upload {
+    position: relative;
+}
+
 .register-container__form {
     display: flex;
     flex-direction: column;
@@ -55,6 +59,12 @@
     margin: 0px 0px 0px 3%;
     font-weight: bold;
     cursor: pointer;
+}
+
+.input__error {
+    padding-top: 5px;
+    color: #f19ea6;
+    text-align: center;
 }
 
 ::ng-deep .p-button {
