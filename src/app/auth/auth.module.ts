@@ -9,6 +9,7 @@ import { RegisterContainerComponent } from './containers/register-container/regi
 import { AvatarModule } from 'primeng/avatar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CommonModule } from '@angular/common';
+import { LoaderModule } from '@app/resources/loader';
 
 @NgModule({
   declarations: [LoginContainerComponent, RegisterContainerComponent],
@@ -20,7 +21,8 @@ import { CommonModule } from '@angular/common';
     InputTextModule,
     PurpleBackgroundModule,
     AvatarModule,
-    FileUploadModule
+    FileUploadModule,
+    LoaderModule
   ]
 })
 export class AuthModule {}
