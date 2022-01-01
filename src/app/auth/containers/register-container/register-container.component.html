@@ -5,8 +5,8 @@
 
     <section class="register-container">
         <div class="register-container__picture-upload">
-            <p-avatar icon="pi pi-user" [style]="{'background-color': '#2196F3', 'color': '#ffffff'}" styleClass="p-mr-2" size="xlarge" shape="circle"></p-avatar>
-            <p-fileUpload [style]="{ 'background-color': '#c10ac1', 'border-radius': '50%', 'position': 'absolute', 'bottom': '-10px', 'right': '-5px', 'border': '1px solid white' }" #profilePicInput mode="basic" name="files[]" customUpload="true"></p-fileUpload>
+            <p-avatar image="assets/images/default-user.png" styleClass="p-mr-2" size="xlarge" shape="circle" [style]="{ 'width': '120px', 'height': '120px' }"></p-avatar>
+            <p-fileUpload [style]="{ 'background-color': '#c10ac1', 'border-radius': '50%', 'position': 'absolute', 'bottom': '0px', 'right': '0px', 'border': '1px solid white' }" #profilePicInput mode="basic" accept="image/*" name="files[]" [auto]="true"></p-fileUpload>
         </div>
 
         <h1 class="register-container__title text-style-montserrat-medium-20">Sign up</h1>
