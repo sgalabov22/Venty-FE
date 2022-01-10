@@ -21,8 +21,8 @@ import { FormsModule } from '@angular/forms';
 
     CalendarModule.forRoot({
       provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
+      useFactory: adapterFactory
+    })
   ]
 })
 export class CalendarComponentModule {}

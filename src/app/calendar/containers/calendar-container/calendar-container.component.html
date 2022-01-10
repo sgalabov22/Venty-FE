@@ -1,14 +1,18 @@
 <app-purple-background>
     <div class="calendar-component__container">
         <div class="calendar-header__container">
-            <p-calendar [(ngModel)]="viewDate" view="month" dateFormat="MM yy" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
+            <div class="left-header__container">
+                <p-calendar class="header__datepicker" [(ngModel)]="viewDate" view="month" dateFormat="MM yy" [readonlyInput]="true"[showIcon]="true" icon="pi pi-angle-down" inputId="monthpicker"></p-calendar>
 
-            <span class="p-buttonset">
-                <button pButton mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" type="button" label="Previous"></button>
-                <button pButton mwlCalendarToday [(viewDate)]="viewDate" type="button" label="Today"></button>
-                <button pButton mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" type="button" label="Next"></button>
-            </span>
-            <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
+                <div class="p-buttonset">
+                    <button pButton mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" type="button" icon="pi pi-angle-left"></button>
+                    <button pButton mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" type="button" icon="pi pi-angle-right"></button>
+                </div>
+            </div>
+
+            <div class="right-header__container">
+                <button class="p-button-sm today-button" pButton mwlCalendarToday [(viewDate)]="viewDate" type="button" label="Today"></button>
+            </div>
         </div>
 
         <mwl-calendar-month-view

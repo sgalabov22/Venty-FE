@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { AuthDataInput, CurrentUserData, UserCredentialsInput } from '../interfaces';
+import {
+  AuthDataInput,
+  CurrentUserData,
+  UserCredentialsInput
+} from '../interfaces';
 import { environment } from '@env/environment';
 import { toFormData } from '@app/core/functions';
 
@@ -9,9 +13,7 @@ import { toFormData } from '@app/core/functions';
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(
-    private http: HttpClient,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   public loginUser(
     bodyParams: UserCredentialsInput
@@ -42,11 +44,8 @@ export class AuthService {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + authToken
     });
-    return this.http.get<CurrentUserData>(
-      url,
-      {
-        headers: httpHeaders
-      }
-    );
+    return this.http.get<CurrentUserData>(url, {
+      headers: httpHeaders
+    });
   }
 }

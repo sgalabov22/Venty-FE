@@ -4,11 +4,12 @@
 
 .dark-theme {
   // First define some global color variables for your app, these are just for the demo, they can be anything you like
-  $bg-dark-primary: #ffffff;
-  $bg-dark-today: rgb(168, 168, 168);
+  $bg-dark-primary: rgba(37, 38, 40, 1);
+  $bg-dark-today: rgb(70, 70, 70);
   $bg-dark-secondary: rgba(120, 0, 156, 0.0);
-  $bg-active: rgba(255, 255, 255, 0.5);
-  $text-color: #000000;
+  $bg-active: rgba(255, 255, 255, 0.068);
+  $text-color: #f5f4f3;
+  $secondary-text-color: #a2a0a2;
   $border-color: rgb(0, 0, 0);
 
   // Call the calendar mixin with a sass color map of your theme. Every property is optional.
@@ -35,6 +36,7 @@
   // Everything else below is just themes the demo, it's probably not relevant to your app
   background-color: $bg-dark-primary;
   color: $text-color;
+  @extend .text-style-montserrat-regular-12;
 
   .cal-month-view .cal-cell-top {
     min-height: 50px;
@@ -48,12 +50,19 @@
   }
 
   .cal-day-cell.cal-today {
-    font-size: 0.8rem;
+    font-size: 0.65rem;
   }
 
   .cal-day-badge {
     background-color: $border-color !important;
     color: $text-color !important;
+  }
+
+  .cal-header {
+    height: 24px;
+    text-transform: uppercase;
+    width: 100%;
+    color: $secondary-text-color;
   }
 
   .card {

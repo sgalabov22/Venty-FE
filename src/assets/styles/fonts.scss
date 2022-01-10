@@ -43,6 +43,11 @@
     font-size: 12px;
 }
 
+.text-style-montserrat-regular-10 {
+    font-family: "Montserrat-Regular";
+    font-size: 10px;
+}
+
 @font-face {
     font-family: "Roboto-Bold";
     src: url("./fonts/Roboto-Bold.ttf") format("truetype");
@@ -72,4 +77,9 @@
 .text-style-roboto-regular-14 {
     font-family: "Roboto-Regular";
     font-size: 14px;
+}
+
+.text-style-roboto-regular-16 {
+    font-family: "Roboto-Regular";
+    font-size: 16px;
 }

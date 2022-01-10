@@ -1,8 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthFacadeService } from '@app/auth';
@@ -69,7 +65,7 @@ export class RegisterContainerComponent {
     } else {
       this.authFacade.loadRegisterUser({
         email: this.email.value,
-        password: this.password.value,
+        password: this.password.value
       });
     }
 
