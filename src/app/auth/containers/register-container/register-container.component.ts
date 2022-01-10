@@ -1,10 +1,14 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewChild
+} from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthFacadeService } from '@app/auth';
 import { matchingPasswords } from '@app/core/validators';
 import { FileUpload } from 'primeng/fileupload';
-import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register-container',
@@ -12,7 +16,9 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./register-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegisterContainerComponent implements AfterViewInit {
+export class RegisterContainerComponent {
+  public profilePicture$: Observable<string> = this.authFacade.profilePicture$;
+
   @ViewChild('profilePicInput') profilePic: FileUpload;
 
   public registerFormGroup = this.formBuilder.group({
@@ -27,14 +33,14 @@ export class RegisterContainerComponent implements AfterViewInit {
     private router: Router,
     private authFacade: AuthFacadeService
   ) {
-    this.confirmPassword.setValidators([Validators.required, matchingPasswords(this.password)]);
+    this.confirmPassword.setValidators([
+      Validators.required,
+      matchingPasswords(this.password)
+    ]);
   }
 
-  public ngAfterViewInit(): void {
-    this.profilePic.onSelect
-      .subscribe((value) => {
-        console.log(value);
-      });
+  public onImageSelect(event: Event): void {
+    this.authFacade.loadProfilePicture(event);
   }
 
   public get fullName(): FormControl {
@@ -54,13 +60,20 @@ export class RegisterContainerComponent implements AfterViewInit {
   }
 
   public onRegister(): void {
-    this.authFacade.loadRegisterUser({
-      email: this.email.value,
-      password: this.password.value,
-      profile_picture: this.profilePic?.files[0]
-    });
+    if (this.authFacade.currentPictureFile) {
+      this.authFacade.loadRegisterUser({
+        email: this.email.value,
+        password: this.password.value,
+        profile_picture: this.authFacade.currentPictureFile
+      });
+    } else {
+      this.authFacade.loadRegisterUser({
+        email: this.email.value,
+        password: this.password.value,
+      });
+    }
 
-    // this.router.navigate(['/calendar']);
+    this.router.navigate(['/calendar']);
   }
 
   public goToLogin(): void {

@@ -1,1 +1,56 @@
-<p>calendar-container works!</p>
+<app-purple-background>
+    <div class="calendar-component__container">
+        <div class="calendar-header__container">
+            <p-calendar [(ngModel)]="viewDate" view="month" dateFormat="MM yy" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
+
+            <span class="p-buttonset">
+                <button pButton mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" type="button" label="Previous"></button>
+                <button pButton mwlCalendarToday [(viewDate)]="viewDate" type="button" label="Today"></button>
+                <button pButton mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" type="button" label="Next"></button>
+            </span>
+            <h3>{{ viewDate | calendarDate: view + 'ViewTitle':locale }}</h3>
+        </div>
+
+        <mwl-calendar-month-view
+            [viewDate]="viewDate" 
+            [events]="events"
+            [cellTemplate]="customCellTemplate"
+            (eventClicked)="handleEvent($event.event)"   
+            >
+        </mwl-calendar-month-view>
+    </div>
+</app-purple-background>
+
+
+
+<ng-template #customCellTemplate let-day="day" let-locale="locale"
+    let-eventClicked="eventClicked">
+    <div class="cal-cell-top">
+        <!-- <span class="cal-day-badge" *ngIf="day.badgeTotal > 0"
+          >{{ day.badgeTotal }}</span
+        > -->
+        <span class="cal-day-number"
+          >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
+        >
+    </div>
+
+    <div class="event-cells__container">
+        <div class="event-cell__container" *ngFor="let event of day.events; index as i">
+            <ng-template *ngIf="i < 3; then showEventsBlock; else showMoreBlock">
+            </ng-template>
+            <ng-template #showEventsBlock>
+                <div class="text-style-roboto-regular-14" [style.background-color]="event.color?.primary"
+                    (mwlClick)="eventClicked.emit({event: event})">
+                    {{ event.title }}
+                </div>
+            </ng-template>
+            <ng-template #showMoreBlock>
+                <ng-container *ngIf="i === 3">
+                    <div class="showmore__container" (mwlClick)="handleMoreEvent($event,day.events)">
+                        <a class="showmore__element"> {{day.events.length - 3}} more</a>
+                    </div>
+                </ng-container>
+            </ng-template>
+        </div>
+    </div>
+  </ng-template>
