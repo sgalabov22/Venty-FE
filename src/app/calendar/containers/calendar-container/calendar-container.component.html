@@ -10,6 +10,10 @@
                 </div>
             </div>
 
+            <div class="center-header__container">
+                <p>Events Calendar</p>
+            </div>
+
             <div class="right-header__container">
                 <button class="p-button-sm today-button" pButton mwlCalendarToday [(viewDate)]="viewDate" type="button" label="Today"></button>
             </div>
@@ -45,7 +49,9 @@
             <ng-template #showEventsBlock>
                 <div class="text-style-roboto-regular-14" [style.background-color]="event.color?.primary"
                     (mwlClick)="eventClicked.emit({event: event})">
-                    {{ event.title }}
+                    <div class="event-title__container">
+                        {{ event.title }}
+                    </div>
                 </div>
             </ng-template>
             <ng-template #showMoreBlock>

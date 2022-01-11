@@ -27,6 +27,11 @@ export class AuthFacadeService implements OnDestroy {
 
   constructor(private authService: AuthService) {
     if (this.getAuthDetails()) {
+      this.currentUser$$.next({
+        email: 'test123@abv.bg',
+        fullname: 'Petar Ivanov',
+        profile_picture: 'assets/images/default-user.png'
+      })
       this.isAuthenticated$$.next(true);
     }
   }
@@ -55,7 +60,6 @@ export class AuthFacadeService implements OnDestroy {
   }
 
   public loadCurrentUser(): void {
-    console.log('alo');
     this.authService
       .getCurrentUser()
       .pipe(take(1))
