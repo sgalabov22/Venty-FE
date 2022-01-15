@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { environment } from '@env/environment';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AuthService } from '.';
@@ -23,28 +23,32 @@ export class AuthFacadeService implements OnDestroy {
   public profilePicture$: Observable<string> =
     this.profilePicture$$.asObservable();
 
+  private errorMessage$$ = new BehaviorSubject<string>(null);
+  public errorMessage$: Observable<string> = 
+    this.errorMessage$$.asObservable();
+
   public currentPictureFile: File = null;
 
-  constructor(private authService: AuthService) {
-    if (this.getAuthDetails()) {
-      this.currentUser$$.next({
-        email: 'test123@abv.bg',
-        fullname: 'Petar Ivanov',
-        profile_picture: 'assets/images/default-user.png'
-      })
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
+    if (this.authService.getAuthDetails()) {
       this.isAuthenticated$$.next(true);
+      // this.loadCurrentUser();
     }
+    console.log('aloooooooo');
   }
 
   public loadLoginUser(bodyParams: UserCredentialsInput): void {
-    console.log(bodyParams);
     this.authService
       .loginUser(bodyParams)
       .pipe(take(1))
       .subscribe((value: AuthDataInput) => {
-        console.log(value);
         sessionStorage.setItem('authCredentials', JSON.stringify(value));
         this.isAuthenticated$$.next(true);
+        this.loadCurrentUser();
+        this.router.navigate(['/calendar']);
       });
   }
 
@@ -53,9 +57,10 @@ export class AuthFacadeService implements OnDestroy {
       .registerUser(bodyParams)
       .pipe(take(1))
       .subscribe((value: AuthDataInput) => {
-        console.log(value);
         sessionStorage.setItem('authCredentials', JSON.stringify(value));
         this.isAuthenticated$$.next(true);
+        this.loadCurrentUser();
+        this.router.navigate(['/calendar']);
       });
   }
 
@@ -65,8 +70,11 @@ export class AuthFacadeService implements OnDestroy {
       .pipe(take(1))
       .subscribe((value: CurrentUserData) => {
         console.log(value);
-        value.profile_picture = environment.baseApiUrl + value.profile_picture;
+        value.profile_picture = 
+          'https://res.cloudinary.com/dhavld11j/'
+          + value.profile_picture;
         this.currentUser$$.next(value);
+        this.isAuthenticated$$.next(true);
       });
   }
 
@@ -92,6 +100,10 @@ export class AuthFacadeService implements OnDestroy {
     }
   }
 
+  public setErrorMessage(message: string): void {
+    this.errorMessage$$.next(message);
+  }
+
   public ngOnDestroy(): void {
     this.currentUser$$.next(null);
     this.currentUser$$.complete();
@@ -99,5 +111,7 @@ export class AuthFacadeService implements OnDestroy {
     this.isAuthenticated$$.complete();
     this.profilePicture$$.next(null);
     this.profilePicture$$.complete();
+    this.errorMessage$$.next(null);
+    this.errorMessage$$.complete();
   }
 }

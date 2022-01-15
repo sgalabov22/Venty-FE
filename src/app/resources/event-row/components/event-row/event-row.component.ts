@@ -11,5 +11,4 @@ export class EventRowComponent {
   @Input() elementWidth: string;
   @Input() title: string;
   @Input() color: string;
-
 }

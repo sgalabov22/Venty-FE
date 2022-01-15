@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
     InputTextModule,
     PurpleBackgroundModule,
     AvatarModule,
-    FileUploadModule
+    FileUploadModule,
   ]
 })
 export class AuthModule {}

@@ -12,7 +12,5 @@ export class MainLayoutComponent {
   public faCalendar = faCalendarAlt;
   public faMap = faMap;
 
-  constructor(
-    private authFacade: AuthFacadeService
-  ) {}
+  constructor(private authFacade: AuthFacadeService) {}
 }

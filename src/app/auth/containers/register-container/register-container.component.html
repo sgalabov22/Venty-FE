@@ -51,6 +51,7 @@
             <div class="form-control">
                 <p-button class="p-button-lg" type="button"
                  label="Sign up" (click)="onRegister()" [disabled]="registerFormGroup.invalid"></p-button>
+                 <div *ngIf="(errorMessage$ | async) as errorMessage" class="input__error p-invalid text-style-montserrat-regular-15">{{ errorMessage }}</div>
             </div>
         </form>
         <div class="register-container__login text-style-montserrat-regular-15">

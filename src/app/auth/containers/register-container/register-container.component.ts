@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class RegisterContainerComponent {
   public profilePicture$: Observable<string> = this.authFacade.profilePicture$;
+  public errorMessage$: Observable<string> = this.authFacade.errorMessage$;;
 
   @ViewChild('profilePicInput') profilePic: FileUpload;
 
@@ -56,20 +57,13 @@ export class RegisterContainerComponent {
   }
 
   public onRegister(): void {
-    if (this.authFacade.currentPictureFile) {
-      this.authFacade.loadRegisterUser({
-        email: this.email.value,
-        password: this.password.value,
-        profile_picture: this.authFacade.currentPictureFile
-      });
-    } else {
-      this.authFacade.loadRegisterUser({
-        email: this.email.value,
-        password: this.password.value
-      });
-    }
+    this.authFacade.loadRegisterUser({
+      email: this.email.value,
+      password: this.password.value,
+      fullname: this.fullName.value
+    });
 
-    this.router.navigate(['/calendar']);
+    // this.router.navigate(['/calendar']);
   }
 
   public goToLogin(): void {
