@@ -101,7 +101,7 @@
 
 .event-title__container {
     height: 2rem;
-    line-height: 2rem;
+    line-height: 1rem;
     display: flex;
     align-items: center;
     padding-left: 0.5rem;
@@ -111,4 +111,8 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+}
+
+.event-colorpicker__container {
+    position: relative;
 }

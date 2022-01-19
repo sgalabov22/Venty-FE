@@ -25,8 +25,8 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const noHeader = request.url.includes('register')
-      || request.url.includes('login');
+    const noHeader =
+      request.url.includes('register') || request.url.includes('login');
 
     if (!noHeader) {
       const access_token = this.authFacadeService.getAuthDetails().access_token;
@@ -39,7 +39,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     if (!request.headers.has('Content-Type')) {
       request = request.clone({
-        headers: request.headers.set('Content-Type', 'application/json') 
+        headers: request.headers.set('Content-Type', 'application/json')
       });
     }
 
@@ -58,6 +58,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }
 
         return throwError(error);
-      }));
+      })
+    );
   }
 }

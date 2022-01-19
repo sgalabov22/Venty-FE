@@ -24,15 +24,11 @@ export class AuthFacadeService implements OnDestroy {
     this.profilePicture$$.asObservable();
 
   private errorMessage$$ = new BehaviorSubject<string>(null);
-  public errorMessage$: Observable<string> = 
-    this.errorMessage$$.asObservable();
+  public errorMessage$: Observable<string> = this.errorMessage$$.asObservable();
 
   public currentPictureFile: File = null;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {
+  constructor(private authService: AuthService, private router: Router) {
     if (this.authService.getAuthDetails()) {
       this.isAuthenticated$$.next(true);
       // this.loadCurrentUser();
@@ -70,9 +66,8 @@ export class AuthFacadeService implements OnDestroy {
       .pipe(take(1))
       .subscribe((value: CurrentUserData) => {
         console.log(value);
-        value.profile_picture = 
-          'https://res.cloudinary.com/dhavld11j/'
-          + value.profile_picture;
+        value.profile_picture =
+          'https://res.cloudinary.com/dhavld11j/' + value.profile_picture;
         this.currentUser$$.next(value);
         this.isAuthenticated$$.next(true);
       });

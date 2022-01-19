@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class RegisterContainerComponent {
   public profilePicture$: Observable<string> = this.authFacade.profilePicture$;
-  public errorMessage$: Observable<string> = this.authFacade.errorMessage$;;
+  public errorMessage$: Observable<string> = this.authFacade.errorMessage$;
 
   @ViewChild('profilePicInput') profilePic: FileUpload;
 

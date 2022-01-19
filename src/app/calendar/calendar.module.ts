@@ -8,8 +8,8 @@ import { PurpleBackgroundModule } from '@app/resources/purple-background';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule as PrimeNgCalendar } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
-import {DialogModule} from 'primeng/dialog';
-import {ColorPickerModule} from 'primeng/colorpicker';
+import { DialogModule } from 'primeng/dialog';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 @NgModule({
   declarations: [CalendarContainerComponent],

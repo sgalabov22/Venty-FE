@@ -18,6 +18,13 @@ const routes: Routes = [
           import('../calendar/calendar.module').then(
             (m) => m.CalendarComponentModule
           )
+      },
+      {
+        path: 'map',
+        loadChildren: () => 
+          import('../maps/maps.module').then(
+            (m) => m.MapsModule
+          )
       }
     ]
   }

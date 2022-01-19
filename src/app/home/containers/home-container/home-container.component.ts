@@ -10,8 +10,7 @@ import { AuthFacadeService } from '@app/auth';
 })
 export class HomeContainerComponent {
   constructor(
-    private router: Router,
-    // private authFacade: AuthFacadeService
+    private router: Router // private authFacade: AuthFacadeService
   ) {
     // if (this.authFacade.getAuthDetails()) {
     //   this.router.navigate(['/calendar']);

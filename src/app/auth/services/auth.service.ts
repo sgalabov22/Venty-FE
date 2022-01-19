@@ -37,7 +37,7 @@ export class AuthService {
 
   public getCurrentUser(): Observable<CurrentUserData> {
     const url = environment.baseApiUrl + '/authentication/currentUser';
-  
+
     return this.http.get<CurrentUserData>(url);
   }
 }

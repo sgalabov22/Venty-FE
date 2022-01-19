@@ -27,11 +27,11 @@
             >
         </mwl-calendar-month-view>
 
-        <p-dialog [header]="headerText" [(visible)]="display" [style]="{width: '50vw'}"
+        <p-dialog [header]="headerText" [contentStyle]="{'overflow':'visible'}" [(visible)]="display" [style]="{width: '50vw'}"
             [draggable]="false" [resizable]="false">
             <ng-container *ngFor="let event of popUpEvents">
                 <div class="pop-up-event__container">
-                    <div>
+                    <div class="event-colorpicker__container">
                         <p-colorPicker [(ngModel)]="event.color"></p-colorPicker>
                     </div>
                     <p>{{event.title }}</p>
@@ -47,9 +47,6 @@
 <ng-template #customCellTemplate let-day="day" let-locale="locale"
     let-eventClicked="eventClicked">
     <div class="cal-cell-top">
-        <!-- <span class="cal-day-badge" *ngIf="day.badgeTotal > 0"
-          >{{ day.badgeTotal }}</span
-        > -->
         <span class="cal-day-number"
           >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
         >
@@ -62,10 +59,11 @@
             </ng-template>
             <ng-template #showEventsBlock>
                 <!-- {{ event | json }} -->
-                <div *ngIf="!checkIfPlaceholder(day.date, event)" class="event-title__container text-style-roboto-regular-14" 
+                <div *ngIf="!checkIfPlaceholder(day.date, event)"
+                    class="event-title__container text-style-roboto-regular-14" 
                     [style.background-color]="event.color"
                     [style.border-radius]="getCellBorderRadius()"
-                    [style.width]="calculateEventWidth(event)">
+                    [style.width]="calculateEventWidth(event, day.date)">
                     <p>
                         {{ event.title }}
                     </p>

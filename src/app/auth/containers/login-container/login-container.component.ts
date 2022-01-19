@@ -16,7 +16,7 @@ export class LoginContainerComponent {
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
-  public errorMessage$: Observable<string> = this.authFacade.errorMessage$;;
+  public errorMessage$: Observable<string> = this.authFacade.errorMessage$;
 
   constructor(
     private formBuilder: FormBuilder,

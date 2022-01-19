@@ -17,7 +17,7 @@ import {
   isSameWeek,
   startOfDay,
   startOfWeek,
-  subDays,
+  subDays
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import dateFormat from 'dateformat';
@@ -90,7 +90,7 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
       end: addDays(new Date(), 8),
       title: 'An event 3',
       color: this.colors.default
-    },
+    }
   ];
 
   private darkThemeClass = 'dark-theme';
@@ -100,7 +100,11 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
   constructor(
     private authFacade: AuthFacadeService,
     @Inject(DOCUMENT) private document
-  ) {
+  ) { }
+
+  public ngOnInit(): void {
+    this.document.body.classList.add(this.darkThemeClass);
+    
     this.authFacade.loadCurrentUser();
 
     this.events.sort((a, b) => {
@@ -119,10 +123,6 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
     });
   }
 
-  public ngOnInit(): void {
-    this.document.body.classList.add(this.darkThemeClass);
-  }
-
   public dayClicked(day: any): void {
     console.log(day);
   }
@@ -133,15 +133,14 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
 
   public handleMoreEvent(date: Date, events: CalendarEvent[]) {
     console.log(events);
-    this.headerText =  'Events on ' 
-      + dateFormat(date, 'mmmm dS, yyyy');
-    
+    this.headerText = 'Events on ' + dateFormat(date, 'mmmm dS, yyyy');
+
     this.popUpEvents = events;
     this.display = true;
   }
 
   public checkIfPlaceholder(date: Date, event: CalendarEvent): boolean {
-    if (startOfWeek(date).getDate() === date.getDate()){
+    if (startOfWeek(date).getDate() === date.getDate()) {
       return false;
     }
 
@@ -175,12 +174,10 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
         // console.log('first part after add');
         // console.log(firstPartEvents);
       }
-    })
-
-    
+    });
 
     events = firstPartEvents.concat(secondPartEvents);
-    events = events.filter(value => !!value);
+    events = events.filter((value) => !!value);
     this.prevEvents = events;
     return events;
   }
@@ -189,22 +186,27 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
     return '0.75rem';
   }
 
-  public calculateEventWidth(event: CalendarEvent): string {
-    const endDate = isSameWeek(event.start, event.end)
+  public calculateEventWidth(event: CalendarEvent, date: Date): string {
+    let startDate = isSameWeek(event.start, event.end)
+      ? event.start
+      : date;
+
+    let endDate = isSameWeek(date, event.end)
       ? event.end
-      : endOfWeek(event.start);
-    const timeInMilisec: number = endDate.getTime() - event.start.getTime();
+      : endOfWeek(date);
+    
+    // console.log(event);
+    // console.log(event.start);
+    // console.log(endDate);
+    const timeInMilisec: number = endDate.getTime() - startDate.getTime();
     const daysBetweenDates: number = Math.ceil(
       timeInMilisec / (1000 * 60 * 60 * 24)
     );
 
-    // if (event.title === 'An event 1') {
-    //   console.log(event.start == endDate);
-    //   console.log(endDate);
-    //   console.log(daysBetweenDates);
-    // }
-
-    if (daysBetweenDates === 1 && event.start.getDay() != endOfWeek(event.start).getDay()) {
+    if (
+      daysBetweenDates === 1 &&
+      event.start.getDay() != endOfWeek(startDate).getDay()
+    ) {
       return (daysBetweenDates + 1) * 100 + '%';
     }
 
