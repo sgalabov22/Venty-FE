@@ -100,11 +100,11 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
   constructor(
     private authFacade: AuthFacadeService,
     @Inject(DOCUMENT) private document
-  ) { }
+  ) {}
 
   public ngOnInit(): void {
     this.document.body.classList.add(this.darkThemeClass);
-    
+
     this.authFacade.loadCurrentUser();
 
     this.events.sort((a, b) => {
@@ -187,14 +187,10 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
   }
 
   public calculateEventWidth(event: CalendarEvent, date: Date): string {
-    let startDate = isSameWeek(event.start, event.end)
-      ? event.start
-      : date;
+    const startDate = isSameWeek(event.start, event.end) ? event.start : date;
 
-    let endDate = isSameWeek(date, event.end)
-      ? event.end
-      : endOfWeek(date);
-    
+    const endDate = isSameWeek(date, event.end) ? event.end : endOfWeek(date);
+
     // console.log(event);
     // console.log(event.start);
     // console.log(endDate);

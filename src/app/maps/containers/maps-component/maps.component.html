@@ -1,17 +1,30 @@
 <app-purple-background>
-    <input
-        pInputText
-        id="pac-input"
-        class="controls"
-        type="text"
-        placeholder="Search Box"
-    />
+    <app-search-component>
+    </app-search-component>
     <div #map class="map__container">
     </div>
+
+    <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input 
+            id="pac-input"
+            class="pac-input"
+            type="text" 
+            pInputText
+            #searchInput
+            (keyup)="onKey(searchInput.value)"
+            placeholder="Search">         
+    </span>
     <!-- <div #infowindowContent id="infowindow-content">
         <img id="place-icon" src="" height="16" width="16" />
         <span id="place-name" class="title"></span><br />
         Place ID <span id="place-id"></span><br />
         <span id="place-address"></span>
     </div> -->
+
+    <div id="infowindow-content">
+        <img src="" width="16" height="16" id="place-icon" />
+        <span id="place-name" class="title"></span><br />
+        <span id="place-address"></span>
+      </div>
 </app-purple-background>

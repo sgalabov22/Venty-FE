@@ -15,8 +15,7 @@ import { TokenInterceptor } from './auth';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RippleModule,
-    
+    RippleModule
   ],
   providers: [
     {
