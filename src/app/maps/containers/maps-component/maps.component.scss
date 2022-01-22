@@ -10,17 +10,28 @@
 
 .gm-style iframe + div { border:none!important; }
 
+.p-input-icon-right {
+    width: 100%;
+}
+
 .pac-input {
     font-family: Roboto;
     font-size: 15px;
     font-weight: 300;
     color: white;
-    width: 400px;
+    width: 100%;
 }
   
 .pac-input:focus {
-    border: inherit;
+    border: none;
 }
 
+.search-elements__container {
+    width: 450px;
+}
+
+.search-results__container {
+    margin: 20px 0 0 0;
+}
 
   

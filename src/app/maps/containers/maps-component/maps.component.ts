@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  Input,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -20,8 +21,7 @@ export class MapsComponent implements OnInit, AfterViewInit {
   public infoWindow: google.maps.InfoWindow = new google.maps.InfoWindow();
 
   private placesService: google.maps.places.PlacesService;
-  private service: google.maps.places.AutocompleteService =
-    new google.maps.places.AutocompleteService();
+  
 
   private infowindowContent: HTMLElement;
   private markers: google.maps.Marker[] = [];
@@ -42,7 +42,34 @@ export class MapsComponent implements OnInit, AfterViewInit {
     this.initSearchBox2();
   }
 
+  private mapInit(): void {
+    const mapProperties = {
+      center: new google.maps.LatLng(42.69512293711063, 23.321151902018464),
+      zoom: 13,
+      mapId: '46e9a02490e5def9',
+      fullscreenControl: false,
+      mapTypeControl: false
+    };
+
+    this.map = new google.maps.Map(
+      this.mapElement.nativeElement,
+      mapProperties
+    );
+
+    this.placesService = new google.maps.places.PlacesService(this.map);
+    this.infoWindow = new google.maps.InfoWindow();
+    this.infowindowContent = document.getElementById(
+      'infowindow-content'
+    ) as HTMLElement;
+    this.infoWindow.setContent(this.infowindowContent);
+
+    this.map.addListener('click', this.handleClick.bind(this));
+  }
+
   private initSearchBox2(): void {
+    const searchContainer = document.getElementById('search-container') as HTMLElement;
+    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(searchContainer);
+
     const input = document.getElementById('pac-input') as HTMLInputElement;
     const options = {
       // bounds: defaultBounds,
@@ -51,19 +78,8 @@ export class MapsComponent implements OnInit, AfterViewInit {
       // strictBounds: false,
       types: ['establishment']
     };
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
     const autocomplete = new google.maps.places.Autocomplete(input, options);
-
-    // autocomplete.setComponentRestrictions({
-    //   country: ["us", "pr", "vi", "gu", "mp"],
-    // });
-
-    // const southwest = { lat: 5.6108, lng: 136.589326 };
-    // const northeast = { lat: 61.179287, lng: 2.64325 };
-    // const newBounds = new google.maps.LatLngBounds(southwest, northeast);
-
-    // autocomplete.setBounds(newBounds);
 
     const infowindow = new google.maps.InfoWindow();
     const infowindowContent = document.getElementById(
@@ -125,113 +141,10 @@ export class MapsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private getPredictions(
-    predictions: google.maps.places.QueryAutocompletePrediction[] | null,
-    status: google.maps.places.PlacesServiceStatus
-  ): void {
-    if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {
-      alert(status);
-      return;
-    }
-
-    console.log(predictions);
-  }
-
   public onKey(value: string): void {
     console.log(value);
 
-    this.service.getQueryPredictions({ input: value }, this.getPredictions);
-  }
-
-  private initSearchBox(): void {
-    const input = document.getElementById('pac-input') as HTMLInputElement;
-    const searchBox = new google.maps.places.SearchBox(input);
-
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
-
-    this.map.addListener('bounds_changed', () => {
-      searchBox.setBounds(this.map.getBounds() as google.maps.LatLngBounds);
-      // this.search();
-    });
-
-    let markers: google.maps.Marker[] = [];
-
-    // Listen for the event fired when the user selects a prediction and retrieve
-    // more details for that place.
-    searchBox.addListener('places_changed', () => {
-      const places = searchBox.getPlaces();
-
-      if (places.length == 0) {
-        return;
-      }
-
-      console.log(places);
-      // Clear out the old markers.
-      markers.forEach((marker) => {
-        marker.setMap(null);
-      });
-      markers = [];
-
-      // For each place, get the icon, name and location.
-      const bounds = new google.maps.LatLngBounds();
-
-      places.forEach((place) => {
-        if (!place.geometry || !place.geometry.location) {
-          console.log('Returned place contains no geometry');
-          return;
-        }
-
-        const icon = {
-          url: place.icon as string,
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(25, 25)
-        };
-
-        const map = this.map;
-        markers.push(
-          new google.maps.Marker({
-            map,
-            icon,
-            title: place.name,
-            position: place.geometry.location
-          })
-        );
-
-        if (place.geometry.viewport) {
-          bounds.union(place.geometry.viewport);
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      });
-
-      this.map.fitBounds(bounds);
-    });
-  }
-
-  private mapInit(): void {
-    const mapProperties = {
-      center: new google.maps.LatLng(42.69512293711063, 23.321151902018464),
-      zoom: 13,
-      mapId: '46e9a02490e5def9',
-      fullscreenControl: false,
-      mapTypeControl: false
-    };
-
-    this.map = new google.maps.Map(
-      this.mapElement.nativeElement,
-      mapProperties
-    );
-
-    this.placesService = new google.maps.places.PlacesService(this.map);
-    this.infoWindow = new google.maps.InfoWindow();
-    this.infowindowContent = document.getElementById(
-      'infowindow-content'
-    ) as HTMLElement;
-    this.infoWindow.setContent(this.infowindowContent);
-
-    this.map.addListener('click', this.handleClick.bind(this));
+    
   }
 
   private search(): void {
