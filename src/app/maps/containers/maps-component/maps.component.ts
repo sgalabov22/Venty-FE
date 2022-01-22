@@ -21,7 +21,6 @@ export class MapsComponent implements OnInit, AfterViewInit {
   public infoWindow: google.maps.InfoWindow = new google.maps.InfoWindow();
 
   private placesService: google.maps.places.PlacesService;
-  
 
   private infowindowContent: HTMLElement;
   private markers: google.maps.Marker[] = [];
@@ -67,8 +66,12 @@ export class MapsComponent implements OnInit, AfterViewInit {
   }
 
   private initSearchBox2(): void {
-    const searchContainer = document.getElementById('search-container') as HTMLElement;
-    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(searchContainer);
+    const searchContainer = document.getElementById(
+      'search-container'
+    ) as HTMLElement;
+    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(
+      searchContainer
+    );
 
     const input = document.getElementById('pac-input') as HTMLInputElement;
     const options = {
@@ -143,8 +146,6 @@ export class MapsComponent implements OnInit, AfterViewInit {
 
   public onKey(value: string): void {
     console.log(value);
-
-    
   }
 
   private search(): void {
