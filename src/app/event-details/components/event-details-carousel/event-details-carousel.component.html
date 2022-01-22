@@ -15,9 +15,19 @@
         </div>
         <div class="event_details__carousel__event-info">
             <h2 class="text-style-roboto-regular-25">{{locationData.name}}</h2>
-            <p class="text-style-montserrat-medium-15">{{locationData.location}}</p>
-            <p class="text-style-montserrat-medium-15">Open now: {{locationData.openingTime}} AM - {{locationData.closingTime}} PM</p>
-            <a class="text-style-montserrat-medium-15" [href]="locationData.fbPage">{{locationData.fbPage}}</a>
+            <p class="text-style-montserrat-medium-15">
+                <fa-icon  [icon]="faIcons[0]"></fa-icon>{{locationData.location}}
+            </p>
+            <p class="text-style-montserrat-medium-15">
+                <fa-icon [icon]="faIcons[1]"></fa-icon>
+                Open now: {{locationData.openingTime}} AM - {{locationData.closingTime}} PM
+            </p>
+            <p class="text-style-montserrat-medium-15">
+                <fa-icon [icon]="faIcons[2]"></fa-icon>
+                <a [href]="locationData.fbPage">
+                    {{locationData.fbPage}}
+                </a>
+            </p>
         </div>
         <app-guest-reviews [reviewsList]="reviewsList" class="event_details__carousel__reviews"></app-guest-reviews>
     </ng-container>

@@ -1,28 +1,34 @@
 
-<ng-container *ngIf="(currentUser$ | async) as currentUser">
-    <!-- <div  class="header__container">
-        <div class="user__container">
-            <p class="username__container">{{ currentUser.fullname }}</p>
-            <p-avatar image="{{ currentUser.profile_picture }}" size="large" shape="circle"></p-avatar>
-        </div>
-    </div> -->
-
-    <div class="side__container">
-        <div class="logo__container">
-            <img src="assets/images/logo_no_text.png" alt="Can't find image">
-        </div>
-
-        <div class="icons__container">
-            <fa-icon [icon]="faCalendar"></fa-icon>
-            <fa-icon [icon]="faMap"></fa-icon>
-        </div>
-
-        <div class="bottom__container">
-            
-        </div>
+<app-purple-background>
+    <div class="main-layout">
+        <ng-container *ngIf="(currentUser$ | async) as currentUser">
+            <ng-container *ngIf="currentUrl !== '/map'">
+                <div class="header__container">
+                    <div class="user__container">
+                        <p class="username__container">{{ currentUser.fullname }}</p>
+                        <p-avatar image="{{ currentUser.profile_picture }}" size="large" shape="circle"></p-avatar>
+                    </div>
+                </div>
+            </ng-container>
+                    
+            <section class="main-layout__container">
+                <router-outlet></router-outlet>
+            </section>
+        
+            <div class="side__container">
+                <div class="logo__container">
+                    <img src="assets/images/logo_no_text.png" alt="Can't find image">
+                </div>
+        
+                <div class="icons__container">
+                    <fa-icon (click)="goToRoute('calendar')" [icon]="faCalendar"></fa-icon>
+                    <fa-icon (click)="goToRoute('map')" [icon]="faMap"></fa-icon>
+                </div>
+        
+                <div class="bottom__container">
+                    
+                </div>
+            </div>
+        </ng-container>
     </div>
-</ng-container>
-
-<section class="main-layout__container">
-    <router-outlet></router-outlet>
-</section>
+</app-purple-background>

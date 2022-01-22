@@ -1,3 +1,13 @@
+:host {
+    ::ng-deep {
+        .pi-calendar {
+            display: inline-block;
+            font-size: 2rem;
+            margin-right: 5px;
+        }
+    }
+}
+
 .event-details__container {
     display: grid;
     grid-template-areas: 

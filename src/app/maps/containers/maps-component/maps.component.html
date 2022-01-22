@@ -1,34 +1,28 @@
-<app-purple-background>
-    
-    <div #map class="map__container">
-    </div>
-
-    <div id="search-container" class="search-elements__container">
-        <span class="p-input-icon-right">
-            <i class="pi pi-search"></i>
-            <input 
-                id="pac-input"
-                class="pac-input"
-                type="text" 
-                pInputText
-                #searchInput
-                (keyup)="onKey(searchInput.value)"
-                placeholder="Search">         
-        </span>
-
-        <app-search-component class="search-results__container">
-        </app-search-component>
-    </div>
-    <!-- <div #infowindowContent id="infowindow-content">
-        <img id="place-icon" src="" height="16" width="16" />
-        <span id="place-name" class="title"></span><br />
-        Place ID <span id="place-id"></span><br />
-        <span id="place-address"></span>
-    </div> -->
-
-    <div id="infowindow-content">
-        <img src="" width="16" height="16" id="place-icon" />
-        <span id="place-name" class="title"></span><br />
-        <span id="place-address"></span>
-    </div>
-</app-purple-background>
+<div #map class="map__container">
+</div>
+<div id="search-container" class="search-elements__container">
+    <span class="p-input-icon-right">
+        <i class="pi pi-search"></i>
+        <input 
+            id="pac-input"
+            class="pac-input"
+            type="text" 
+            pInputText
+            #searchInput
+            (keyup)="onKey(searchInput.value)"
+            placeholder="Search">         
+    </span>
+    <app-search-component class="search-results__container">
+    </app-search-component>
+</div>
+<!-- <div #infowindowContent id="infowindow-content">
+    <img id="place-icon" src="" height="16" width="16" />
+    <span id="place-name" class="title"></span><br />
+    Place ID <span id="place-id"></span><br />
+    <span id="place-address"></span>
+</div> -->
+<div id="infowindow-content">
+    <img src="" width="16" height="16" id="place-icon" />
+    <span id="place-name" class="title"></span><br />
+    <span id="place-address"></span>
+</div>

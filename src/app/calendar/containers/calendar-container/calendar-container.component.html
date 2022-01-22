@@ -1,48 +1,39 @@
-<app-purple-background>
-    <div class="calendar-component__container">
-        <div class="calendar-header__container">
-            <div class="left-header__container">
-                <p-calendar class="header__datepicker" [(ngModel)]="viewDate" view="month" dateFormat="MM yy" [readonlyInput]="true"[showIcon]="true" icon="pi pi-angle-down" inputId="monthpicker"></p-calendar>
-
-                <div class="p-buttonset">
-                    <button pButton mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" type="button" icon="pi pi-angle-left"></button>
-                    <button pButton mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" type="button" icon="pi pi-angle-right"></button>
-                </div>
-            </div>
-
-            <div class="center-header__container">
-                <p>Events Calendar</p>
-            </div>
-
-            <div class="right-header__container">
-                <button class="p-button-sm today-button" pButton mwlCalendarToday [(viewDate)]="viewDate" type="button" label="Today"></button>
+<div class="calendar-component__container">
+    <div class="calendar-header__container">
+        <div class="left-header__container">
+            <p-calendar class="header__datepicker" [(ngModel)]="viewDate" view="month" dateFormat="MM yy" [readonlyInput]="true"[showIcon]="true" icon="pi pi-angle-down" inputId="monthpicker"></p-calendar>
+            <div class="p-buttonset">
+                <button pButton mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" type="button" icon="pi pi-angle-left"></button>
+                <button pButton mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" type="button" icon="pi pi-angle-right"></button>
             </div>
         </div>
-
-        <mwl-calendar-month-view
-            [viewDate]="viewDate" 
-            [events]="events"
-            [cellTemplate]="customCellTemplate"
-            (eventClicked)="handleEvent($event.event)"   
-            >
-        </mwl-calendar-month-view>
-
-        <p-dialog [header]="headerText" [contentStyle]="{'overflow':'visible'}" [(visible)]="display" [style]="{width: '50vw'}"
-            [draggable]="false" [resizable]="false">
-            <ng-container *ngFor="let event of popUpEvents">
-                <div class="pop-up-event__container">
-                    <div class="event-colorpicker__container">
-                        <p-colorPicker [(ngModel)]="event.color"></p-colorPicker>
-                    </div>
-                    <p>{{event.title }}</p>
-                </div>
-            </ng-container>
-            <p-button (click)="display=false" label="Confirm" styleClass="p-button-text"></p-button>
-        </p-dialog>
+        <div class="center-header__container">
+            <p>Events Calendar</p>
+        </div>
+        <div class="right-header__container">
+            <button class="p-button-sm today-button" pButton mwlCalendarToday [(viewDate)]="viewDate" type="button" label="Today"></button>
+        </div>
     </div>
-</app-purple-background>
-
-
+    <mwl-calendar-month-view
+        [viewDate]="viewDate" 
+        [events]="events"
+        [cellTemplate]="customCellTemplate"
+        (eventClicked)="handleEvent($event.event)"   
+        >
+    </mwl-calendar-month-view>
+    <p-dialog [header]="headerText" [contentStyle]="{'overflow':'visible'}" [(visible)]="display" [style]="{width: '50vw'}"
+        [draggable]="false" [resizable]="false">
+        <ng-container *ngFor="let event of popUpEvents">
+            <div class="pop-up-event__container">
+                <div class="event-colorpicker__container">
+                    <p-colorPicker [(ngModel)]="event.color"></p-colorPicker>
+                </div>
+                <p>{{event.title }}</p>
+            </div>
+        </ng-container>
+        <p-button (click)="display=false" label="Confirm" styleClass="p-button-text"></p-button>
+    </p-dialog>
+</div>
 
 <ng-template #customCellTemplate let-day="day" let-locale="locale"
     let-eventClicked="eventClicked">

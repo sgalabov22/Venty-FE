@@ -39,6 +39,10 @@
         text-decoration: none;
         color: #fff;
     }
+
+    p {
+        display: flex;
+    }
 }
 
 .image__container {
@@ -52,4 +56,9 @@
         width: 100%;
         height: auto;
     }
+}
+
+fa-icon {
+    padding-right: 5px;
+    color: #9f4bff;
 }

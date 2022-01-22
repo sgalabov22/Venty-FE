@@ -1,16 +1,14 @@
-<app-purple-background>
-    <section class="event-details__container">
-        <div *ngIf="eventInfo$ | async as eventInfo" class="event-details__title text-style-roboto-regular-35">
-            <h1 class="event-details__title--marketing">{{eventInfo.name}}</h1>
-            <p>{{eventInfo.createdOn}}</p>
-        </div>
-        <app-info-tabs [infoTextData]="infoTextData$ | async" class="event_details__info"></app-info-tabs>
-        <app-guests-list [guestList]="(guestList$ | async)" class="event_details__guests"></app-guests-list>
-        <app-event-details-carousel 
-            [locationData]="locationData$ | async"
-            [reviewsList]="reviewsList$ | async"
-            class="event_details__carousel">
-        </app-event-details-carousel>
-        <app-work-board class="event_details__work-board"></app-work-board>
-    </section>
-</app-purple-background>
+<section class="event-details__container">
+    <div *ngIf="eventInfo$ | async as eventInfo" class="event-details__title text-style-roboto-regular-35">
+        <h1 class="event-details__title--marketing">{{eventInfo.name}}</h1>
+        <p><i class="pi pi-calendar"></i>{{eventInfo.createdOn}}</p>
+    </div>
+    <app-info-tabs [infoTextData]="infoTextData$ | async" class="event_details__info"></app-info-tabs>
+    <app-guests-list [guestList]="(guestList$ | async)" class="event_details__guests"></app-guests-list>
+    <app-event-details-carousel 
+        [locationData]="locationData$ | async"
+        [reviewsList]="reviewsList$ | async"
+        class="event_details__carousel">
+    </app-event-details-carousel>
+    <app-work-board class="event_details__work-board"></app-work-board>
+</section>

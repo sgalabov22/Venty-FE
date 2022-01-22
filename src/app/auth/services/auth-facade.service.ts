@@ -33,7 +33,6 @@ export class AuthFacadeService implements OnDestroy {
       this.isAuthenticated$$.next(true);
       // this.loadCurrentUser();
     }
-    console.log('aloooooooo');
   }
 
   public loadLoginUser(bodyParams: UserCredentialsInput): void {

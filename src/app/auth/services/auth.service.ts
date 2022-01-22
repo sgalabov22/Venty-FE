@@ -31,7 +31,6 @@ export class AuthService {
   }
 
   public getAuthDetails(): AuthDataInput {
-    console.log(JSON.parse(sessionStorage.getItem('authCredentials')));
     return JSON.parse(sessionStorage.getItem('authCredentials'));
   }
 

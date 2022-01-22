@@ -6,6 +6,12 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { LocationData, ReviewsList } from '@app/event-details/interfaces';
+import {
+  faMapMarkerAlt,
+  faClock,
+  faLink,
+  IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-event-details-carousel',
@@ -18,6 +24,7 @@ export class EventDetailsCarouselComponent implements OnChanges {
   @Input() reviewsList: ReviewsList;
 
   public imageUrls: string[];
+  public faIcons: IconDefinition[] = [faMapMarkerAlt, faClock, faLink];
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['locationData']) {
