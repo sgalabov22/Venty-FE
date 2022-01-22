@@ -9,12 +9,7 @@
       "fullName": "Diana Nedelcheva",
       "rating": 4,
       "createdOn": "July 2021"
-    },
-    {
-      "fullName": "Elena Pavlova",
-      "rating": 3,
-      "createdOn": "December 2019"
     }
   ],
-  "count": 3
+  "count": 2
 }

@@ -105,8 +105,6 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.document.body.classList.add(this.darkThemeClass);
 
-    this.authFacade.loadCurrentUser();
-
     this.events.sort((a, b) => {
       if (a.start < b.start) {
         return -1;

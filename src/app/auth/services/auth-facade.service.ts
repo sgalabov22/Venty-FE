@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AuthService } from '.';
 import { AuthDataInput, CurrentUserData, UserCredentialsInput } from '..';
@@ -35,10 +35,6 @@ export class AuthFacadeService implements OnDestroy {
     }
   }
 
-  public get currentUser(): Observable<CurrentUserData> {
-    return of(JSON.parse(sessionStorage.getItem('currentUser')));
-  }
-
   public loadLoginUser(bodyParams: UserCredentialsInput): void {
     this.authService
       .loginUser(bodyParams)
@@ -47,6 +43,7 @@ export class AuthFacadeService implements OnDestroy {
         sessionStorage.setItem('authCredentials', JSON.stringify(value));
         this.isAuthenticated$$.next(true);
         this.loadCurrentUser();
+        this.router.navigate(['/calendar']);
       });
   }
 
@@ -58,6 +55,7 @@ export class AuthFacadeService implements OnDestroy {
         sessionStorage.setItem('authCredentials', JSON.stringify(value));
         this.isAuthenticated$$.next(true);
         this.loadCurrentUser();
+        this.router.navigate(['/calendar']);
       });
   }
 
@@ -70,8 +68,6 @@ export class AuthFacadeService implements OnDestroy {
           'https://res.cloudinary.com/dhavld11j/' + value.profile_picture;
         this.currentUser$$.next(value);
         this.isAuthenticated$$.next(true);
-        sessionStorage.setItem('currentUser', JSON.stringify(value));
-        this.router.navigate(['/calendar']);
       });
   }
 

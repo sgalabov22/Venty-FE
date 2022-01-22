@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Router,
   Event as NavigationEvent,
@@ -6,14 +6,13 @@ import {
 } from '@angular/router';
 import { AuthFacadeService } from '@app/auth';
 import { faCalendarAlt, faMap } from '@fortawesome/free-solid-svg-icons';
-
 @Component({
   selector: 'app-main-layout',
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent {
-  public currentUser$ = this.authFacade.currentUser;
+export class MainLayoutComponent implements OnInit {
+  public currentUser$ = this.authFacade.currentUser$;
   public faCalendar = faCalendarAlt;
   public faMap = faMap;
   public currentUrl: string;
@@ -24,6 +23,10 @@ export class MainLayoutComponent {
         this.currentUrl = event.url;
       }
     });
+  }
+
+  public ngOnInit(): void {
+    this.authFacade.loadCurrentUser();
   }
 
   public goToRoute(url: string): void {

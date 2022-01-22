@@ -14,7 +14,7 @@ import { AuthFacadeService } from '@app/auth';
   styleUrls: ['./maps.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MapsComponent implements OnInit, AfterViewInit {
+export class MapsComponent implements AfterViewInit {
   @ViewChild('map') mapElement: any;
   @ViewChild('infowindow-content') infoWindowContent: any;
   public map: google.maps.Map;
@@ -29,10 +29,6 @@ export class MapsComponent implements OnInit, AfterViewInit {
     'https://developers.google.com/maps/documentation/javascript/images/marker_green';
 
   constructor(private authFacade: AuthFacadeService) {}
-
-  ngOnInit(): void {
-    this.authFacade.loadCurrentUser();
-  }
 
   ngAfterViewInit(): void {
     this.mapInit();
