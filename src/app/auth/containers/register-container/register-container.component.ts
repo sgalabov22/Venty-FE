@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthFacadeService } from '@app/auth';
 import { matchingPasswords } from '@app/core/validators';
 import { FileUpload } from 'primeng/fileupload';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register-container',
@@ -12,6 +13,9 @@ import { FileUpload } from 'primeng/fileupload';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterContainerComponent {
+  public profilePicture$: Observable<string> = this.authFacade.profilePicture$;
+  public errorMessage$: Observable<string> = this.authFacade.errorMessage$;
+
   @ViewChild('profilePicInput') profilePic: FileUpload;
 
   public registerFormGroup = this.formBuilder.group({
@@ -26,7 +30,14 @@ export class RegisterContainerComponent {
     private router: Router,
     private authFacade: AuthFacadeService
   ) {
-    this.confirmPassword.setValidators([Validators.required, matchingPasswords(this.password)])
+    this.confirmPassword.setValidators([
+      Validators.required,
+      matchingPasswords(this.password)
+    ]);
+  }
+
+  public onImageSelect(event: Event): void {
+    this.authFacade.loadProfilePicture(event);
   }
 
   public get fullName(): FormControl {
@@ -49,7 +60,7 @@ export class RegisterContainerComponent {
     this.authFacade.loadRegisterUser({
       email: this.email.value,
       password: this.password.value,
-      profile_picture: this.profilePic?.files[0]
+      fullname: this.fullName.value
     });
 
     // this.router.navigate(['/calendar']);

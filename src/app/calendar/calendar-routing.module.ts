@@ -4,7 +4,7 @@ import { CalendarContainerComponent } from './containers';
 
 const routes: Routes = [
   {
-    path: 'calendar',
+    path: '',
     component: CalendarContainerComponent
   }
 ];

@@ -5,8 +5,9 @@
 
     <section class="register-container">
         <div class="register-container__picture-upload">
-            <p-avatar icon="pi pi-user" [style]="{'background-color': '#2196F3', 'color': '#ffffff'}" styleClass="p-mr-2" size="xlarge" shape="circle"></p-avatar>
-            <p-fileUpload [style]="{ 'background-color': '#c10ac1', 'border-radius': '50%', 'position': 'absolute', 'bottom': '-10px', 'right': '-5px', 'border': '1px solid white' }" #profilePicInput mode="basic" name="files[]" customUpload="true"></p-fileUpload>
+            <p-avatar image= "{{ profilePicture$ | async }}" styleClass="p-mr-2" size="xlarge" shape="circle" [style]="{ 'width': '150px', 'height': '150px' }"></p-avatar>
+            <input #profilePicInput id="profilePicInput" type="file" accept="image/*" (change)="onImageSelect($event)" hidden />
+            <label class="profile-image__upload pi pi-plus" for="profilePicInput"></label>
         </div>
 
         <h1 class="register-container__title text-style-montserrat-medium-20">Sign up</h1>
@@ -18,7 +19,7 @@
                     formControlName="fullName" 
                     pInputText type="text" />
                 <label for="fullName-input" class="text-style-montserrat-regular-20">Full Name</label>
-                <div *ngIf="fullName.invalid && fullName.touched" class="input__error p-invalid text-style-montserrat-regular-15">Full name should be at least 6 characters long</div>
+                <div *ngIf="fullName.invalid && fullName.touched" class="input__error p-invalid text-style-montserrat-regular-12">Full name should be at least 6 characters long</div>
             </div>
             <div class="form-control p-float-label">
                 <input 
@@ -27,7 +28,7 @@
                     formControlName="email" 
                     pInputText type="email" />
                 <label for="email-input" class="text-style-montserrat-regular-20">Email Address</label>
-                <div *ngIf="email.invalid && email.touched" class="input__error p-invalid text-style-montserrat-regular-15">The email should be a valid email address</div>
+                <div *ngIf="email.invalid && email.touched" class="input__error p-invalid text-style-montserrat-regular-12">The email should be a valid email address</div>
             </div>
             <div class="form-control p-float-label">
                 <input 
@@ -36,7 +37,7 @@
                     formControlName="password" 
                     pInputText type="password" />
                 <label for="password-input" class="text-style-montserrat-regular-20">Password</label>
-                <div *ngIf="password.invalid && password.touched" class="input__error p-invalid text-style-montserrat-regular-15">Password should be at least 6 characters long</div>
+                <div *ngIf="password.invalid && password.touched" class="input__error p-invalid text-style-montserrat-regular-12">Password should be at least 6 characters long</div>
             </div>
             <div class="form-control p-float-label">
                 <input 
@@ -45,11 +46,12 @@
                     formControlName="confirmPassword" 
                     pInputText type="password" />
                 <label for="confirmPassword-input" class="text-style-montserrat-regular-20">Confirm Password</label>
-                <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="input__error p-invalid text-style-montserrat-regular-15">Confirm password should match the password above</div>
+                <div *ngIf="confirmPassword.invalid && confirmPassword.touched" class="input__error p-invalid text-style-montserrat-regular-12">Confirm password should match the password above</div>
             </div>
             <div class="form-control">
                 <p-button class="p-button-lg" type="button"
                  label="Sign up" (click)="onRegister()" [disabled]="registerFormGroup.invalid"></p-button>
+                 <div *ngIf="(errorMessage$ | async) as errorMessage" class="input__error p-invalid text-style-montserrat-regular-15">{{ errorMessage }}</div>
             </div>
         </form>
         <div class="register-container__login text-style-montserrat-regular-15">

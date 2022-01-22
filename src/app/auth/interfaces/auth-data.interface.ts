@@ -6,9 +6,12 @@ export interface AuthDataInput {
 export interface UserCredentialsInput {
   email: string;
   password: string;
+  fullname?: string;
   profile_picture?: File;
 }
 
 export interface CurrentUserData {
   email: string;
+  fullname: string;
+  profile_picture: string;
 }

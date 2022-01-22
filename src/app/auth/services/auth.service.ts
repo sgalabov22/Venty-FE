@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { AuthDataInput, UserCredentialsInput } from '../interfaces';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import {
+  AuthDataInput,
+  CurrentUserData,
+  UserCredentialsInput
+} from '../interfaces';
 import { environment } from '@env/environment';
-import { toFormData } from '@app/core/functions';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +27,17 @@ export class AuthService {
   ): Observable<AuthDataInput> {
     const url = environment.baseApiUrl + '/authentication/register';
 
-    return this.http.post<AuthDataInput>(url, toFormData(bodyParams));
+    return this.http.post<AuthDataInput>(url, bodyParams);
   }
 
-  // TODO
-  public currentUser(): Observable<any> {
-    return of(null);
+  public getAuthDetails(): AuthDataInput {
+    console.log(JSON.parse(sessionStorage.getItem('authCredentials')));
+    return JSON.parse(sessionStorage.getItem('authCredentials'));
+  }
+
+  public getCurrentUser(): Observable<CurrentUserData> {
+    const url = environment.baseApiUrl + '/authentication/currentUser';
+
+    return this.http.get<CurrentUserData>(url);
   }
 }

@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthFacadeService } from '@app/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login-container',
@@ -14,6 +15,8 @@ export class LoginContainerComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
+
+  public errorMessage$: Observable<string> = this.authFacade.errorMessage$;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +38,7 @@ export class LoginContainerComponent {
       password: this.password.value
     });
 
-    this.router.navigate(['/calendar']);
+    // this.router.navigate(['/calendar']);
   }
 
   public goToRegister(): void {

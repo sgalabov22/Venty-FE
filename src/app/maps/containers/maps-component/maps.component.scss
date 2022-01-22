@@ -1,0 +1,37 @@
+.map__container {
+    width: 100%;
+    padding: 4rem 0px 0px 4rem;
+    height: 100%;
+}
+
+.custom-map-control-button {
+    background-color: yellow !important;
+}
+
+.gm-style iframe + div { border:none!important; }
+
+.p-input-icon-right {
+    width: 100%;
+}
+
+.pac-input {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    color: white;
+    width: 100%;
+}
+  
+.pac-input:focus {
+    border: none;
+}
+
+.search-elements__container {
+    width: 450px;
+}
+
+.search-results__container {
+    margin: 20px 0 0 0;
+}
+
+  

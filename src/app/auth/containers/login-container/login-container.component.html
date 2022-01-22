@@ -12,6 +12,7 @@
                     formControlName="email" 
                     pInputText type="email" />
                 <label for="email-input" class="text-style-montserrat-regular-20">Email Address</label>
+                <div *ngIf="email.invalid && email.touched" class="input__error p-invalid text-style-montserrat-regular-12">The email should be a valid email address</div>
             </div>
             <div class="form-control p-float-label">
                 <input 
@@ -20,10 +21,12 @@
                     formControlName="password" 
                     pInputText type="password" />
                 <label for="password-input" class="text-style-montserrat-regular-20">Password</label>
+                <div *ngIf="password.invalid && password.touched" class="input__error p-invalid text-style-montserrat-regular-12">Password should be at least 6 characters long</div>
             </div>
             <div class="form-control">
                 <p-button class="p-button-lg" type="button"
                  label="Sign in" (click)="onLogin()" [disabled]="loginFormGroup.invalid"></p-button>
+                 <div *ngIf="(errorMessage$ | async) as errorMessage" class="input__error p-invalid text-style-montserrat-regular-15">{{ errorMessage }}</div>
             </div>
         </form>
         <div class="login-container__register text-style-montserrat-regular-15">
