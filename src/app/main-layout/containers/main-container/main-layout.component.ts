@@ -13,7 +13,7 @@ import { faCalendarAlt, faMap } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent {
-  public currentUser$ = this.authFacade.currentUser$;
+  public currentUser$ = this.authFacade.currentUser;
   public faCalendar = faCalendarAlt;
   public faMap = faMap;
   public currentUrl: string;

@@ -9,4 +9,9 @@ import { GuestList } from '@app/event-details/interfaces';
 })
 export class GuestsListComponent {
   @Input() guestList: GuestList;
+
+  public readonly modalTitle = 'All Guests List';
+  public readonly modalContent = 'Guests List Here';
+
+  public showAllGuests = false;
 }

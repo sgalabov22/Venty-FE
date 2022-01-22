@@ -24,6 +24,21 @@
             color: #8a8a8f;
         }
     }
+
+    &__status {
+        color: #75ffb6;
+    }
+
+    &__see-all {
+        color: #8a8a8f;
+        text-align: center;
+        padding-bottom: 0.5em;
+    
+        &:hover {
+            cursor: pointer;
+            color: #fff;
+        } 
+    }
 }
 
 .event_details__guests__card {
@@ -45,19 +60,5 @@
 
     &--email {
         color: #8a8a8f;
-    }
-}
-
-.event_details__guests__status {
-    color: #75ffb6;
-}
-
-.event_details__guest__see-all {
-    color: #8a8a8f;
-    text-align: center;
-    padding-bottom: 0.5em;
-
-    &:hover {
-        cursor: pointer;
     }
 }

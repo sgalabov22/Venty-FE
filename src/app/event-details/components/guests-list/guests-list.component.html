@@ -21,5 +21,11 @@
         </div>
     </ng-container>
 
-    <p class="event_details__guest__see-all text-style-montserrat-medium-15">see all</p>
+    <p class="event_details__guests__see-all text-style-montserrat-medium-15" (click)="showAllGuests = true">see all</p>
+    <app-modal-dialog 
+        [isVisible]="showAllGuests" 
+        [title]="modalTitle"
+        [content]="modalContent">
+    </app-modal-dialog>
 </div>
+

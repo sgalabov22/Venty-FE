@@ -14,7 +14,9 @@ import { GuestsListComponent } from './components/guests-list/guests-list.compon
 import { EventDetailsCarouselComponent } from './components/event-details-carousel/event-details-carousel.component';
 import { GuestReviewsComponent } from './components/guest-reviews/guest-reviews.component';
 import { WorkBoardComponent } from './components/work-board/work-board.component';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ModalDialogModule } from '@app/resources/modal-dialog';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     SpeedDialModule,
     EditorModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ModalDialogModule
   ]
 })
 export class EventDetailsModule {}
