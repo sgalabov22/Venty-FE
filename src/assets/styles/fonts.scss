@@ -16,38 +16,6 @@
     text-align: left;
 }
 
-// Montserrat Medium
-.text-style-montserrat-medium-20 {
-    font-family: "Montserrat-Medium";
-    font-size: 20px;
-}
-
-.text-style-montserrat-medium-15 {
-    font-family: "Montserrat-Medium";
-    font-size: 15px;
-}
-
-// Montserrat Regular
-.text-style-montserrat-regular-20 {
-    font-family: "Montserrat-Regular";
-    font-size: 20px;
-}
-
-.text-style-montserrat-regular-15 {
-    font-family: "Montserrat-Regular";
-    font-size: 15px;
-}
-
-.text-style-montserrat-regular-12 {
-    font-family: "Montserrat-Regular";
-    font-size: 12px;
-}
-
-.text-style-montserrat-regular-10 {
-    font-family: "Montserrat-Regular";
-    font-size: 10px;
-}
-
 @font-face {
     font-family: "Roboto-Bold";
     src: url("./fonts/Roboto-Bold.ttf") format("truetype");
@@ -66,22 +34,51 @@
     text-align: left;
 }
 
-.text-style-roboto-bold {
-    font-family: "Roboto-Bold";
+// Montserrat Medium
+.text-style-montserrat-medium-20 {
+    font-family: "Montserrat-Medium";
+    font-size: 1.25em;
 }
 
+.text-style-montserrat-medium-15 {
+    font-family: "Montserrat-Medium";
+    font-size: 0.9em;
+}
+
+// Montserrat Regular
+.text-style-montserrat-regular-20 {
+    font-family: "Montserrat-Regular";
+    font-size: 1.25em;
+}
+
+.text-style-montserrat-regular-15 {
+    font-family: "Montserrat-Regular";
+    font-size: 0.9em;
+}
+
+.text-style-montserrat-regular-12 {
+    font-family: "Montserrat-Regular";
+    font-size: 12px;
+}
+
+.text-style-montserrat-regular-10 {
+    font-family: "Montserrat-Regular";
+    font-size: 10px;
+}
+
+// Roboto Regular
 .text-style-roboto-regular {
     font-family: "Roboto-Regular";
 }
 
-.text-style-roboto-regular-14 {
+.text-style-roboto-regular-45 {
     font-family: "Roboto-Regular";
-    font-size: 14px;
+    font-size: 2.8em;
 }
 
-.text-style-roboto-regular-16 {
+.text-style-roboto-regular-35 {
     font-family: "Roboto-Regular";
-    font-size: 16px;
+    font-size: 2.2em;
 }
 
 .text-style-roboto-regular-26 {
@@ -89,7 +86,38 @@
     font-size: 26px;
 }
 
+.text-style-roboto-regular-25 {
+    font-family: "Roboto-Regular";
+    font-size: 1.5em;
+}
+
 .text-style-roboto-regular-20 {
     font-family: "Roboto-Regular";
     font-size: 20px;
+    font-size: 0.9em;
+}
+
+.text-style-roboto-regular-16 {
+    font-family: "Roboto-Regular";
+    font-size: 16px;
+}
+
+.text-style-roboto-regular-14 {
+    font-family: "Roboto-Regular";
+    font-size: 14px;
+}
+
+.text-style-roboto-regular-25 {
+    font-family: "Roboto-Regular";
+    font-size: 1.5em;
+}
+
+.text-style-roboto-regular-15 {
+    font-family: "Roboto-Regular";
+    font-size: 0.9em;
+}
+
+//Roboto Bold
+.text-style-roboto-bold {
+    font-family: "Roboto-Bold";
 }

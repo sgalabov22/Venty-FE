@@ -1,0 +1,25 @@
+<div class="event_details__guests">
+    <div class="event_details__guests__titles text-style-montserrat-medium-20">
+        <h3 class="event_details__guests__titles--guests">Guests</h3>
+        <h3 class="event_details__guests__titles--status">Status</h3>
+    </div>
+
+    <ng-container *ngIf="guestList">
+        <div *ngFor="let guest of guestList.guests" class="event_details__guests__card__container">
+            <div class="event_details__guests__card">
+                <div class="event_details__guests__card--pic">
+                    <img [src]="guest.profilePic" />
+                </div>
+                <div class="event_details__guests__card--text">
+                    <h5 class="event_details__guests__card--name text-style-montserrat-medium-15">{{guest.fullName}}</h5>
+                    <p class="event_details__guests__card--email text-style-montserrat-medium-15">{{guest.email}}</p>
+                </div>
+            </div>
+            <div class="event_details__guests__status">
+                <p class="text-style-montserrat-medium-15">{{guest.status}}</p>
+            </div>
+        </div>
+    </ng-container>
+
+    <p class="event_details__guest__see-all text-style-montserrat-medium-15">see all</p>
+</div>

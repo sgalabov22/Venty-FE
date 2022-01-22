@@ -1,0 +1,38 @@
+.event-details__container {
+    display: grid;
+    grid-template-areas: 
+        'title title title work-board'
+        'info guests guests work-board'
+        'carousel carousel carousel work-board';
+    grid-gap: 1.5em;
+    padding: 1.5em;
+}
+
+.event-details__title {
+    grid-area: title;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #FFF;
+
+    &--marketing {
+        padding: 10px;
+        border-bottom: 5px solid #a050c7;
+    }
+}
+
+.event_details__info {
+    grid-area: info;
+}
+
+.event_details__guests {
+    grid-area: guests;
+}
+
+.event_details__carousel {
+    grid-area: carousel;
+}
+
+.event_details__work-board {
+    grid-area: work-board;
+}

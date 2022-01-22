@@ -1,0 +1,56 @@
+.event_details__info {
+    background-color: #13043b;
+    border-radius: 25px;
+    padding: 1.25em 0;
+    width: 50em;
+    height: 100%;
+}
+
+.event_details__info--btn,
+.event_details__info__content--save-btn {
+    outline: none;
+    background-color: #4019a8;
+    color: #fff;
+    border-radius: 25px;
+    padding: 0.6em 1.25em;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #a050c7;
+    }
+}
+
+.event_details__info__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.25em;
+}
+
+.event_details__info__content {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    gap: 1em;
+
+    &--save-btn {
+      align-self: flex-start;
+      border: unset;
+    }
+}
+
+@media (max-width: 1300px) {
+    .event_details__info {
+        padding: 0.5em 0;
+        width: 28em;
+    }
+
+    .event_details__info__buttons {
+        gap: 0.6em;
+    }
+
+    .event_details__info--btn {
+        padding: 0.3em 0.6em;
+        font-size: 1.25em;
+    }
+}

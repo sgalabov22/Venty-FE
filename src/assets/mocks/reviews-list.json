@@ -1,0 +1,20 @@
+{
+  "reviews": [
+    {
+      "fullName": "Maria Georgieva",
+      "rating": 5,
+      "createdOn": "June 2021"
+    },
+    {
+      "fullName": "Diana Nedelcheva",
+      "rating": 4,
+      "createdOn": "July 2021"
+    },
+    {
+      "fullName": "Elena Pavlova",
+      "rating": 3,
+      "createdOn": "December 2019"
+    }
+  ],
+  "count": 3
+}

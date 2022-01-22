@@ -1,0 +1,24 @@
+<div class="event_details__carousel">
+    <ng-container *ngIf="locationData">
+        <div class="event_details__carousel__pictures">
+            <p-carousel 
+                [value]="imageUrls" 
+                [numVisible]="1" 
+                [numScroll]="1" 
+                [showNavigators]="false">
+            <ng-template let-image pTemplate="content">
+                <div class="image__container">
+                    <img [src]="image" />
+                </div>
+            </ng-template>
+            </p-carousel>
+        </div>
+        <div class="event_details__carousel__event-info">
+            <h2 class="text-style-roboto-regular-25">{{locationData.name}}</h2>
+            <p class="text-style-montserrat-medium-15">{{locationData.location}}</p>
+            <p class="text-style-montserrat-medium-15">Open now: {{locationData.openingTime}} AM - {{locationData.closingTime}} PM</p>
+            <a class="text-style-montserrat-medium-15" [href]="locationData.fbPage">{{locationData.fbPage}}</a>
+        </div>
+        <app-guest-reviews [reviewsList]="reviewsList" class="event_details__carousel__reviews"></app-guest-reviews>
+    </ng-container>
+</div>

@@ -1,0 +1,63 @@
+.event_details__guests__titles,
+.event_details__guests__card__container,
+.event_details__guests__card,
+.event_details__guests__card--text {
+    display: flex;
+}
+
+.event_details__guests__card__container,
+.event_details__guests__titles {
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.event_details__guests {
+    background-color: #13043b;
+    border-radius: 25px;
+
+    &__titles {
+        &--guests {
+            color: #fff;
+        }
+
+        &--status {
+            color: #8a8a8f;
+        }
+    }
+}
+
+.event_details__guests__card {
+    &--pic {
+        img {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    &--text {
+        flex-direction: column;
+        padding-left: 10px; 
+    }
+
+    &--name {
+        color: #fff; 
+    }
+
+    &--email {
+        color: #8a8a8f;
+    }
+}
+
+.event_details__guests__status {
+    color: #75ffb6;
+}
+
+.event_details__guest__see-all {
+    color: #8a8a8f;
+    text-align: center;
+    padding-bottom: 0.5em;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

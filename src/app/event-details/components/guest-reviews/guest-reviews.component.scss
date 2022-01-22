@@ -1,0 +1,75 @@
+
+:host {
+    ::ng-deep {
+        .p-rating .p-rating-icon.pi-star-fill {
+            color: #d8cfb7;
+        }  
+
+        .p-rating .p-rating-icon,
+        .pi {
+            font-size: unset;
+        }
+    }
+}
+.event_details__guest-reviews__titles,
+.event_details__guest-reviews__card__container,
+.event_details__guest-reviews__card,
+.event_details__guest-reviews__card--text {
+    display: flex;
+}
+
+.event_details__guest-reviews__card__container {
+    justify-content: space-between;
+}
+
+.event_details__guest-reviews,
+.event_details__guest-reviews__card__container {
+  padding: 1em;
+}
+
+.event_details__guest-reviews__titles {
+  padding: 0.5em;  
+}
+
+.event_details__guest-reviews {
+    background-color: #4019a8;
+    border-radius: 25px;
+
+    &__titles {
+        color: #fff;
+        font-weight: bold;
+    }
+}
+
+.event_details__guest-reviews__card {
+    &--pic {
+        img {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    &--text {
+        flex-direction: column;
+        gap: 0.5em;
+        padding-left: 10px;
+    }
+
+    &--name {
+        color: #fff;
+    }
+
+    &--review-date {
+        color: #8a8a8f;
+        text-align: right;
+    }
+}
+
+.event_details__guest-reviews__see-all {
+    color: #8a8a8f;
+    text-align: center;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

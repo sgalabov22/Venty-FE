@@ -23,6 +23,13 @@ const routes: Routes = [
         path: 'map',
         loadChildren: () =>
           import('../maps/maps.module').then((m) => m.MapsModule)
+      },
+      {
+        path: 'event-details',
+        loadChildren: () =>
+          import('../event-details/event-details.module').then(
+            (m) => m.EventDetailsModule
+          )
       }
     ]
   }

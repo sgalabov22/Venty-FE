@@ -62,8 +62,6 @@ export class RegisterContainerComponent {
       password: this.password.value,
       fullname: this.fullName.value
     });
-
-    // this.router.navigate(['/calendar']);
   }
 
   public goToLogin(): void {

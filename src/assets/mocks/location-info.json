@@ -1,0 +1,21 @@
+{
+  "name": "Raketa Rakiq Bar",
+  "location": "bul. \"Yanko Sakazov\" 17, 1527 Sofia Center, Sofia",
+  "openTime": "08:00",
+  "closingTime": "22:00",
+  "fbPage": "https://www.facebook.com/RaketaRakiaBar",
+  "images": [
+    {
+      "url": "/assets/images/raketa-rakiq-1.jpg"
+    },
+    {
+      "url": "/assets/images/raketa-rakiq-2.jpg"
+    },
+    {
+      "url": "/assets/images/raketa-rakiq-3.jpg"
+    },
+    {
+      "url": "/assets/images/raketa-rakiq-4.jpg"
+    }
+  ]
+}

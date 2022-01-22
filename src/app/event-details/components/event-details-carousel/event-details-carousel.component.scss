@@ -1,0 +1,55 @@
+:host {
+ ::ng-deep {
+    .p-carousel .p-carousel-indicators .p-carousel-indicator button {
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+    }
+
+    .p-carousel-items-content {
+        border-radius: 30px;
+    }
+ }
+}
+
+.event_details__carousel__pictures,
+.event_details__carousel__reviews {
+    width: 40%;
+}
+
+.event_details__carousel {
+    display: flex;
+    background-color: #13043b;
+    border-radius: 25px;
+    gap: 2em;
+    padding: 1.5em;
+}
+
+.event_details__carousel__event-info {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+
+    h2 {
+        border-bottom: 3px solid #a050c7;
+    }
+
+    a {
+        text-decoration: none;
+        color: #fff;
+    }
+}
+
+.image__container {
+    position: relative;
+    padding-top: 56.25%;
+
+    img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+    }
+}

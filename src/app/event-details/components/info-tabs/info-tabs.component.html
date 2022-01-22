@@ -1,0 +1,23 @@
+<div class="event_details__info">
+    <div class="event_details__info__buttons">
+        <p class="event_details__info--btn text-style-roboto-regular-25" (click)="changeTab('agenda')">Agenda</p>
+        <p class="event_details__info--btn text-style-roboto-regular-25" (click)="changeTab('goals')">Goals</p>
+        <p class="event_details__info--btn text-style-roboto-regular-25" (click)="changeTab('nextSteps')">Next Steps</p>
+    </div>
+    <ng-container *ngIf="infoTextData">
+        <div class="event_details__info__content">
+            <p *ngIf="isAgendaClicked">
+                <p-editor [(ngModel)]="infoTextData.agenda"></p-editor>
+            </p>
+            <p *ngIf="isGoalsClicked">
+                <p-editor [(ngModel)]="infoTextData.goals"></p-editor>
+            </p>
+            <p *ngIf="isNextStepsClicked">
+                <p-editor [(ngModel)]="infoTextData.nextSteps"></p-editor>
+            </p>
+
+            <button class="event_details__info__content--save-btn" 
+                (click)="saveText()">Save</button>
+        </div>
+    </ng-container>
+</div>
