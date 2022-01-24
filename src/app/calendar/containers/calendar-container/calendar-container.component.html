@@ -7,7 +7,8 @@
                 <button pButton mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" type="button" icon="pi pi-angle-right"></button>
             </div>
         </div>
-        <div class="center-header__container">
+
+        <div class="center-header__container text-style-roboto-bold-20">
             <p>Events Calendar</p>
         </div>
         <div class="right-header__container">
@@ -26,21 +27,26 @@
         <ng-container *ngFor="let event of popUpEvents">
             <div class="pop-up-event__container">
                 <div class="event-colorpicker__container">
+                    <p>{{event.title }}</p>
+
+                    <div class="event-colorpicker__container">
                     <p-colorPicker [(ngModel)]="event.color"></p-colorPicker>
                 </div>
-                <p>{{event.title }}</p>
             </div>
         </ng-container>
-        <p-button (click)="display=false" label="Confirm" styleClass="p-button-text"></p-button>
+            <div class="dialog-close__container">
+                <p-button class="dialog-close-btn" (click)="display=false"
+                label="Confirm" styleClass="p-button-text"></p-button>
+            </div>
     </p-dialog>
 </div>
 
 <ng-template #customCellTemplate let-day="day" let-locale="locale"
     let-eventClicked="eventClicked">
     <div class="cal-cell-top">
-        <span class="cal-day-number"
-          >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
-        >
+        <div class="cal-day-number">
+            {{ day.date | calendarDate:'monthViewDayNumber':locale }}
+        </div>
     </div>
 
     <div class="event-cells__container">
@@ -49,9 +55,8 @@
             <ng-template *ngIf="i < 2; then showEventsBlock; else showMoreBlock">
             </ng-template>
             <ng-template #showEventsBlock>
-                <!-- {{ event | json }} -->
                 <div *ngIf="!checkIfPlaceholder(day.date, event)"
-                    class="event-title__container text-style-roboto-regular-14" 
+                    class="event-title__container text-style-roboto-regular-14-px" 
                     [style.background-color]="event.color"
                     [style.border-radius]="getCellBorderRadius()"
                     [style.width]="calculateEventWidth(event, day.date)">
@@ -62,7 +67,7 @@
             </ng-template>
             <ng-template #showMoreBlock>
                 <ng-container *ngIf="i === 2">
-                    <div class="showmore__container" (mwlClick)="handleMoreEvent(day.date, day.events)">
+                    <div class="showmore__container text-style-roboto-regular-12" (mwlClick)="handleMoreEvent(day.date, day.events)">
                         <a class="showmore__element"> {{day.events.length - 2}} more</a>
                     </div>
                 </ng-container>
