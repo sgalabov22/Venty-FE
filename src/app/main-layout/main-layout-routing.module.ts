@@ -25,7 +25,7 @@ const routes: Routes = [
           import('../maps/maps.module').then((m) => m.MapsModule)
       },
       {
-        path: 'event-details',
+        path: 'event-details/:id',
         loadChildren: () =>
           import('../event-details/event-details.module').then(
             (m) => m.EventDetailsModule

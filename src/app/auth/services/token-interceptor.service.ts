@@ -3,11 +3,11 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
-  HttpResponse
+  HttpRequest
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AuthFacadeService } from '.';
@@ -18,7 +18,8 @@ import { AuthFacadeService } from '.';
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
     private authFacadeService: AuthFacadeService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   intercept(
@@ -57,6 +58,11 @@ export class TokenInterceptor implements HttpInterceptor {
           this.authFacadeService.setErrorMessage(error.error.error[0]);
         }
 
+        this.messageService.add({
+          severity: 'error',
+          summary: `Error: ${error.status}`,
+          detail: error.message
+        });
         return throwError(error);
       })
     );

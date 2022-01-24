@@ -8,6 +8,7 @@ import { LoginContainerComponent } from './containers/login-container/login-cont
 import { RegisterContainerComponent } from './containers/register-container/register-container.component';
 import { AvatarModule } from 'primeng/avatar';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
 import { LoaderModule } from '@app/resources/loader';
 
@@ -22,7 +23,8 @@ import { LoaderModule } from '@app/resources/loader';
     PurpleBackgroundModule,
     AvatarModule,
     FileUploadModule,
-    LoaderModule
+    LoaderModule,
+    ToastModule
   ]
 })
 export class AuthModule {}
