@@ -13,9 +13,21 @@
       "profilePic": "/assets/images/profile-pic-male.png"
     },
     {
-      "fullName": "Stanislav Georgiev",
-      "email": "stansilav.georgiev@gmail.com",
+      "fullName": "Ivaylo Mirchev",
+      "email": "ivailo.mirchev@gmail.com",
       "status": "Attending",
+      "profilePic": "/assets/images/profile-pic-male.png"
+    },
+    {
+      "fullName": "Petar Petrov",
+      "email": "petar.petrov@gmail.com",
+      "status": "Not Attending",
+      "profilePic": "/assets/images/profile-pic-male.png"
+    },
+    {
+      "fullName": "Stefan Galabov",
+      "email": "stefan.galabov@gmail.com",
+      "status": "Not Attending",
       "profilePic": "/assets/images/profile-pic-male.png"
     }
   ]

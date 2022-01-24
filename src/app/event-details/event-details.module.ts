@@ -5,6 +5,9 @@ import { CarouselModule } from 'primeng/carousel';
 import { RatingModule } from 'primeng/rating';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { EditorModule } from 'primeng/editor';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { EventDetailsContainerComponent } from './containers';
 import { EventDetailsRoutingModule } from './event-details-routing.module';
@@ -14,9 +17,6 @@ import { GuestsListComponent } from './components/guests-list/guests-list.compon
 import { EventDetailsCarouselComponent } from './components/event-details-carousel/event-details-carousel.component';
 import { GuestReviewsComponent } from './components/guest-reviews/guest-reviews.component';
 import { WorkBoardComponent } from './components/work-board/work-board.component';
-
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ModalDialogModule } from '@app/resources/modal-dialog';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { ModalDialogModule } from '@app/resources/modal-dialog';
     SpeedDialModule,
     EditorModule,
     FontAwesomeModule,
-    ModalDialogModule
+    DialogModule,
+    InputTextModule
   ]
 })
 export class EventDetailsModule {}

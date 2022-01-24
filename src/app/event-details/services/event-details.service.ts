@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import {
   EventInfo,
   GuestList,
   InfoTextData,
   LocationData,
-  ReviewsList
+  ReviewsList,
+  SearchUser
 } from '../interfaces';
 
 @Injectable({
@@ -33,5 +35,23 @@ export class EventDetailsService {
 
   public getInfoTextData(): Observable<InfoTextData> {
     return this.http.get<InfoTextData>('/assets/mocks/info-text.json');
+  }
+
+  public searchUsers(term: string): Observable<SearchUser[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+
+    return this.http
+      .get<SearchUser[]>('/assets/mocks/users.json')
+      .pipe(
+        switchMap((users) =>
+          of(
+            users.filter((u) =>
+              u.fullName.toLowerCase().startsWith(term.toLowerCase())
+            )
+          )
+        )
+      );
   }
 }

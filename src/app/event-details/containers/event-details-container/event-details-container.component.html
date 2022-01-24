@@ -4,7 +4,13 @@
         <p><i class="pi pi-calendar"></i>{{eventInfo.createdOn}}</p>
     </div>
     <app-info-tabs [infoTextData]="infoTextData$ | async" class="event_details__info"></app-info-tabs>
-    <app-guests-list [guestList]="(guestList$ | async)" class="event_details__guests"></app-guests-list>
+    <app-guests-list
+        (onSearchLoadUsers)="loadSearchUsers($event)"
+        (onCloseGuestsModal)="clearUsers()" 
+        [users]="users$ | async" 
+        [guestList]="(guestList$ | async)" 
+        class="event_details__guests">
+    </app-guests-list>
     <app-event-details-carousel 
         [locationData]="locationData$ | async"
         [reviewsList]="reviewsList$ | async"

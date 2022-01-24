@@ -37,3 +37,9 @@ export interface ReviewsList {
   };
   count: number;
 }
+
+export interface SearchUser {
+  fullName: string;
+  email: string;
+  profilePic: string;
+}

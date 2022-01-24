@@ -6,7 +6,8 @@ import {
   GuestList,
   InfoTextData,
   LocationData,
-  ReviewsList
+  ReviewsList,
+  SearchUser
 } from '../interfaces';
 
 @Injectable({
@@ -27,6 +28,9 @@ export class EventDetailsFacadeService {
 
   private reviewsList$$ = new BehaviorSubject<ReviewsList>(null);
   public reviewsList$ = this.reviewsList$$.asObservable();
+
+  private users$$ = new BehaviorSubject<SearchUser[]>([]);
+  public users$ = this.users$$.asObservable();
 
   constructor(private eventDetailsService: EventDetailsService) {}
 
@@ -56,11 +60,22 @@ export class EventDetailsFacadeService {
     });
   }
 
+  public loadSearchUsers(term: string): void {
+    this.eventDetailsService.searchUsers(term).subscribe((users) => {
+      this.users$$.next(users);
+    });
+  }
+
+  public clearUsers(): void {
+    this.users$$.next(null);
+  }
+
   public clearData(): void {
     this.eventInfo$$.next(null);
     this.guestList$$.next(null);
     this.locationData$$.next(null);
     this.reviewsList$$.next(null);
     this.infoTextData$$.next(null);
+    this.users$$.next(null);
   }
 }

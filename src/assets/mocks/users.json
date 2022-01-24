@@ -1,0 +1,67 @@
+[
+  {
+    "fullName": "Anastasia Koleva",
+    "email": "anastasia.koleva@gmail.com",
+    "profilePic": "/assets/images/profile-pic-female.png"
+  },
+  {
+    "fullName": "Stanislav Georgiev",
+    "email": "stansilav.georgiev@gmail.com",
+    "profilePic": "/assets/images/profile-pic-male.png"
+  },
+  {
+    "fullName": "Ivaylo Mirchev",
+    "email": "ivailo.mirchev@gmail.com",
+    "profilePic": "/assets/images/profile-pic-male.png"
+  },
+  {
+    "fullName": "Petar Petrov",
+    "email": "petar.petrov@gmail.com",
+    "profilePic": "/assets/images/profile-pic-male.png"
+  },
+  {
+    "fullName": "Stefan Galabov",
+    "email": "stefan.galabov@gmail.com",
+    "profilePic": "/assets/images/profile-pic-male.png"
+  },
+  {
+    "fullName": "Stefan Dimitrov",
+    "email": "strefan.dimitrov@gmail.com",
+    "profilePic": "/assets/images/profile-pic-male.png"
+  },
+  {
+    "fullName": "Kiril Kiril",
+    "email": "kiril.kirilov@gmail.com",
+    "profilePic": "/assets/images/profile-pic-male.png"
+  },
+  {
+    "fullName": "Yana Stanoeva",
+    "email": "yana.stanoeva@gmail.com",
+    "profilePic": "/assets/images/profile-pic-female.png"
+  },
+  {
+    "fullName": "Ilena Pesheva",
+    "email": "ilena.pesheva@gmail.com",
+    "profilePic": "/assets/images/profile-pic-female.png"
+  },
+  {
+    "fullName": "Martina Georgieva",
+    "email": "martina.georgieva@gmail.com",
+    "profilePic": "/assets/images/profile-pic-female.png"
+  },
+  {
+    "fullName": "Kalina Kalpachka",
+    "email": "kalina.kalpachka@gmail.com",
+    "profilePic": "/assets/images/profile-pic-female.png"
+  },
+  {
+    "fullName": "Kristiqn Tanev",
+    "email": "kris.tanev@gmail.com",
+    "profilePic": "/assets/images/profile-pic-male.png"
+  },
+  {
+    "fullName": "Martin Ivaylov",
+    "email": "martin.ivaylov@gmail.com",
+    "profilePic": "/assets/images/profile-pic-male.png"
+  }
+]

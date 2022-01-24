@@ -1,7 +1,9 @@
 .event_details__guests__titles,
 .event_details__guests__card__container,
 .event_details__guests__card,
-.event_details__guests__card--text {
+.event_details__guests__card--text,
+.event_details__guests__users__card,
+.event_details__guests__users__card--content {
     display: flex;
 }
 
@@ -25,10 +27,6 @@
         }
     }
 
-    &__status {
-        color: #75ffb6;
-    }
-
     &__see-all {
         color: #8a8a8f;
         text-align: center;
@@ -38,6 +36,21 @@
             cursor: pointer;
             color: #fff;
         } 
+    }
+}
+
+.event_details__guests__users__card {
+    background-color: #13043b;
+    margin-top: 0.5em;
+    padding: 1em 2em;
+    justify-content: space-between;
+
+    &--email {
+        color: #8a8a8f;
+    }
+
+    &--content {
+        flex-direction: column;
     }
 }
 

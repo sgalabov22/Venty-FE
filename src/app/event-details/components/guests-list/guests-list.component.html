@@ -5,27 +5,59 @@
     </div>
 
     <ng-container *ngIf="guestList">
-        <div *ngFor="let guest of guestList.guests" class="event_details__guests__card__container">
-            <div class="event_details__guests__card">
-                <div class="event_details__guests__card--pic">
-                    <img [src]="guest.profilePic" />
-                </div>
-                <div class="event_details__guests__card--text">
-                    <h5 class="event_details__guests__card--name text-style-montserrat-medium-15">{{guest.fullName}}</h5>
-                    <p class="event_details__guests__card--email text-style-montserrat-medium-15">{{guest.email}}</p>
-                </div>
-            </div>
-            <div class="event_details__guests__status">
-                <p class="text-style-montserrat-medium-15">{{guest.status}}</p>
-            </div>
-        </div>
-    </ng-container>
+        <ng-container  *ngTemplateOutlet="guestsTemplate; context:{ count: 3 }">
+        </ng-container >
 
-    <p class="event_details__guests__see-all text-style-montserrat-medium-15" (click)="showAllGuests = true">see all</p>
-    <app-modal-dialog 
-        [isVisible]="showAllGuests" 
-        [title]="modalTitle"
-        [content]="modalContent">
-    </app-modal-dialog>
+        <p class="event_details__guests__see-all text-style-montserrat-medium-15" 
+            (click)="showAllGuests = true">
+            see all
+        </p>
+
+        <p-dialog
+            (onHide)="closeModal()"
+            [header]="modalTitle"
+            [(visible)]="showAllGuests"
+            [style]="{ width: '50vw', height: '70vh' }">
+
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input #searchBox type="text" pInputText placeholder="Add Guest" (input)="searchTerm(searchBox.value)">         
+            </div>
+
+            <ng-container class="event_details__guests__users" *ngIf="users">
+                <div class="event_details__guests__users__card" *ngFor="let user of users">
+                    <div class="event_details__guests__users__card--content">
+                        <p class="text-style-montserrat-medium-15">{{user.fullName}}</p>
+                        <p class="event_details__guests__users__card--email">{{user.email}}</p>
+                    </div>
+                    <p-button icon="pi pi-plus"></p-button>
+                </div>
+            </ng-container>
+
+            <ng-container *ngTemplateOutlet="
+                guestsTemplate; context:{ count: guestList.guests.length }">
+            </ng-container>
+        </p-dialog>
+    </ng-container>
 </div>
 
+<ng-template #guestsTemplate let-count="count">
+    <div *ngFor="let guest of guestList.guests | slice: 0:count" class="event_details__guests__card__container">
+        <div class="event_details__guests__card">
+            <div class="event_details__guests__card--pic">
+                <img [src]="guest.profilePic" />
+            </div>
+            <div class="event_details__guests__card--text">
+                <h5 class="event_details__guests__card--name text-style-montserrat-medium-15">{{guest.fullName}}</h5>
+                <p class="event_details__guests__card--email text-style-montserrat-medium-15">{{guest.email}}</p>
+            </div>
+        </div>
+        <div class="event_details__guests__status">
+            <p [ngStyle]="
+                guest.status === 'Attending' ? 
+                { 'color': '#75ffb6' } : 
+                { 'color': 'red' }" 
+                class="text-style-montserrat-medium-15">{{guest.status}}</p>
+        </div>
+    </div>
+</ng-template>
