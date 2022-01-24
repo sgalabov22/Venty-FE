@@ -1,12 +1,12 @@
-@import "assets/styles/fonts";
-
 .calendar-header__container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     height: 3.05rem;
-    background-color: rgba(37, 38, 40, 1);
+    // background-color: rgba(37, 38, 40, 1);
+    border-top: 2px solid #532a68;
+    border-bottom: 2px solid #532a68;
 }
 
 .left-header__container {
@@ -16,18 +16,17 @@
 
 .p-buttonset button {
     background-color: transparent;
-    color: #f5f4f3;
+    color: white;
     border: none;
 }
 
 .header__datepicker {
-    margin: 0px 1rem 0px 0px;
     width: 11rem;
 }
 
 ::ng-deep .p-inputtext {
     border: none;
-    background-color: #252628;
+    background-color: transparent;
 }
 
 ::ng-deep .p-inputtext:enabled:focus {
@@ -41,19 +40,19 @@
 }
 
 ::ng-deep .p-button:enabled:hover {
-    color: #f5f4f3;
+    color: white;
 }
 
 ::ng-deep .p-button-icon-only {
     background-color: transparent !important;
-    color: #f5f4f3;
+    color: white;
     border: none;
 }
 
 .today-button {
-    background-color: transparent;
-    border-color: #565557;
-    color: #f5f4f3;
+    background-color: #a253c8;
+    border-color: #532a68;
+    color: white;
 }
 
 .today-button:hover {
@@ -63,10 +62,6 @@
 
 .right-header__container {
     padding: 0px 1rem 0px 0px;
-}
-
-.center-header__container {
-    @extend .text-style-roboto-regular-20;
 }
 
 .calendar-component__container {
@@ -91,7 +86,6 @@
 }
 
 .showmore__container {
-    @extend .text-style-montserrat-regular-10;
     display: flex;
     align-items: flex-end;
     height: 100%;
@@ -111,8 +105,15 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    padding: 1rem 0 1rem 0;
 }
 
 .event-colorpicker__container {
     position: relative;
+}
+
+.dialog-close__container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }

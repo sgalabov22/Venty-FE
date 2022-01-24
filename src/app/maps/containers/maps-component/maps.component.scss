@@ -4,6 +4,10 @@
     height: 100%;
 }
 
+.map__container:focus {
+    outline: none;
+}
+
 .custom-map-control-button {
     background-color: yellow !important;
 }
@@ -16,22 +20,46 @@
 
 .pac-input {
     font-family: Roboto;
-    font-size: 15px;
     font-weight: 300;
-    color: white;
     width: 100%;
+    height: 100%;
 }
   
-.pac-input:focus {
-    border: none;
-}
+// .pac-input:active {
+//     border: 1px solid #3f4b5b;
+// }
 
 .search-elements__container {
-    width: 450px;
+    width: 600px;
+    padding: 0 0 0 4rem;
 }
 
 .search-results__container {
     margin: 20px 0 0 0;
 }
 
+.search-header__container {
+    display: flex;
+    height: 40px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+::ng-deep .p-multiselect-header {
+    content-visibility: hidden;
+}
+
+::ng-deep .p-multiselect {
+    min-width: 10rem;
+    width: 12rem;
+    height: 100%;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+::ng-deep .p-selectbutton .p-button {
+    background-color: #20262e;
+    border: 1px solid #3f4b5b;
+    height: 40px;
+    color: rgba(255, 255, 255, 0.6);
+}
   

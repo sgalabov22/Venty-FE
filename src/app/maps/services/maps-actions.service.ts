@@ -1,49 +1,235 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MapsActionsService {
-  private service: google.maps.places.AutocompleteService;
+export class MapsActionsService implements OnDestroy {
+  private map$$ = new BehaviorSubject<google.maps.Map>(null);
+  public map$: Observable<google.maps.Map> = this.map$$.asObservable();
 
-  constructor() {
-    this.service = new google.maps.places.AutocompleteService();
+  private searchResults$$ = new BehaviorSubject<
+    google.maps.places.PlaceResult[]
+  >([]);
+  public searchResults$: Observable<google.maps.places.PlaceResult[]> =
+    this.searchResults$$.asObservable();
+
+  private autocompleteService: google.maps.places.AutocompleteService;
+  private placesService: google.maps.places.PlacesService;
+  private marker: google.maps.Marker;
+
+  private getNextPage: () => void | false;
+  public stopLoading = false;
+  private categories: string[] = [];
+  private selectedRadius = 500;
+
+  private unsubscribe$ = new Subject<void>();
+
+  public ngOnDestroy(): void {
+    this.unsubscribe$.next(null);
+    this.unsubscribe$.complete();
   }
 
-  public loadPredictions(value: string): void {
-    const getPredictions = (
-      predictions: google.maps.places.QueryAutocompletePrediction[] | null,
-      status: google.maps.places.PlacesServiceStatus
-    ): void => {
-      if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {
-        return;
+  public initMap(nativeElement: any, mapProperties: any): void {
+    this.map$$.next(new google.maps.Map(nativeElement, mapProperties));
+
+    this.autocompleteService = new google.maps.places.AutocompleteService();
+    this.placesService = new google.maps.places.PlacesService(this.map$$.value);
+
+    const map = this.map$$.value;
+    this.marker = new google.maps.Marker({
+      map,
+      anchorPoint: new google.maps.Point(0, -29)
+    });
+
+    this.map$$.value.addListener('click', (mapsMouseEvent) => {
+      const position = mapsMouseEvent.latLng;
+      console.log(JSON.stringify(position));
+
+      if (this.isIconMouseEvent(mapsMouseEvent)) {
+        console.log('mqsto e');
+        this.searchResults$$.next([]);
+      } else {
+        this.getNearbyPlaces(position);
       }
+      this.map$$.value.setCenter(position);
+      this.marker.setPosition(position);
+    });
+  }
 
-      predictions.forEach((prediction: any) => {
-        this.getPlaceDetails(prediction.place_id);
-      });
-    };
+  private isIconMouseEvent(event: google.maps.MapMouseEvent): boolean {
+    return 'placeId' in event;
+  }
 
-    if (value.length > 0) {
-      this.service.getQueryPredictions({ input: value }, getPredictions);
+  public loadNextPage(): void {
+    if (this.getNextPage) {
+      this.getNextPage();
     }
   }
 
-  private getPlaceDetails(placeId: string): void {
-    // const request = {
-    //   placeId: placeId,
-    // };
-    // const service = new google.maps.places.PlacesService(this.map);
-    // service.getDetails(request, (place, status) => {
-    //   if (
-    //     status === google.maps.places.PlacesServiceStatus.OK &&
-    //     place &&
-    //     place.geometry &&
-    //     place.geometry.location
-    //   ) {
-    //     console.log('Place details: ');
-    //     console.log(place);
-    //   }
-    // });
+  public setOptions(options: string[]): void {
+    this.categories = options.map((option: string) => option.toLowerCase());
   }
+
+  public setSelectedRadius(radius: string): void {
+    switch (radius) {
+      case '1000 meters':
+        this.selectedRadius = 1000;
+        break;
+
+      case '1500 meters':
+        this.selectedRadius = 1500;
+        break;
+
+      default:
+        this.selectedRadius = 500;
+        break;
+    }
+  }
+
+  private getNearbyPlaces(location: google.maps.LatLng): void {
+    const request = {
+      location: location,
+      radius: this.selectedRadius,
+      types: this.categories
+    };
+    this.stopLoading = false;
+
+    const loadNearbyLocations = (
+      results: google.maps.places.PlaceResult[],
+      status: google.maps.places.PlacesServiceStatus.OK,
+      pagination: google.maps.places.PlaceSearchPagination | null
+    ) => {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        this.searchResults$$.next(this.searchResults$$.value.concat(results));
+
+        this.stopLoading = !pagination || !pagination.hasNextPage;
+        if (pagination && pagination.hasNextPage) {
+          this.getNextPage = () => {
+            pagination.nextPage();
+          };
+        }
+      }
+    };
+
+    this.searchResults$$.next([]);
+    this.placesService.nearbySearch(request, loadNearbyLocations);
+  }
+
+  public loadRadiusChange(radiusChange: HTMLElement): void {
+    const map = this.map$$.value;
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(radiusChange);
+  }
+
+  public loadCurrentLocation(locationButton: HTMLButtonElement): void {
+    this.map$$.value.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(
+      locationButton
+    );
+
+    locationButton.addEventListener('click', () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position: GeolocationPosition) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            console.log(pos);
+            this.map$$.value.setZoom(15);
+            this.map$$.value.setCenter(pos);
+          }
+        );
+      }
+    });
+  }
+
+  // public loadPredictions(value: string): void {
+  //   const getPredictions = (
+  //     predictions: google.maps.places.QueryAutocompletePrediction[] | null,
+  //     status: google.maps.places.PlacesServiceStatus
+  //   ): void => {
+  //     if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {
+  //       return;
+  //     }
+
+  //     predictions.forEach((prediction: google.maps.places.QueryAutocompletePrediction) => {
+  //       this.getPlaceDetails(prediction.place_id);
+  //     });
+
+  //     console.log('alo')
+  //     this.mapPredictions$$.next(this.tempMapPredictions$$.value);
+  //     this.tempMapPredictions$$.next([]);
+  //   };
+
+  //   if (value && value.length > 0) {
+  //     this.autocompleteService.getQueryPredictions({ input: value }, getPredictions);
+
+  //   }
+  // }
+
+  private getPlaceDetails(placeId: string): void {
+    const request = {
+      placeId: placeId
+    };
+    const service = new google.maps.places.PlacesService(this.map$$.value);
+    service.getDetails(request, (place, status) => {
+      if (
+        status === google.maps.places.PlacesServiceStatus.OK &&
+        place &&
+        place.geometry &&
+        place.geometry.location
+      ) {
+        console.log('Place details: ');
+        console.log(place);
+        // if (!this.tempMapPredictions$$.value.includes(place)) {
+        //   this.tempMapPredictions$$.next(
+        //     this.tempMapPredictions$$.getValue().concat(place)
+        //   );
+        // }
+      }
+    });
+  }
+
+  public loadSearchBox(
+    searchContainer: HTMLElement,
+    autocomplete: google.maps.places.Autocomplete
+  ): void {
+    const map = this.map$$.value;
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchContainer);
+
+    autocomplete.bindTo('bounds', map);
+
+    autocomplete.addListener('place_changed', () => {
+      this.marker.setVisible(false);
+      this.searchResults$$.next([]);
+
+      const place = autocomplete.getPlace();
+      console.log(place);
+      if (!place.geometry || !place.geometry.location) {
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);
+      }
+
+      this.marker.setPosition(place.geometry.location);
+      this.marker.setVisible(true);
+    });
+  }
+
+  // private clearMarkers() {
+  //   for (let i = 0; i < this.markers.length; i++) {
+  //     if (this.markers[i]) {
+  //       this.markers[i].setMap(null);
+  //     }
+  //   }
+
+  //   this.markers = [];
+  // }
 }

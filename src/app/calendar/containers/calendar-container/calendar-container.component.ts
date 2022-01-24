@@ -45,16 +45,10 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
   public popUpEvents: CalendarEvent[] = [];
 
   private colors: any = {
-    default: '#1e1f21'
+    default: '#8c6fec'
   };
 
   public events: CalendarEvent[] = [
-    // {
-    //   start: addDays(new Date(), 3),
-    //   end: addDays(new Date(), 3),
-    //   title: 'A 3 day event',
-    //   color: this.colors.default,
-    // },
     {
       start: subDays(endOfMonth(new Date()), 3),
       end: addDays(endOfMonth(new Date()), 3),
@@ -151,28 +145,16 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
     if (events.length === 0) {
       return events;
     }
-    // console.log(date.getDate());
-    // console.log('Prev events');
-    // console.log(this.prevEvents);
-    // console.log(events);
+
     const firstPartEvents = events.slice(0, 2);
     const secondPartEvents = events.slice(2);
-    // const firstPartPrevEvents = this.prevEvents.slice(0, 2);
     const secondPartPrevEvents = this.prevEvents.slice(2);
-    // console.log(firstPartEvents);
-    // console.log(secondPartEvents);
-    // console.log(firstPartPrevEvents);
-    // console.log(secondPartPrevEvents);
 
     secondPartPrevEvents.forEach((prevEvent: CalendarEvent) => {
       if (firstPartEvents.includes(prevEvent)) {
         firstPartEvents.splice(firstPartEvents.indexOf(prevEvent), 1);
         secondPartEvents.push(prevEvent);
-        // console.log('first part after remove');
-        // console.log(firstPartEvents);
         firstPartEvents.push(secondPartEvents.splice(0, 1)[0]);
-        // console.log('first part after add');
-        // console.log(firstPartEvents);
       }
     });
 
@@ -188,12 +170,7 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
 
   public calculateEventWidth(event: CalendarEvent, date: Date): string {
     const startDate = isSameWeek(event.start, event.end) ? event.start : date;
-
     const endDate = isSameWeek(date, event.end) ? event.end : endOfWeek(date);
-
-    // console.log(event);
-    // console.log(event.start);
-    // console.log(endDate);
     const timeInMilisec: number = endDate.getTime() - startDate.getTime();
     const daysBetweenDates: number = Math.ceil(
       timeInMilisec / (1000 * 60 * 60 * 24)
