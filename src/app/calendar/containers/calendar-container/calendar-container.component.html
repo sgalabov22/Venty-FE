@@ -26,18 +26,17 @@
         [draggable]="false" [resizable]="false">
         <ng-container *ngFor="let event of popUpEvents">
             <div class="pop-up-event__container">
-                <div class="event-colorpicker__container">
-                    <p>{{event.title }}</p>
+                <p>{{event.title }}</p>
 
-                    <div class="event-colorpicker__container">
+                <div class="event-colorpicker__container">
                     <p-colorPicker [(ngModel)]="event.color"></p-colorPicker>
                 </div>
             </div>
         </ng-container>
-            <div class="dialog-close__container">
-                <p-button class="dialog-close-btn" (click)="display=false"
-                label="Confirm" styleClass="p-button-text"></p-button>
-            </div>
+        <div class="dialog-close__container">
+            <p-button class="dialog-close-btn" (click)="display=false"
+            label="Confirm" styleClass="p-button-text"></p-button>
+        </div>
     </p-dialog>
 </div>
 
