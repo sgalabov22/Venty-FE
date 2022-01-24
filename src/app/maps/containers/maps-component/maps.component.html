@@ -2,14 +2,16 @@
 </div>
 <div id="search-container" class="search-elements__container">
         <div class="search-header__container">
-            <span class="p-input-icon-right">
+            <div class="p-input-icon-right">
                 <i class="pi pi-search"></i>
                 <input 
                     id="pac-input"
+                    class="pac-input"
+                    pInputText
                     #searchInput
                     (keyup)="onKey(searchInput.value)"
-                    placeholder="Search">         
-            </span>
+                    placeholder="Search">      
+            </div>
             <p-multiSelect [options]="locationTypeOptions"
                 [(ngModel)]="selectedOptions"
                 (onChange)="changedOptions()"
@@ -18,7 +20,7 @@
     <app-search-component class="search-results__container">
     </app-search-component>
 </div>
-    <div id="radius-change" class="radius-change__container">
-        <p-selectButton [options]="radiusOptions" [(ngModel)]="selectedRadius"
-            (onChange)="radiusChange()"></p-selectButton>
-    </div>
+<div id="radius-change" class="radius-change__container">
+    <p-selectButton [options]="radiusOptions" [(ngModel)]="selectedRadius"
+        (onChange)="radiusChange()"></p-selectButton>
+</div>

@@ -48,6 +48,9 @@ export class AuthFacadeService implements OnDestroy {
   }
 
   public loadRegisterUser(bodyParams: UserCredentialsInput): void {
+    console.log(this.currentPictureFile);
+    // bodyParams.profile_picture = this.currentPictureFile;
+    console.log(bodyParams);
     this.authService
       .registerUser(bodyParams)
       .pipe(take(1))
