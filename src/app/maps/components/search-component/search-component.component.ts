@@ -15,9 +15,7 @@ export class SearchComponentComponent implements OnDestroy {
 
   private unsubscribe$ = new Subject<void>();
 
-  constructor(
-    private mapsActionService: MapsActionsService
-  ) {}
+  constructor(private mapsActionService: MapsActionsService) {}
 
   public loadResultsLazy(): void {
     if (this.mapsActionService.stopLoading) return;
@@ -36,13 +34,11 @@ export class SearchComponentComponent implements OnDestroy {
     }
   }
 
-  public getIsOpen(
-    element: google.maps.places.PlaceResult
-  ): string {
+  public getIsOpen(element: google.maps.places.PlaceResult): string {
     if (element.opening_hours.isOpen) {
       return 'Open now';
     }
-    
+
     return 'Closed';
   }
 
@@ -56,7 +52,7 @@ export class SearchComponentComponent implements OnDestroy {
     if (results.length >= 5) {
       return '900px';
     }
-  
+
     return results.length * 180 + 'px';
   }
 
