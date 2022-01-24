@@ -16,8 +16,7 @@ export class SearchComponentComponent implements OnDestroy {
   private unsubscribe$ = new Subject<void>();
 
   constructor(
-    private mapsActionService: MapsActionsService,
-    private router: Router
+    private mapsActionService: MapsActionsService
   ) {}
 
   public loadResultsLazy(): void {
@@ -29,8 +28,6 @@ export class SearchComponentComponent implements OnDestroy {
   }
 
   public getImageUrl(element: google.maps.places.PlaceResult): string {
-    console.log(element);
-
     if (element?.photos && element.photos.length > 0) {
       return element.photos[0].getUrl({
         maxWidth: 210,
@@ -39,8 +36,14 @@ export class SearchComponentComponent implements OnDestroy {
     }
   }
 
-  public getIsOpen(element: google.maps.places.PlaceResult): boolean {
-    return element.opening_hours?.isOpen(new Date());
+  public getIsOpen(
+    element: google.maps.places.PlaceResult
+  ): string {
+    if (element.opening_hours.isOpen) {
+      return 'Open now';
+    }
+    
+    return 'Closed';
   }
 
   public getLocationReviews(element: google.maps.places.PlaceResult): string {
@@ -53,6 +56,7 @@ export class SearchComponentComponent implements OnDestroy {
     if (results.length >= 5) {
       return '900px';
     }
+  
     return results.length * 180 + 'px';
   }
 

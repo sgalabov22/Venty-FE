@@ -1,8 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  Input,
-  OnInit
+  Input
 } from '@angular/core';
 
 @Component({
@@ -28,5 +27,4 @@ export class LocationComponentComponent {
       });
     }
   }
-
 }
