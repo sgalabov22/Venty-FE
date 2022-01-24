@@ -4,7 +4,6 @@ import { EventDetailsService } from '.';
 import {
   EventInfo,
   GuestList,
-  InfoTextData,
   LocationData,
   ReviewsList,
   SearchUser
@@ -16,9 +15,6 @@ import {
 export class EventDetailsFacadeService {
   private eventInfo$$ = new BehaviorSubject<EventInfo>(null);
   public eventInfo$ = this.eventInfo$$.asObservable();
-
-  private infoTextData$$ = new BehaviorSubject<InfoTextData>(null);
-  public infoTextData$ = this.infoTextData$$.asObservable();
 
   private guestList$$ = new BehaviorSubject<GuestList>(null);
   public guestList$ = this.guestList$$.asObservable();
@@ -34,13 +30,9 @@ export class EventDetailsFacadeService {
 
   constructor(private eventDetailsService: EventDetailsService) {}
 
-  public loadEventInfo(): void {
-    forkJoin([
-      this.eventDetailsService.getEventInfo(),
-      this.eventDetailsService.getInfoTextData()
-    ]).subscribe(([eventInfo, infoTextData]) => {
+  public loadEventInfo(eventId: number): void {
+    this.eventDetailsService.getEventInfo(eventId).subscribe((eventInfo) => {
       this.eventInfo$$.next(eventInfo);
-      this.infoTextData$$.next(infoTextData);
     });
   }
 
@@ -75,7 +67,6 @@ export class EventDetailsFacadeService {
     this.guestList$$.next(null);
     this.locationData$$.next(null);
     this.reviewsList$$.next(null);
-    this.infoTextData$$.next(null);
     this.users$$.next(null);
   }
 }

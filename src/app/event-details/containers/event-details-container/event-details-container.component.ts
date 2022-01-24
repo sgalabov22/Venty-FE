@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { EventDetailsFacadeService } from '@app/event-details/services';
+import { ActivatedRoute } from '@angular/router';
+import { EventDetailsFacadeService } from '../../services';
 
 @Component({
   selector: 'app-event-details-container',
@@ -9,16 +10,21 @@ import { EventDetailsFacadeService } from '@app/event-details/services';
 })
 export class EventDetailsContainerComponent implements OnDestroy {
   public eventInfo$ = this.eventDetailsFacade.eventInfo$;
-  public infoTextData$ = this.eventDetailsFacade.infoTextData$;
   public guestList$ = this.eventDetailsFacade.guestList$;
   public locationData$ = this.eventDetailsFacade.locationData$;
   public reviewsList$ = this.eventDetailsFacade.reviewsList$;
   public users$ = this.eventDetailsFacade.users$;
 
-  constructor(private eventDetailsFacade: EventDetailsFacadeService) {
-    this.eventDetailsFacade.loadEventInfo();
-    this.eventDetailsFacade.loadGuestList();
-    this.eventDetailsFacade.loadLocationData();
+  constructor(
+    private eventDetailsFacade: EventDetailsFacadeService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      const id = Number(params.get('id'));
+      this.eventDetailsFacade.loadEventInfo(id);
+      this.eventDetailsFacade.loadGuestList();
+      this.eventDetailsFacade.loadLocationData();
+    });
   }
 
   public ngOnDestroy(): void {

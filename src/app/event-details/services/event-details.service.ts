@@ -5,11 +5,12 @@ import { switchMap } from 'rxjs/operators';
 import {
   EventInfo,
   GuestList,
-  InfoTextData,
   LocationData,
   ReviewsList,
   SearchUser
 } from '../interfaces';
+
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,10 @@ import {
 export class EventDetailsService {
   constructor(private http: HttpClient) {}
 
-  public getEventInfo(): Observable<EventInfo> {
-    return this.http.get<EventInfo>('/assets/mocks/event-info.json');
+  public getEventInfo(eventId: number): Observable<EventInfo> {
+    return this.http.get<EventInfo>(
+      `${environment.baseApiUrl}/events/${eventId}`
+    );
   }
 
   public getGuestsList(): Observable<GuestList> {
@@ -31,10 +34,6 @@ export class EventDetailsService {
 
   public getReviewsList(): Observable<ReviewsList> {
     return this.http.get<ReviewsList>('/assets/mocks/reviews-list.json');
-  }
-
-  public getInfoTextData(): Observable<InfoTextData> {
-    return this.http.get<InfoTextData>('/assets/mocks/info-text.json');
   }
 
   public searchUsers(term: string): Observable<SearchUser[]> {

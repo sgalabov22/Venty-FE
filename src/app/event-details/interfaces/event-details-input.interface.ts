@@ -1,12 +1,18 @@
 export interface EventInfo {
-  name: string;
-  createdOn: string;
+  id: number;
+  event_title: string;
+  start_date: string;
+  end_date: string;
+  goal: string;
+  agenda: string;
+  description: string;
+  location_id: string;
 }
 
 export interface InfoTextData {
   agenda: string;
-  goals: string;
-  nextSteps: string;
+  goal: string;
+  description: string;
 }
 
 export interface GuestList {
