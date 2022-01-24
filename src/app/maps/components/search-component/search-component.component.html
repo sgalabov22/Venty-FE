@@ -1,17 +1,49 @@
-<div class="search__container">
-    <div class="search-element__container">
-        <p>test1</p>
-    </div>
-    <div class="search-element__container">
-        <p>test1</p>
-    </div>
-    <div class="search-element__container">
-        <p>test1</p>
-    </div>
-    <div class="search-element__container">
-        <p>test1</p>
-    </div>
-    <div class="search-element__container">
-        <p>test1</p>
-    </div>
+<div *ngIf="(searchResults$ | async) as searchResults" class="search__container">
+    <p-virtualScroller
+        [itemSize]="160" [rows]="10"
+        [scrollHeight]="calcHeight(searchResults)"
+        [value]="searchResults"
+        [lazy]="true" (onLazyLoad)="loadResultsLazy()">
+        <ng-template let-result pTemplate="item">
+            <div class="search-element__container">
+                <div class="image__container">
+                    <img src="{{ getImageUrl(result) }} "
+                        alt="No photo">
+                </div>
+
+                <div class="location-description__container">
+                    <div class="text-content__container">
+                        <div class="location-name text-style-roboto-bold-24">
+                            <p>{{ result.name }}</p>
+                        </div>
+                        <div class="location-address text-style-roboto-regular-16">
+                            <p>{{ result.vicinity }}</p>
+                        </div>
+                    </div>
+
+                    <div class="bottom-search-elements__container 
+                        text-style-roboto-regular-14"
+                        *ngIf="result.rating">
+                        <div class="location-reviews">
+                            <p>{{ getLocationReviews(result) }}</p>
+                        </div>
+
+                        <div class="location-open" *ngIf="result.opening_hours">
+                            <ng-template *ngIf="getIsOpen(result); then showOpenNow; else showClosed">
+                            </ng-template>
+                            <ng-template #showOpenNow>
+                                <p>Open now</p>
+                            </ng-template>
+                            <ng-template #showClosed>
+                                <p>Closed</p>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-result pTemplate="loadingItem">
+            Loading...
+        </ng-template>
+    </p-virtualScroller>
 </div>

@@ -1,0 +1,23 @@
+.search-element__container {
+    border-top: 1px solid #49484d;
+    border-bottom: 1px solid #49484d;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.image__container {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem 0 0.5rem;
+}
+
+.image__container img {
+    width: 140px;
+    height: 140px;
+}
+
+.text-content__container {
+    display: flex;
+    flex-direction: column;
+}
