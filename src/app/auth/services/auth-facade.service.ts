@@ -53,7 +53,7 @@ export class AuthFacadeService implements OnDestroy {
     // bodyParams.profile_picture = this.currentPictureFile;
     // console.log(bodyParams);
     this.authService
-      .registerUser(bodyParams)
+      .registerUser(bodyParams, this.currentPictureFile)
       .pipe(take(1))
       .subscribe((value: AuthDataInput) => {
         sessionStorage.setItem('authCredentials', JSON.stringify(value));
@@ -83,7 +83,7 @@ export class AuthFacadeService implements OnDestroy {
     return this.authService.getAuthDetails();
   }
 
-  public loadProfilePicture(event: any) {
+  public loadProfilePicture(event: any): void {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       this.currentPictureFile = file;

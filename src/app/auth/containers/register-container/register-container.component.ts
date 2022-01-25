@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthFacadeService } from '@app/auth';
 import { matchingPasswords } from '@app/core/validators';
-import { FileUpload } from 'primeng/fileupload';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,8 +14,6 @@ import { Observable } from 'rxjs';
 export class RegisterContainerComponent {
   public profilePicture$: Observable<string> = this.authFacade.profilePicture$;
   public errorMessage$: Observable<string> = this.authFacade.errorMessage$;
-
-  @ViewChild('profilePicInput') profilePic: FileUpload;
 
   public registerFormGroup = this.formBuilder.group({
     fullName: ['', [Validators.required, Validators.minLength(6)]],

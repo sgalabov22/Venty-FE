@@ -7,6 +7,7 @@ import {
   UserCredentialsInput
 } from '../interfaces';
 import { environment } from '@env/environment';
+import { toFormData } from '@app/core/functions';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,19 @@ export class AuthService {
   }
 
   public registerUser(
-    bodyParams: UserCredentialsInput
+    bodyParams: UserCredentialsInput,
+    profilePicture: File | null
   ): Observable<AuthDataInput> {
+    const payload = {
+      email: bodyParams.email,
+      password: bodyParams.password,
+      fullname: bodyParams.fullname,
+      profile_picture: profilePicture
+    };
+
     const url = environment.baseApiUrl + '/authentication/register';
 
-    return this.http.post<AuthDataInput>(url, bodyParams);
+    return this.http.post<AuthDataInput>(url, toFormData(payload));
   }
 
   public getAuthDetails(): AuthDataInput {
