@@ -1,4 +1,5 @@
-<div class="calendar-component__container">
+<div class="calendar-component__container" 
+    *ngIf="(events$ | async) as events">
     <div class="calendar-header__container">
         <div class="left-header__container">
             <p-calendar class="header__datepicker" [(ngModel)]="viewDate" view="month" dateFormat="MM yy" [readonlyInput]="true"[showIcon]="true" icon="pi pi-angle-down" inputId="monthpicker"></p-calendar>
@@ -26,7 +27,7 @@
         [draggable]="false" [resizable]="false">
         <ng-container *ngFor="let event of popUpEvents">
             <div class="pop-up-event__container">
-                <p>{{event.title }}</p>
+                <p (click)="handleEvent(event)">{{event.title }}</p>
 
                 <div class="event-colorpicker__container">
                     <p-colorPicker [(ngModel)]="event.color"></p-colorPicker>

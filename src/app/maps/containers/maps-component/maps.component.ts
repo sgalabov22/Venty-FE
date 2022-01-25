@@ -31,7 +31,6 @@ export class MapsComponent implements AfterViewInit {
   public radiusOptions: string[] = ['500 meters', '1000 meters', '1500 meters'];
 
   constructor(
-    private authFacade: AuthFacadeService,
     private mapsActionsService: MapsActionsService
   ) {}
 

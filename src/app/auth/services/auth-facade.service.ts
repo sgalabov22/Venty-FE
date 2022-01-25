@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { toFormData } from '@app/core/functions';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AuthService } from '.';
@@ -48,9 +49,9 @@ export class AuthFacadeService implements OnDestroy {
   }
 
   public loadRegisterUser(bodyParams: UserCredentialsInput): void {
-    console.log(this.currentPictureFile);
+    // console.log(this.currentPictureFile);
     // bodyParams.profile_picture = this.currentPictureFile;
-    console.log(bodyParams);
+    // console.log(bodyParams);
     this.authService
       .registerUser(bodyParams)
       .pipe(take(1))

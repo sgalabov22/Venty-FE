@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import {
   EventInfo,
-  GuestList,
+  Guest,
+  GuestUserAccount,
   LocationData,
   ReviewsList,
-  SearchUser
 } from '../interfaces';
 
 import { environment } from '@env/environment';
@@ -24,8 +24,10 @@ export class EventDetailsService {
     );
   }
 
-  public getGuestsList(): Observable<GuestList> {
-    return this.http.get<GuestList>('/assets/mocks/guests-list.json');
+  public getGuestsList(eventId: number): Observable<Guest[]> {
+    return this.http.get<Guest[]>(
+      `${environment.baseApiUrl}/events/${eventId}/guests`
+    );
   }
 
   public getLocationData(): Observable<LocationData> {
@@ -36,21 +38,44 @@ export class EventDetailsService {
     return this.http.get<ReviewsList>('/assets/mocks/reviews-list.json');
   }
 
-  public searchUsers(term: string): Observable<SearchUser[]> {
+  public searchUsers(
+    term: string,
+    eventId: number
+  ): Observable<GuestUserAccount[]> {
     if (!term.trim()) {
       return of([]);
     }
 
     return this.http
-      .get<SearchUser[]>('/assets/mocks/users.json')
+      .get<GuestUserAccount[]>(
+        `${environment.baseApiUrl}/events/${eventId}/users`
+      )
       .pipe(
         switchMap((users) =>
           of(
-            users.filter((u) =>
-              u.fullName.toLowerCase().startsWith(term.toLowerCase())
-            )
+            users.filter((u) => {
+              if (u.fullname) {
+                return u.fullname.toLowerCase().startsWith(term.toLowerCase())
+              }
+            })
           )
         )
       );
+  }
+
+  public addUser(
+    userId: number,
+    eventId: number
+  ): Observable<any> {
+    const params = [
+      {
+        'guest_user_account': userId
+      }
+    ];
+
+    return this.http.post<any>(
+      `${environment.baseApiUrl}/events/${eventId}/guests`,
+      params
+    )
   }
 }

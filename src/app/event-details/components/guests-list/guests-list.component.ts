@@ -9,7 +9,7 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
-import { GuestList, SearchUser } from '../../interfaces';
+import { Guest, GuestUserAccount } from '../../interfaces';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
@@ -20,11 +20,12 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GuestsListComponent implements OnInit, OnDestroy {
-  @Input() guestList: GuestList;
-  @Input() users: SearchUser[];
+  @Input() guestList: Guest[];
+  @Input() users: GuestUserAccount[];
 
   @Output() onSearchLoadUsers = new EventEmitter<string>();
   @Output() onCloseGuestsModal = new EventEmitter<void>();
+  @Output() onAddUser = new EventEmitter<number>();
   @ViewChild('searchBox') searchBox: ElementRef;
 
   public readonly modalTitle = 'All Guests List';
@@ -48,6 +49,11 @@ export class GuestsListComponent implements OnInit, OnDestroy {
       .subscribe((term) => {
         this.onSearchLoadUsers.emit(term);
       });
+  }
+
+  public addUser(userId: number): void {
+    this.onAddUser.emit(userId);
+    this.closeModal();
   }
 
   public ngOnDestroy(): void {

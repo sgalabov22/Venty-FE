@@ -3,10 +3,10 @@ import { BehaviorSubject, forkJoin } from 'rxjs';
 import { EventDetailsService } from '.';
 import {
   EventInfo,
-  GuestList,
+  Guest,
+  GuestUserAccount,
   LocationData,
   ReviewsList,
-  SearchUser
 } from '../interfaces';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class EventDetailsFacadeService {
   private eventInfo$$ = new BehaviorSubject<EventInfo>(null);
   public eventInfo$ = this.eventInfo$$.asObservable();
 
-  private guestList$$ = new BehaviorSubject<GuestList>(null);
+  private guestList$$ = new BehaviorSubject<Guest[]>(null);
   public guestList$ = this.guestList$$.asObservable();
 
   private locationData$$ = new BehaviorSubject<LocationData>(null);
@@ -25,7 +25,7 @@ export class EventDetailsFacadeService {
   private reviewsList$$ = new BehaviorSubject<ReviewsList>(null);
   public reviewsList$ = this.reviewsList$$.asObservable();
 
-  private users$$ = new BehaviorSubject<SearchUser[]>([]);
+  private users$$ = new BehaviorSubject<GuestUserAccount[]>([]);
   public users$ = this.users$$.asObservable();
 
   constructor(private eventDetailsService: EventDetailsService) {}
@@ -36,8 +36,8 @@ export class EventDetailsFacadeService {
     });
   }
 
-  public loadGuestList(): void {
-    this.eventDetailsService.getGuestsList().subscribe((guestList) => {
+  public loadGuestList(eventId: number): void {
+    this.eventDetailsService.getGuestsList(eventId).subscribe((guestList) => {
       this.guestList$$.next(guestList);
     });
   }
@@ -52,10 +52,17 @@ export class EventDetailsFacadeService {
     });
   }
 
-  public loadSearchUsers(term: string): void {
-    this.eventDetailsService.searchUsers(term).subscribe((users) => {
+  public loadSearchUsers(term: string, eventId: number): void {
+    this.eventDetailsService.searchUsers(term, eventId).subscribe((users) => {
+      console.log(users);
       this.users$$.next(users);
     });
+  }
+
+  public addUser(userId: number, eventId: number): void {
+    this.eventDetailsService.addUser(userId, eventId).subscribe((value) => {
+      this.loadGuestList(eventId);
+    })
   }
 
   public clearUsers(): void {

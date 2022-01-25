@@ -14,15 +14,17 @@ export class EventDetailsContainerComponent implements OnDestroy {
   public locationData$ = this.eventDetailsFacade.locationData$;
   public reviewsList$ = this.eventDetailsFacade.reviewsList$;
   public users$ = this.eventDetailsFacade.users$;
+  
+  private id: number;
 
   constructor(
     private eventDetailsFacade: EventDetailsFacadeService,
     private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
-      const id = Number(params.get('id'));
-      this.eventDetailsFacade.loadEventInfo(id);
-      this.eventDetailsFacade.loadGuestList();
+      this.id = Number(params.get('id'));
+      this.eventDetailsFacade.loadEventInfo(this.id);
+      this.eventDetailsFacade.loadGuestList(this.id);
       this.eventDetailsFacade.loadLocationData();
     });
   }
@@ -36,6 +38,10 @@ export class EventDetailsContainerComponent implements OnDestroy {
   }
 
   public loadSearchUsers(term: string): void {
-    this.eventDetailsFacade.loadSearchUsers(term);
+    this.eventDetailsFacade.loadSearchUsers(term, this.id);
+  }
+
+  public addUser(userId: number): void {
+    this.eventDetailsFacade.addUser(userId, this.id);
   }
 }

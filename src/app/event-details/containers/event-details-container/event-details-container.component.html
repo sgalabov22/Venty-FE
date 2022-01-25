@@ -7,6 +7,7 @@
     <app-guests-list
         (onSearchLoadUsers)="loadSearchUsers($event)"
         (onCloseGuestsModal)="clearUsers()" 
+        (onAddUser)="addUser($event)"
         [users]="users$ | async" 
         [guestList]="(guestList$ | async)" 
         class="event_details__guests">

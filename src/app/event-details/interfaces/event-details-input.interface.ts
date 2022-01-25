@@ -15,13 +15,17 @@ export interface InfoTextData {
   description: string;
 }
 
-export interface GuestList {
-  guests: {
-    fullName: string;
-    email: string;
-    status: string;
-    profilePic: string;
-  }[];
+export interface Guest {
+  guest_user_account: GuestUserAccount;
+  event: number;
+  status: string;
+}
+
+export interface GuestUserAccount {
+  fullname: string;
+  email: string;
+  id: number;
+  profile_picture: string;
 }
 
 export interface LocationData {
@@ -42,10 +46,4 @@ export interface ReviewsList {
     createdOn: string;
   };
   count: number;
-}
-
-export interface SearchUser {
-  fullName: string;
-  email: string;
-  profilePic: string;
 }

@@ -10,17 +10,13 @@ import { AuthFacadeService } from '@app/auth';
 import { CustomCalendarUtils } from '@app/calendar/calendar-utils';
 import { CalendarEvent, CalendarUtils, CalendarView } from 'angular-calendar';
 import {
-  addDays,
-  addHours,
-  endOfMonth,
   endOfWeek,
   isSameWeek,
-  startOfDay,
-  startOfWeek,
-  subDays
-} from 'date-fns';
-import { Subject } from 'rxjs';
+  startOfWeek} from 'date-fns';
+import { Observable, Subject } from 'rxjs';
 import dateFormat from 'dateformat';
+import { CalendarEventsFacadeService } from '@app/calendar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendar-container',
@@ -44,75 +40,27 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
 
   public popUpEvents: CalendarEvent[] = [];
 
+  public events$: Observable<CalendarEvent[]> =
+    this.calendarEventsFacade.events$;
+
   private colors: any = {
     default: '#8c6fec'
   };
-
-  public events: CalendarEvent[] = [
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: this.colors.default
-    },
-    {
-      start: subDays(startOfDay(new Date()), 2),
-      end: addDays(new Date(), 7),
-      title: 'A draggable and resizable event asdsadsasad 2',
-      color: this.colors.default
-    },
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: new Date(),
-      title: 'A draggable and resizable event asdsadsasad',
-      color: this.colors.default
-    },
-    {
-      start: addDays(new Date(), 1),
-      end: addDays(new Date(), 4),
-      title: 'An event 1',
-      color: this.colors.default
-    },
-    {
-      start: new Date(),
-      end: addDays(addHours(new Date(), 1), 2),
-      title: 'An event 2',
-      color: this.colors.default
-    },
-    {
-      start: addDays(new Date(), 5),
-      end: addDays(new Date(), 8),
-      title: 'An event 3',
-      color: this.colors.default
-    }
-  ];
 
   private darkThemeClass = 'dark-theme';
   private unsubscribe$ = new Subject<void>();
   private prevEvents: CalendarEvent[] = [];
 
   constructor(
-    private authFacade: AuthFacadeService,
+    private router: Router,
+    private calendarEventsFacade: CalendarEventsFacadeService,
     @Inject(DOCUMENT) private document
   ) {}
 
   public ngOnInit(): void {
     this.document.body.classList.add(this.darkThemeClass);
 
-    this.events.sort((a, b) => {
-      if (a.start < b.start) {
-        return -1;
-      }
-      if (a.start > b.start) {
-        return 1;
-      }
-      return 0;
-    });
-
-    this.events.forEach((event: CalendarEvent) => {
-      event.start.setHours(0, 0, 0, 0);
-      event.end.setHours(0, 0, 0, 0);
-    });
+    this.calendarEventsFacade.loadEvents();
   }
 
   public dayClicked(day: any): void {
@@ -121,6 +69,7 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
 
   public handleEvent(event: CalendarEvent): void {
     console.log(event);
+    this.router.navigate(['/event-details/' + event.id]);
   }
 
   public handleMoreEvent(date: Date, events: CalendarEvent[]) {

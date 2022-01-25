@@ -27,37 +27,42 @@
             <ng-container class="event_details__guests__users" *ngIf="users">
                 <div class="event_details__guests__users__card" *ngFor="let user of users">
                     <div class="event_details__guests__users__card--content">
-                        <p class="text-style-montserrat-medium-15">{{user.fullName}}</p>
+                        <p class="text-style-montserrat-medium-15">{{user.fullname}}</p>
                         <p class="event_details__guests__users__card--email">{{user.email}}</p>
                     </div>
-                    <p-button icon="pi pi-plus"></p-button>
+                    <p-button (click)="addUser(user.id)" icon="pi pi-plus"></p-button>
                 </div>
             </ng-container>
 
             <ng-container *ngTemplateOutlet="
-                guestsTemplate; context:{ count: guestList.guests.length }">
+                guestsTemplate; context:{ count: guestList.length }">
             </ng-container>
         </p-dialog>
     </ng-container>
 </div>
 
 <ng-template #guestsTemplate let-count="count">
-    <div *ngFor="let guest of guestList.guests | slice: 0:count" class="event_details__guests__card__container">
+    <div *ngFor="let guest of guestList | slice: 0:count" class="event_details__guests__card__container">
         <div class="event_details__guests__card">
             <div class="event_details__guests__card--pic">
-                <img [src]="guest.profilePic" />
+                <ng-container *ngIf="guest.guest_user_account.profile_picture !== ''">
+                    <img [src]="guest.guest_user_account.profile_picture" />
+                </ng-container>
+                <ng-container *ngIf="guest.guest_user_account.profile_picture === ''">
+                    <img src="assets/images/default-user.png" />
+                </ng-container>
             </div>
             <div class="event_details__guests__card--text">
-                <h5 class="event_details__guests__card--name text-style-montserrat-medium-15">{{guest.fullName}}</h5>
-                <p class="event_details__guests__card--email text-style-montserrat-medium-15">{{guest.email}}</p>
+                <h5 class="event_details__guests__card--name text-style-montserrat-medium-15">{{guest.guest_user_account.fullName}}</h5>
+                <p class="event_details__guests__card--email text-style-montserrat-medium-15">{{guest.guest_user_account.email}}</p>
             </div>
         </div>
         <div class="event_details__guests__status">
             <p [ngStyle]="
-                guest.status === 'Attending' ? 
+                guest.status === 'attending' ? 
                 { 'color': '#75ffb6' } : 
                 { 'color': 'red' }" 
-                class="text-style-montserrat-medium-15">{{guest.status}}</p>
+                class="text-style-montserrat-medium-15">{{guest.status.charAt(0).toUpperCase() + guest.status.slice(1)}}</p>
         </div>
     </div>
 </ng-template>

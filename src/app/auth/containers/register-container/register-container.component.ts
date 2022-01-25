@@ -62,7 +62,7 @@ export class RegisterContainerComponent {
     this.authFacade.loadRegisterUser({
       email: this.email.value,
       password: this.password.value,
-      fullname: this.fullName.value,
+      fullname: this.fullName.value
       // profile_picture: this.profilePic.files[0]
     });
   }
