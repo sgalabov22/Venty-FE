@@ -6,7 +6,7 @@ import {
   Guest,
   GuestUserAccount,
   LocationData,
-  ReviewsList,
+  ReviewsList
 } from '../interfaces';
 
 @Injectable({
@@ -62,7 +62,7 @@ export class EventDetailsFacadeService {
   public addUser(userId: number, eventId: number): void {
     this.eventDetailsService.addUser(userId, eventId).subscribe((value) => {
       this.loadGuestList(eventId);
-    })
+    });
   }
 
   public clearUsers(): void {

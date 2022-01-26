@@ -6,7 +6,6 @@ import { GetMonthViewArgs, MonthView } from 'calendar-utils';
 @Injectable()
 export class CustomCalendarUtils extends CalendarUtils {
   getMonthView(args: GetMonthViewArgs): MonthView {
-    console.log(args);
     args.viewStart = startOfMonth(args.viewDate);
     args.viewEnd = endOfMonth(args.viewDate);
 

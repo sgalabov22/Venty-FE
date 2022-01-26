@@ -56,6 +56,11 @@ export class GuestsListComponent implements OnInit, OnDestroy {
     this.closeModal();
   }
 
+  public getPicturePath(picture: string): string {
+    return 'https://res.cloudinary.com/dhavld11j/' 
+      + picture;
+  }
+
   public ngOnDestroy(): void {
     this.unsubscribe$$.next();
     this.unsubscribe$$.complete();

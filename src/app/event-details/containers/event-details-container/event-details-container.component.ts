@@ -14,7 +14,7 @@ export class EventDetailsContainerComponent implements OnDestroy {
   public locationData$ = this.eventDetailsFacade.locationData$;
   public reviewsList$ = this.eventDetailsFacade.reviewsList$;
   public users$ = this.eventDetailsFacade.users$;
-  
+
   private id: number;
 
   constructor(

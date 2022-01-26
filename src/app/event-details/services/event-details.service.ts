@@ -7,7 +7,7 @@ import {
   Guest,
   GuestUserAccount,
   LocationData,
-  ReviewsList,
+  ReviewsList
 } from '../interfaces';
 
 import { environment } from '@env/environment';
@@ -55,7 +55,7 @@ export class EventDetailsService {
           of(
             users.filter((u) => {
               if (u.fullname) {
-                return u.fullname.toLowerCase().startsWith(term.toLowerCase())
+                return u.fullname.toLowerCase().startsWith(term.toLowerCase());
               }
             })
           )
@@ -63,19 +63,16 @@ export class EventDetailsService {
       );
   }
 
-  public addUser(
-    userId: number,
-    eventId: number
-  ): Observable<any> {
+  public addUser(userId: number, eventId: number): Observable<any> {
     const params = [
       {
-        'guest_user_account': userId
+        guest_user_account: userId
       }
     ];
 
     return this.http.post<any>(
       `${environment.baseApiUrl}/events/${eventId}/guests`,
       params
-    )
+    );
   }
 }

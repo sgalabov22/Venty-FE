@@ -46,7 +46,7 @@
         <div class="event_details__guests__card">
             <div class="event_details__guests__card--pic">
                 <ng-container *ngIf="guest.guest_user_account.profile_picture !== ''">
-                    <img [src]="guest.guest_user_account.profile_picture" />
+                    <img [src]= "getPicturePath(guest.guest_user_account.profile_picture)" />
                 </ng-container>
                 <ng-container *ngIf="guest.guest_user_account.profile_picture === ''">
                     <img src="assets/images/default-user.png" />

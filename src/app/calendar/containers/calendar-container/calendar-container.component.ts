@@ -6,13 +6,9 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { AuthFacadeService } from '@app/auth';
 import { CustomCalendarUtils } from '@app/calendar/calendar-utils';
 import { CalendarEvent, CalendarUtils, CalendarView } from 'angular-calendar';
-import {
-  endOfWeek,
-  isSameWeek,
-  startOfWeek} from 'date-fns';
+import { endOfWeek, isSameWeek, startOfWeek } from 'date-fns';
 import { Observable, Subject } from 'rxjs';
 import dateFormat from 'dateformat';
 import { CalendarEventsFacadeService } from '@app/calendar';
@@ -124,7 +120,7 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
     );
 
     if (
-      daysBetweenDates === 1 &&
+      (daysBetweenDates === 1 || daysBetweenDates === 0) &&
       event.start.getDay() != endOfWeek(startDate).getDay()
     ) {
       return (daysBetweenDates + 1) * 100 + '%';

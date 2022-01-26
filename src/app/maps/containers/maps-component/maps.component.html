@@ -19,6 +19,54 @@
         </div>
     <app-search-component class="search-results__container">
     </app-search-component>
+
+    <p-dialog
+        (onHide)="closeModal()"
+        [header]="modalTitle"
+        [(visible)]="showCreateEvent"
+        [style]="{ width: '30vw', height: '50vh' }">
+
+        <form class="create-event__form" [formGroup]="createEventForm">
+            <div class="form-control p-float-label p-float-label">
+                <input 
+                    class="p-inputtext-lg" 
+                    id="title-input" 
+                    formControlName="title" 
+                    pInputText type="text" />
+                <label for="title-input" class="text-style-montserrat-regular-20">Event Title</label>
+                <div *ngIf="title.invalid && title.touched" class="input__error p-invalid text-style-montserrat-regular-12">Event title should exist</div>
+            </div>
+            
+            <div class="form-control start-date__container p-float-label">
+                <p-calendar 
+                    formControlName="startDate"
+                    dateFormat="mm-dd-yy"
+                    inputId="startDate-input">
+                </p-calendar>
+                <label for="startDate-input" class="text-style-montserrat-regular-20">Start Date</label>
+                <div *ngIf="startDate.invalid && startDate.touched" class="input__error p-invalid text-style-montserrat-regular-12">Start date should exist</div>
+            </div>
+            <div class="form-control end-date__container p-float-label">
+                <p-calendar 
+                    formControlName="endDate"
+                    [minDate]="getMinDate()"
+                    [defaultDate]="getMinDate()"
+                    dateFormat="mm-dd-yy"
+                    inputId="endDate-input">
+                </p-calendar>
+                <label for="endDate-input" class="text-style-montserrat-regular-20">End Date</label>
+                <div *ngIf="endDate.invalid && endDate.touched" class="input__error p-invalid text-style-montserrat-regular-12">End date should exist</div>
+            </div>
+            <div class="form-control submit-button">
+                <p-button class="p-button-lg" 
+                    type="button"
+                    label="Create event"
+                    (click)="onCreateEvent()"
+                    [disabled]="createEventForm.invalid">
+                </p-button>
+            </div>
+        </form>
+    </p-dialog>
 </div>
 <div id="radius-change" class="radius-change__container">
     <p-selectButton [options]="radiusOptions" [(ngModel)]="selectedRadius"

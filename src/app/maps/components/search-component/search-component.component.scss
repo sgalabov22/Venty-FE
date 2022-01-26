@@ -7,6 +7,10 @@
     margin: 1rem 0 1rem 0;
 }
 
+.search-element__container:hover {
+    cursor: pointer;
+}
+
 .location-description__container {
     display: flex;;
     height: 100%;

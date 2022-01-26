@@ -5,18 +5,18 @@ import { MapsRoutingModule } from './maps-routing.module';
 import { PurpleBackgroundModule } from '@app/resources/purple-background';
 import { InputTextModule } from 'primeng/inputtext';
 import { SearchComponentComponent } from './components/search-component/search-component.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
-import { LocationComponentComponent } from './components/location-component/location-component.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
     MapsComponent,
     SearchComponentComponent,
-    LocationComponentComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +27,10 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     FormsModule,
     MultiSelectModule,
     VirtualScrollerModule,
-    SelectButtonModule
+    SelectButtonModule,
+    DialogModule,
+    CalendarModule,
+    ReactiveFormsModule
   ]
 })
 export class MapsModule {}

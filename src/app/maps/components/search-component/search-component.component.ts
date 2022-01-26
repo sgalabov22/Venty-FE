@@ -42,6 +42,11 @@ export class SearchComponentComponent implements OnDestroy {
     return 'Closed';
   }
 
+  public elementClicked(): void {
+    console.log('jes');
+    this.mapsActionService.changeModalState();
+  }
+
   public getLocationReviews(element: google.maps.places.PlaceResult): string {
     const rating = element.rating;
     const totalReviews = element.user_ratings_total;

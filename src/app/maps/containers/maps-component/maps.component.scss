@@ -63,3 +63,52 @@
     color: rgba(255, 255, 255, 0.6);
 }
   
+.create-event__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    gap: 30px;
+    padding: 1rem 0 0 0;
+}
+
+::ng-deep .create-event__form .p-calendar .p-inputtext {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+}
+
+.form-control {
+    color: #fef8ff;
+    width: 350px;
+}
+
+.create-event__form .p-inputtext {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+}
+
+::ng-deep .p-calendar {
+    width: 100%;
+    outline: none;
+}
+
+.input__error {
+    color: #f19ea6;
+    text-align: center;
+}
+
+::ng-deep .p-dialog-content {
+    overflow-y: inherit !important;
+}
+
+.submit-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

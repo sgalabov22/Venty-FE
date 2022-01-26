@@ -14,7 +14,10 @@ export class MapsActionsService implements OnDestroy {
   public searchResults$: Observable<google.maps.places.PlaceResult[]> =
     this.searchResults$$.asObservable();
 
-  private autocompleteService: google.maps.places.AutocompleteService;
+  private showCreateEvent$$ = new BehaviorSubject<boolean>(false);
+  public showCreateEvent$: Observable<boolean> = 
+    this.showCreateEvent$$.asObservable();
+
   private placesService: google.maps.places.PlacesService;
   private marker: google.maps.Marker;
 
@@ -33,7 +36,6 @@ export class MapsActionsService implements OnDestroy {
   public initMap(nativeElement: any, mapProperties: any): void {
     this.map$$.next(new google.maps.Map(nativeElement, mapProperties));
 
-    this.autocompleteService = new google.maps.places.AutocompleteService();
     this.placesService = new google.maps.places.PlacesService(this.map$$.value);
 
     const map = this.map$$.value;
@@ -47,7 +49,8 @@ export class MapsActionsService implements OnDestroy {
       console.log(JSON.stringify(position));
 
       if (this.isIconMouseEvent(mapsMouseEvent)) {
-        console.log('mqsto e');
+        mapsMouseEvent.stop();
+        this.showCreateEvent$$.next(true);
         this.searchResults$$.next([]);
       } else {
         this.getNearbyPlaces(position);
@@ -69,6 +72,13 @@ export class MapsActionsService implements OnDestroy {
 
   public setOptions(options: string[]): void {
     this.categories = options.map((option: string) => option.toLowerCase());
+  }
+
+  public changeModalState(value?: boolean): void {
+    this.searchResults$$.next([]);
+    value ? 
+      this.showCreateEvent$$.next(value) :
+      this.showCreateEvent$$.next(!this.showCreateEvent$$.value); 
   }
 
   public setSelectedRadius(radius: string): void {

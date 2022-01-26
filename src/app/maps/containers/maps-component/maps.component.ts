@@ -2,13 +2,15 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnInit,
   ViewChild
 } from '@angular/core';
-import { AuthFacadeService } from '@app/auth';
-import { Observable } from 'rxjs';
-import { MapsActionsService } from '../../services';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { EventCreateData } from '@app/maps';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { EventsActionFacadeService, MapsActionsService } from '../../services';
 
 @Component({
   selector: 'app-maps',
@@ -16,7 +18,7 @@ import { MapsActionsService } from '../../services';
   styleUrls: ['./maps.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MapsComponent implements AfterViewInit {
+export class MapsComponent implements OnInit, AfterViewInit {
   @ViewChild('map') mapElement: any;
   public map: Observable<google.maps.Map> = this.mapsActionsService.map$;
 
@@ -30,9 +32,41 @@ export class MapsComponent implements AfterViewInit {
   public selectedRadius: string;
   public radiusOptions: string[] = ['500 meters', '1000 meters', '1500 meters'];
 
+  public modalTitle: string = "Create event";
+  public showCreateEvent$: Observable<boolean> =
+    this.mapsActionsService.showCreateEvent$;
+  public showCreateEvent: boolean = false;
+
+  public createEventForm: FormGroup = this.formBuilder.group({
+    title: ['', [Validators.required]],
+    startDate: ['', [Validators.required]],
+    endDate: ['', [Validators.required]]
+  });
+
+  private unsubscribe$ = new Subject<void>();
+
   constructor(
-    private mapsActionsService: MapsActionsService
+    private mapsActionsService: MapsActionsService,
+    private formBuilder: FormBuilder,
+    private eventsActionsFacade: EventsActionFacadeService,
+    private router: Router
   ) {}
+
+  public ngOnInit(): void {
+    this.showCreateEvent$.pipe(
+      takeUntil(this.unsubscribe$)
+    )
+    .subscribe((value: boolean) => {
+      this.showCreateEvent = value;
+    });
+
+    this.mapsActionsService.changeModalState(false);
+  }
+
+  public ngOnDestroy(): void {
+    this.unsubscribe$.next(null);
+    this.unsubscribe$.complete();
+  }
 
   ngAfterViewInit(): void {
     this.mapInit();
@@ -63,14 +97,7 @@ export class MapsComponent implements AfterViewInit {
     ) as HTMLElement;
 
     const input = document.getElementById('pac-input') as HTMLInputElement;
-    const options = {
-      // bounds: defaultBounds,
-      // componentRestrictions: { country: "us" },
-      // fields: ["address_components", "geometry", "icon", "name"],
-      // strictBounds: false,
-      // types: ['establishment']
-    };
-    const autocomplete = new google.maps.places.Autocomplete(input, options);
+    const autocomplete = new google.maps.places.Autocomplete(input);
 
     this.mapsActionsService.loadSearchBox(searchContainer, autocomplete);
   }
@@ -91,6 +118,11 @@ export class MapsComponent implements AfterViewInit {
     this.mapsActionsService.setOptions(this.selectedOptions);
   }
 
+  public closeModal(): void {
+    console.log('closing');
+    this.mapsActionsService.changeModalState();
+  }
+
   public onKey(value: string): void {
     console.log(value);
   }
@@ -105,5 +137,38 @@ export class MapsComponent implements AfterViewInit {
     locationButton.classList.add('custom-map-control-button');
 
     this.mapsActionsService.loadCurrentLocation(locationButton);
+  }
+
+  public get title(): FormControl {
+    return this.createEventForm.get('title') as FormControl;
+  }
+
+  public get startDate(): FormControl {
+    return this.createEventForm.get('startDate') as FormControl;
+  }
+
+  public get endDate(): FormControl {
+    return this.createEventForm.get('endDate') as FormControl;
+  }
+
+  public onCreateEvent(): void {
+    console.log('create');
+
+    const bodyParams: EventCreateData = {
+      event_title: this.title.value,
+      start_date: this.startDate.value,
+      end_date: this.endDate.value,
+      agenda: 'test123',
+      description: 'test123',
+      goal: 'test123',
+      location_id: '1234asdf'
+    };
+
+    this.eventsActionsFacade.createEvent(bodyParams);
+    this.router.navigate(['calendar']);
+  }
+
+  public getMinDate(): Date {
+    return new Date(this.startDate.value);
   }
 }
