@@ -120,7 +120,7 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
     );
 
     if (
-      (daysBetweenDates === 1) &&
+      daysBetweenDates === 1 &&
       event.start.getDay() != endOfWeek(startDate).getDay()
     ) {
       return (daysBetweenDates + 1) * 100 + '%';
