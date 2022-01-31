@@ -15,7 +15,7 @@ export class MapsActionsService implements OnDestroy {
     this.searchResults$$.asObservable();
 
   private showCreateEvent$$ = new BehaviorSubject<boolean>(false);
-  public showCreateEvent$: Observable<boolean> = 
+  public showCreateEvent$: Observable<boolean> =
     this.showCreateEvent$$.asObservable();
 
   private placesService: google.maps.places.PlacesService;
@@ -76,9 +76,9 @@ export class MapsActionsService implements OnDestroy {
 
   public changeModalState(value?: boolean): void {
     this.searchResults$$.next([]);
-    value ? 
-      this.showCreateEvent$$.next(value) :
-      this.showCreateEvent$$.next(!this.showCreateEvent$$.value); 
+    value != null
+      ? this.showCreateEvent$$.next(value)
+      : this.showCreateEvent$$.next(!this.showCreateEvent$$.value);
   }
 
   public setSelectedRadius(radius: string): void {

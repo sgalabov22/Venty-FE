@@ -14,10 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
-  declarations: [
-    MapsComponent,
-    SearchComponentComponent,
-  ],
+  declarations: [MapsComponent, SearchComponentComponent],
   imports: [
     CommonModule,
     MapsRoutingModule,

@@ -5,7 +5,12 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventCreateData } from '@app/maps';
 import { Observable, Subject } from 'rxjs';
@@ -32,10 +37,10 @@ export class MapsComponent implements OnInit, AfterViewInit {
   public selectedRadius: string;
   public radiusOptions: string[] = ['500 meters', '1000 meters', '1500 meters'];
 
-  public modalTitle: string = "Create event";
+  public modalTitle = 'Create event';
   public showCreateEvent$: Observable<boolean> =
     this.mapsActionsService.showCreateEvent$;
-  public showCreateEvent: boolean = false;
+  public showCreateEvent = false;
 
   public createEventForm: FormGroup = this.formBuilder.group({
     title: ['', [Validators.required]],
@@ -53,12 +58,11 @@ export class MapsComponent implements OnInit, AfterViewInit {
   ) {}
 
   public ngOnInit(): void {
-    this.showCreateEvent$.pipe(
-      takeUntil(this.unsubscribe$)
-    )
-    .subscribe((value: boolean) => {
-      this.showCreateEvent = value;
-    });
+    this.showCreateEvent$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((value: boolean) => {
+        this.showCreateEvent = value;
+      });
 
     this.mapsActionsService.changeModalState(false);
   }
