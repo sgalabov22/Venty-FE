@@ -168,6 +168,7 @@ export class MapsComponent implements OnInit, AfterViewInit {
       location_id: '1234asdf'
     };
 
+    console.log(bodyParams);
     this.eventsActionsFacade.createEvent(bodyParams);
     this.router.navigate(['calendar']);
   }

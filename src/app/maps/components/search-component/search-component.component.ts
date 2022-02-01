@@ -9,11 +9,9 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./search-component.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponentComponent implements OnDestroy {
+export class SearchComponentComponent {
   public searchResults$: Observable<google.maps.places.PlaceResult[]> =
     this.mapsActionService.searchResults$;
-
-  private unsubscribe$ = new Subject<void>();
 
   constructor(private mapsActionService: MapsActionsService) {}
 
@@ -59,10 +57,5 @@ export class SearchComponentComponent implements OnDestroy {
     }
 
     return results.length * 180 + 'px';
-  }
-
-  public ngOnDestroy(): void {
-    this.unsubscribe$.next(null);
-    this.unsubscribe$.complete();
   }
 }

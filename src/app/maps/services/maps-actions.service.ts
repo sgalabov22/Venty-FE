@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MapsActionsService implements OnDestroy {
+export class MapsActionsService {
   private map$$ = new BehaviorSubject<google.maps.Map>(null);
   public map$: Observable<google.maps.Map> = this.map$$.asObservable();
 
@@ -25,13 +25,6 @@ export class MapsActionsService implements OnDestroy {
   public stopLoading = false;
   private categories: string[] = [];
   private selectedRadius = 500;
-
-  private unsubscribe$ = new Subject<void>();
-
-  public ngOnDestroy(): void {
-    this.unsubscribe$.next(null);
-    this.unsubscribe$.complete();
-  }
 
   public initMap(nativeElement: any, mapProperties: any): void {
     this.map$$.next(new google.maps.Map(nativeElement, mapProperties));
