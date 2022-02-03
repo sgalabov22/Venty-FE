@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MapsActionsService } from '@app/maps/services';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-search-component',
@@ -19,7 +18,6 @@ export class SearchComponentComponent {
     if (this.mapsActionService.stopLoading) return;
 
     this.mapsActionService.stopLoading = true;
-    console.log('lazy load');
     this.mapsActionService.loadNextPage();
   }
 
@@ -40,8 +38,9 @@ export class SearchComponentComponent {
     return 'Closed';
   }
 
-  public elementClicked(): void {
-    console.log('jes');
+  public elementClicked(place: google.maps.places.PlaceResult): void {
+    console.log(place.place_id);
+    this.mapsActionService.selectedPlace = place.place_id;
     this.mapsActionService.changeModalState();
   }
 

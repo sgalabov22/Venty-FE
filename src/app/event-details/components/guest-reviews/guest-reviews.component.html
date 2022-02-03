@@ -1,22 +1,63 @@
 <div class="event_details__guest-reviews">
     <div class="event_details__guest-reviews__titles">
-        <h3 class="text-style-montserrat-medium-20">Reviews ({{reviewsList.count}})</h3>
+        <h3 class="text-style-montserrat-medium-20">Reviews ({{ reviewsList.length }})</h3>
     </div>
 
-    <div *ngFor="let review of reviewsList.reviews" class="event_details__guest-reviews__card__container">
+    <ng-container *ngIf="reviewsList">
+        <ng-container  *ngTemplateOutlet="reviewsTemplate; context:{ count: 2 }">
+        </ng-container >
+
+        <p class="event_details__guest-reviews__see-all 
+            text-style-montserrat-medium-15"
+            (click)="showAllReviews=true">
+            see all
+        </p>
+
+        <p-dialog
+            (onHide)="closeModal()"
+            [header]="modalTitle"
+            [(visible)]="showAllReviews"
+            [style]="{ width: '50vw', height: '80vh' }">
+
+            <ng-container class="event_details__guests__users">
+                <div *ngFor="let review of reviewsList" class="event_details__guest-reviews__card__container">
+                    <div class="event_details__guest-reviews__card">
+                        <div class="event_details__guest-reviews__card--pic">
+                            <img src="{{ review.profile_photo_url }}" />
+                        </div>
+                        <div class="event_details__guest-reviews__card--text">
+                            <h5 class="event_details__guest-reviews__card--name text-style-montserrat-medium-15">{{review.author_name}}</h5>
+                            <p-rating [ngModel]="review.rating" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
+                            <p>{{ review.text }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="event_details__guest-reviews__card--review-date text-style-montserrat-medium-15">
+                        <p>{{review.relative_time_description}}</p>
+                    </div>
+                </div>
+            </ng-container>
+
+            <!-- <ng-container *ngTemplateOutlet="
+                guestsTemplate; context:{ count: guestList.length }">
+            </ng-container> -->
+        </p-dialog>
+    </ng-container>
+</div>
+
+<ng-template #reviewsTemplate let-count="count">
+    <div *ngFor="let review of reviewsList | slice: 0:count" class="event_details__guest-reviews__card__container">
         <div class="event_details__guest-reviews__card">
             <div class="event_details__guest-reviews__card--pic">
-                <img src="/assets/images/profile-pic-female.png" />
+                <img src="{{ review.profile_photo_url }}" />
             </div>
             <div class="event_details__guest-reviews__card--text">
-                <h5 class="event_details__guest-reviews__card--name text-style-montserrat-medium-15">{{review.fullName}}</h5>
+                <h5 class="event_details__guest-reviews__card--name text-style-montserrat-medium-15">{{review.author_name}}</h5>
                 <p-rating [ngModel]="review.rating" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
             </div>
         </div>
         <div class="event_details__guest-reviews__card--review-date text-style-montserrat-medium-15">
-            <p>{{review.createdOn}}</p>
+            <p>{{review.relative_time_description}}</p>
         </div>
     </div>
-
-    <p class="event_details__guest-reviews__see-all text-style-montserrat-medium-15">see all</p>
-</div>
+</ng-template>

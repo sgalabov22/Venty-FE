@@ -90,7 +90,7 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
 
     secondPartPrevEvents.forEach((prevEvent: CalendarEvent) => {
       if (firstPartEvents.includes(prevEvent)) {
-        console.log(prevEvent); 
+        console.log(prevEvent);
         firstPartEvents.splice(firstPartEvents.indexOf(prevEvent), 1);
         secondPartEvents.push(prevEvent);
         firstPartEvents.push(secondPartEvents.splice(0, 1)[0]);

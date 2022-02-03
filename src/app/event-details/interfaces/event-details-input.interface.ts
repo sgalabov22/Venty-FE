@@ -28,22 +28,20 @@ export interface GuestUserAccount {
   profile_picture: string;
 }
 
-export interface LocationData {
-  images: {
-    url: string;
-  }[];
-  name: string;
-  location: string;
-  openTime: string;
-  closingTime: string;
-  fbPage: string;
-}
+// export interface LocationWorkingHours {
+//   weekdayText: string[];
+// }
 
-export interface ReviewsList {
-  reviews: {
-    fullName: string;
-    rating: number;
-    createdOn: string;
-  };
-  count: number;
-}
+// export interface LocationData {
+//   formattedAddress: string;
+//   geometry: google.maps.LatLng;
+//   internationalPhoneNumber: string;
+//   name: string;
+//   openingHours: LocationWorkingHours;
+//   photos: google.maps.places.PlacePhoto[];
+//   placeId: string;
+//   rating: number;
+//   reviews: google.maps.places.PlaceReview[];
+//   userRatingsTotal: number;
+//   website: string;
+// }

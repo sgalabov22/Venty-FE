@@ -7,7 +7,7 @@
             [value]="searchResults" (onLazyLoad)="loadResultsLazy()">
             <ng-template let-result pTemplate="item">
                 <div class="search-element__container"
-                    (click)="elementClicked()">
+                    (click)="elementClicked(result)">
                     <div class="image__container">
                         <img src="{{ getImageUrl(result) }}"
                         onerror="if (this.src != 'assets/images/no-photo.jpg') this.src = 'assets/images/no-photo.jpg';">

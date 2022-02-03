@@ -3,7 +3,7 @@
         <h1 class="event-details__title--marketing">{{eventInfo.event_title}}</h1>
         <p><i class="pi pi-calendar"></i>{{eventInfo.start_date | date: 'HH:mm | dd MMMM yyyy'}}</p>
     </div>
-    <app-info-tabs [infoTextData]="{ goal: eventInfo.goal, agenda: eventInfo.agenda, description: eventInfo.description }" class="event_details__info"></app-info-tabs>
+    <app-info-tabs [infoTextData]="{ description: eventInfo.description }" class="event_details__info"></app-info-tabs>
     <app-guests-list
         (onSearchLoadUsers)="loadSearchUsers($event)"
         (onCloseGuestsModal)="clearUsers()" 
