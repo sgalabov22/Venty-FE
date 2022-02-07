@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 import { MapsActionsService } from '@app/maps';
 import { BehaviorSubject } from 'rxjs';
 import { EventDetailsService } from '.';
-import {
-  EventInfo,
-  Guest,
-  GuestUserAccount,
-} from '../interfaces';
+import { EventInfo, Guest, GuestUserAccount } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'

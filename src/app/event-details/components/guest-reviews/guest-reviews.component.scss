@@ -14,12 +14,19 @@
 .event_details__guest-reviews__titles,
 .event_details__guest-reviews__card__container,
 .event_details__guest-reviews__card,
-.event_details__guest-reviews__card--text {
+.event_details__guest-reviews__card--text,
+.event-details__guest-revies__top-card {
     display: flex;
 }
 
-.event_details__guest-reviews__card__container {
+.event_details__guest-reviews__card__container,
+.event-details__guest-revies__top-card {
     justify-content: space-between;
+}
+
+.event_details__guest-reviews__card,
+.event_details__guest-reviews__card--text {
+    width: 100%;
 }
 
 .event_details__guest-reviews,

@@ -2,11 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import {
-  EventInfo,
-  Guest,
-  GuestUserAccount,
-} from '../interfaces';
+import { EventInfo, Guest, GuestUserAccount } from '../interfaces';
 
 import { environment } from '@env/environment';
 

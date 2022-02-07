@@ -27,15 +27,12 @@ export class EventDetailsCarouselComponent implements OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['locationData']) {
-      // console.log(this.locationData?.photos);
       this.imageUrls = this.locationData?.photos?.map((i) => {
-        // console.log(i);
         return i.getUrl({
           maxHeight: 500,
           maxWidth: 500
         });
-      }
-      );
+      });
     }
   }
 }

@@ -9,9 +9,8 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 export class GuestReviewsComponent {
   @Input() reviewsList: google.maps.places.PlaceReview[];
 
-  public showAllReviews: boolean = false;
-  public modalTitle: string = "Place Reviews";
-
+  public showAllReviews = false;
+  public modalTitle = 'Place Reviews';
 
   public closeModal(): void {
     console.log('closing');

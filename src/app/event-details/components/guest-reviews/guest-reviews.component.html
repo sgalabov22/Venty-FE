@@ -26,15 +26,21 @@
                             <img src="{{ review.profile_photo_url }}" />
                         </div>
                         <div class="event_details__guest-reviews__card--text">
-                            <h5 class="event_details__guest-reviews__card--name text-style-montserrat-medium-15">{{review.author_name}}</h5>
-                            <p-rating [ngModel]="review.rating" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
+                            <div class="event-details__guest-revies__top-card">
+                                <div>
+                                    <h5 class="event_details__guest-reviews__card--name text-style-montserrat-medium-15">{{review.author_name}}</h5>
+                                    <p-rating [ngModel]="review.rating" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
+                                </div>
+                                <div class="event_details__guest-reviews__card--review-date text-style-montserrat-medium-15">
+                                    <p>{{review.relative_time_description}}</p>
+                                </div>
+                            </div>
+
                             <p>{{ review.text }}</p>
                         </div>
                     </div>
                     
-                    <div class="event_details__guest-reviews__card--review-date text-style-montserrat-medium-15">
-                        <p>{{review.relative_time_description}}</p>
-                    </div>
+                    
                 </div>
             </ng-container>
 

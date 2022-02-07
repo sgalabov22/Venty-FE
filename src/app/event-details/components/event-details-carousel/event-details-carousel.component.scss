@@ -44,7 +44,6 @@
         display: flex;
     }
 
-
     .location-working-hours__container {
         display: flex;
     }
@@ -66,8 +65,9 @@
         position: absolute;
         left: 0;
         top: 0;
-        width: 100%;
         height: auto;
+        width: 100%;
+        // object-fit: contain;
     }
 }
 

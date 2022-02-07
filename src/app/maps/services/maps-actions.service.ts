@@ -18,13 +18,14 @@ export class MapsActionsService {
   public showCreateEvent$: Observable<boolean> =
     this.showCreateEvent$$.asObservable();
 
-  private selectedPlaceDetails$$ = 
+  private selectedPlaceDetails$$ =
     new BehaviorSubject<google.maps.places.PlaceResult>(null);
   public selectedPlaceDetails$: Observable<google.maps.places.PlaceResult> =
-   this.selectedPlaceDetails$$.asObservable();
+    this.selectedPlaceDetails$$.asObservable();
 
-  private selectedPlaceReviews$$ = 
-    new BehaviorSubject<google.maps.places.PlaceReview[]>([]);
+  private selectedPlaceReviews$$ = new BehaviorSubject<
+    google.maps.places.PlaceReview[]
+  >([]);
   public selectedPlaceReviews$: Observable<google.maps.places.PlaceReview[]> =
     this.selectedPlaceReviews$$.asObservable();
 
@@ -63,7 +64,6 @@ export class MapsActionsService {
 
       if (this.isIconMouseEvent(mapsMouseEvent)) {
         mapsMouseEvent.stop();
-        // this.getPlaceDetails(mapsMouseEvent['placeId']);
         this.selectedPlace = mapsMouseEvent['placeId'];
         this.showCreateEvent$$.next(true);
         this.searchResults$$.next([]);
@@ -171,7 +171,7 @@ export class MapsActionsService {
 
   public loadPlaceDetails(): void {
     this.initMap(document.createElement('div'));
-    this.selectedPlace = "ChIJ913ebRWFqkARekJtLA1blj0";
+    this.selectedPlace = 'ChIJ913ebRWFqkARekJtLA1blj0';
     const request = {
       placeId: this.selectedPlace
     };
@@ -183,8 +183,6 @@ export class MapsActionsService {
         place.geometry &&
         place.geometry.location
       ) {
-        console.log('Place details: ');
-        console.log(place);
         this.selectedPlaceDetails$$.next(place);
         this.selectedPlaceReviews$$.next(place.reviews);
       }
