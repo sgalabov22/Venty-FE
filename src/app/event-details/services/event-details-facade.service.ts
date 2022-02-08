@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin } from 'rxjs';
+import { MapsActionsService } from '@app/maps';
+import { BehaviorSubject } from 'rxjs';
 import { EventDetailsService } from '.';
-import {
-  EventInfo,
-  Guest,
-  GuestUserAccount,
-  LocationData,
-  ReviewsList
-} from '../interfaces';
+import { EventInfo, Guest, GuestUserAccount } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -16,19 +11,22 @@ export class EventDetailsFacadeService {
   private eventInfo$$ = new BehaviorSubject<EventInfo>(null);
   public eventInfo$ = this.eventInfo$$.asObservable();
 
-  private guestList$$ = new BehaviorSubject<Guest[]>(null);
+  private guestList$$ = new BehaviorSubject<Guest[]>([]);
   public guestList$ = this.guestList$$.asObservable();
 
-  private locationData$$ = new BehaviorSubject<LocationData>(null);
-  public locationData$ = this.locationData$$.asObservable();
+  // private locationData$$ = new BehaviorSubject<google.maps.places.PlaceResult>(null);
+  public locationData$ = this.mapsActionsService.selectedPlaceDetails$;
 
-  private reviewsList$$ = new BehaviorSubject<ReviewsList>(null);
-  public reviewsList$ = this.reviewsList$$.asObservable();
+  // private reviewsList$$ = new BehaviorSubject<google.maps.places.PlaceReview[]>([]);
+  public reviewsList$ = this.mapsActionsService.selectedPlaceReviews$;
 
   private users$$ = new BehaviorSubject<GuestUserAccount[]>([]);
   public users$ = this.users$$.asObservable();
 
-  constructor(private eventDetailsService: EventDetailsService) {}
+  constructor(
+    private eventDetailsService: EventDetailsService,
+    private mapsActionsService: MapsActionsService
+  ) {}
 
   public loadEventInfo(eventId: number): void {
     this.eventDetailsService.getEventInfo(eventId).subscribe((eventInfo) => {
@@ -43,13 +41,11 @@ export class EventDetailsFacadeService {
   }
 
   public loadLocationData(): void {
-    forkJoin([
-      this.eventDetailsService.getLocationData(),
-      this.eventDetailsService.getReviewsList()
-    ]).subscribe(([locationData, reviewsList]) => {
-      this.locationData$$.next(locationData);
-      this.reviewsList$$.next(reviewsList);
-    });
+    this.mapsActionsService.loadPlaceDetails();
+    // this.eventDetailsService.getLocationData().subscribe((locationData) => {
+    //   this.locationData$$.next(locationData);
+    //   this.reviewsList$$.next(locationData.reviews);
+    // });
   }
 
   public loadSearchUsers(term: string, eventId: number): void {
@@ -72,8 +68,8 @@ export class EventDetailsFacadeService {
   public clearData(): void {
     this.eventInfo$$.next(null);
     this.guestList$$.next(null);
-    this.locationData$$.next(null);
-    this.reviewsList$$.next(null);
+    // this.locationData$$.next(null);
+    // this.reviewsList$$.next(null);
     this.users$$.next(null);
   }
 }

@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MapsActionsService implements OnDestroy {
+export class MapsActionsService {
   private map$$ = new BehaviorSubject<google.maps.Map>(null);
   public map$: Observable<google.maps.Map> = this.map$$.asObservable();
 
@@ -18,22 +18,36 @@ export class MapsActionsService implements OnDestroy {
   public showCreateEvent$: Observable<boolean> =
     this.showCreateEvent$$.asObservable();
 
+  private selectedPlaceDetails$$ =
+    new BehaviorSubject<google.maps.places.PlaceResult>(null);
+  public selectedPlaceDetails$: Observable<google.maps.places.PlaceResult> =
+    this.selectedPlaceDetails$$.asObservable();
+
+  private selectedPlaceReviews$$ = new BehaviorSubject<
+    google.maps.places.PlaceReview[]
+  >([]);
+  public selectedPlaceReviews$: Observable<google.maps.places.PlaceReview[]> =
+    this.selectedPlaceReviews$$.asObservable();
+
   private placesService: google.maps.places.PlacesService;
   private marker: google.maps.Marker;
+
+  public selectedPlace: string = null;
 
   private getNextPage: () => void | false;
   public stopLoading = false;
   private categories: string[] = [];
   private selectedRadius = 500;
 
-  private unsubscribe$ = new Subject<void>();
+  public initMap(nativeElement: any): void {
+    const mapProperties = {
+      center: new google.maps.LatLng(42.69512293711063, 23.321151902018464),
+      zoom: 13,
+      mapId: '46e9a02490e5def9',
+      fullscreenControl: false,
+      mapTypeControl: false
+    };
 
-  public ngOnDestroy(): void {
-    this.unsubscribe$.next(null);
-    this.unsubscribe$.complete();
-  }
-
-  public initMap(nativeElement: any, mapProperties: any): void {
     this.map$$.next(new google.maps.Map(nativeElement, mapProperties));
 
     this.placesService = new google.maps.places.PlacesService(this.map$$.value);
@@ -50,6 +64,7 @@ export class MapsActionsService implements OnDestroy {
 
       if (this.isIconMouseEvent(mapsMouseEvent)) {
         mapsMouseEvent.stop();
+        this.selectedPlace = mapsMouseEvent['placeId'];
         this.showCreateEvent$$.next(true);
         this.searchResults$$.next([]);
       } else {
@@ -154,49 +169,22 @@ export class MapsActionsService implements OnDestroy {
     });
   }
 
-  // public loadPredictions(value: string): void {
-  //   const getPredictions = (
-  //     predictions: google.maps.places.QueryAutocompletePrediction[] | null,
-  //     status: google.maps.places.PlacesServiceStatus
-  //   ): void => {
-  //     if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {
-  //       return;
-  //     }
-
-  //     predictions.forEach((prediction: google.maps.places.QueryAutocompletePrediction) => {
-  //       this.getPlaceDetails(prediction.place_id);
-  //     });
-
-  //     console.log('alo')
-  //     this.mapPredictions$$.next(this.tempMapPredictions$$.value);
-  //     this.tempMapPredictions$$.next([]);
-  //   };
-
-  //   if (value && value.length > 0) {
-  //     this.autocompleteService.getQueryPredictions({ input: value }, getPredictions);
-
-  //   }
-  // }
-
-  private getPlaceDetails(placeId: string): void {
+  public loadPlaceDetails(): void {
+    this.initMap(document.createElement('div'));
+    this.selectedPlace = 'ChIJ913ebRWFqkARekJtLA1blj0';
     const request = {
-      placeId: placeId
+      placeId: this.selectedPlace
     };
-    const service = new google.maps.places.PlacesService(this.map$$.value);
-    service.getDetails(request, (place, status) => {
+
+    this.placesService.getDetails(request, (place, status) => {
       if (
         status === google.maps.places.PlacesServiceStatus.OK &&
         place &&
         place.geometry &&
         place.geometry.location
       ) {
-        console.log('Place details: ');
-        console.log(place);
-        // if (!this.tempMapPredictions$$.value.includes(place)) {
-        //   this.tempMapPredictions$$.next(
-        //     this.tempMapPredictions$$.getValue().concat(place)
-        //   );
-        // }
+        this.selectedPlaceDetails$$.next(place);
+        this.selectedPlaceReviews$$.next(place.reviews);
       }
     });
   }
@@ -232,14 +220,4 @@ export class MapsActionsService implements OnDestroy {
       this.marker.setVisible(true);
     });
   }
-
-  // private clearMarkers() {
-  //   for (let i = 0; i < this.markers.length; i++) {
-  //     if (this.markers[i]) {
-  //       this.markers[i].setMap(null);
-  //     }
-  //   }
-
-  //   this.markers = [];
-  // }
 }

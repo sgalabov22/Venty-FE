@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MapsActionsService } from '@app/maps/services';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-search-component',
@@ -9,11 +8,9 @@ import { Observable, Subject } from 'rxjs';
   styleUrls: ['./search-component.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponentComponent implements OnDestroy {
+export class SearchComponentComponent {
   public searchResults$: Observable<google.maps.places.PlaceResult[]> =
     this.mapsActionService.searchResults$;
-
-  private unsubscribe$ = new Subject<void>();
 
   constructor(private mapsActionService: MapsActionsService) {}
 
@@ -21,7 +18,6 @@ export class SearchComponentComponent implements OnDestroy {
     if (this.mapsActionService.stopLoading) return;
 
     this.mapsActionService.stopLoading = true;
-    console.log('lazy load');
     this.mapsActionService.loadNextPage();
   }
 
@@ -42,8 +38,9 @@ export class SearchComponentComponent implements OnDestroy {
     return 'Closed';
   }
 
-  public elementClicked(): void {
-    console.log('jes');
+  public elementClicked(place: google.maps.places.PlaceResult): void {
+    console.log(place.place_id);
+    this.mapsActionService.selectedPlace = place.place_id;
     this.mapsActionService.changeModalState();
   }
 
@@ -59,10 +56,5 @@ export class SearchComponentComponent implements OnDestroy {
     }
 
     return results.length * 180 + 'px';
-  }
-
-  public ngOnDestroy(): void {
-    this.unsubscribe$.next(null);
-    this.unsubscribe$.complete();
   }
 }

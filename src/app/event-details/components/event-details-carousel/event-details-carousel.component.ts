@@ -5,7 +5,6 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core';
-import { LocationData, ReviewsList } from '@app/event-details/interfaces';
 import {
   faMapMarkerAlt,
   faClock,
@@ -20,15 +19,20 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventDetailsCarouselComponent implements OnChanges {
-  @Input() locationData: LocationData;
-  @Input() reviewsList: ReviewsList;
+  @Input() locationData: google.maps.places.PlaceResult;
+  @Input() reviewsList: google.maps.places.PlaceReview[];
 
   public imageUrls: string[];
   public faIcons: IconDefinition[] = [faMapMarkerAlt, faClock, faLink];
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['locationData']) {
-      this.imageUrls = this.locationData?.images?.map((i) => i.url);
+      this.imageUrls = this.locationData?.photos?.map((i) => {
+        return i.getUrl({
+          maxHeight: 500,
+          maxWidth: 500
+        });
+      });
     }
   }
 }

@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { ReviewsList } from '@app/event-details/interfaces';
 
 @Component({
   selector: 'app-guest-reviews',
@@ -8,5 +7,12 @@ import { ReviewsList } from '@app/event-details/interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GuestReviewsComponent {
-  @Input() reviewsList: ReviewsList;
+  @Input() reviewsList: google.maps.places.PlaceReview[];
+
+  public showAllReviews = false;
+  public modalTitle = 'Place Reviews';
+
+  public closeModal(): void {
+    console.log('closing');
+  }
 }

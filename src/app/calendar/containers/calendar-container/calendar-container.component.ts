@@ -39,12 +39,7 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
   public events$: Observable<CalendarEvent[]> =
     this.calendarEventsFacade.events$;
 
-  private colors: any = {
-    default: '#8c6fec'
-  };
-
   private darkThemeClass = 'dark-theme';
-  private unsubscribe$ = new Subject<void>();
   private prevEvents: CalendarEvent[] = [];
 
   constructor(
@@ -95,6 +90,7 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
 
     secondPartPrevEvents.forEach((prevEvent: CalendarEvent) => {
       if (firstPartEvents.includes(prevEvent)) {
+        console.log(prevEvent);
         firstPartEvents.splice(firstPartEvents.indexOf(prevEvent), 1);
         secondPartEvents.push(prevEvent);
         firstPartEvents.push(secondPartEvents.splice(0, 1)[0]);
@@ -102,7 +98,22 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
     });
 
     events = firstPartEvents.concat(secondPartEvents);
-    events = events.filter((value) => !!value);
+    if (date.getDate() === 20) {
+      console.log(events);
+      console.log(firstPartEvents);
+      console.log(secondPartEvents);
+    }
+    events = events
+      .filter((value) => !!value)
+      .sort((e1: CalendarEvent, e2: CalendarEvent) => {
+        if (e1.start > e2.start) {
+          return 1;
+        } else if (e1.end < e2.end) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
     this.prevEvents = events;
     return events;
   }
@@ -120,7 +131,7 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
     );
 
     if (
-      daysBetweenDates === 1 &&
+      daysBetweenDates <= 1 &&
       event.start.getDay() != endOfWeek(startDate).getDay()
     ) {
       return (daysBetweenDates + 1) * 100 + '%';
@@ -131,7 +142,5 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.document.body.classList.remove(this.darkThemeClass);
-    this.unsubscribe$.next(null);
-    this.unsubscribe$.complete();
   }
 }

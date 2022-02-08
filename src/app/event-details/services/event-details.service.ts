@@ -1,14 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
-import {
-  EventInfo,
-  Guest,
-  GuestUserAccount,
-  LocationData,
-  ReviewsList
-} from '../interfaces';
+import { map, switchMap } from 'rxjs/operators';
+import { EventInfo, Guest, GuestUserAccount } from '../interfaces';
 
 import { environment } from '@env/environment';
 
@@ -30,13 +24,27 @@ export class EventDetailsService {
     );
   }
 
-  public getLocationData(): Observable<LocationData> {
-    return this.http.get<LocationData>('/assets/mocks/location-info.json');
-  }
-
-  public getReviewsList(): Observable<ReviewsList> {
-    return this.http.get<ReviewsList>('/assets/mocks/reviews-list.json');
-  }
+  // public getLocationData(): Observable<LocationData> {
+  //   return this.http.get<google.maps.places.PlaceResult>('/assets/mocks/location-info.json')
+  //     .pipe(
+  //       map((result: google.maps.places.PlaceResult) => ({
+  //           formattedAddress: result.formatted_address,
+  //           geometry: result.geometry.location,
+  //           internationalPhoneNumber: result.international_phone_number,
+  //           name: result.name,
+  //           openingHours: {
+  //             weekdayText: result.opening_hours.weekday_text
+  //           } as LocationWorkingHours,
+  //           photos: result.photos,
+  //           placeId: result.place_id,
+  //           rating: result.rating,
+  //           reviews: result.reviews,
+  //           userRatingsTotal: result.user_ratings_total,
+  //           website: result.website
+  //         } as LocationData)
+  //       )
+  //     );
+  // }
 
   public searchUsers(
     term: string,

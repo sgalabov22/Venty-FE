@@ -81,18 +81,7 @@ export class MapsComponent implements OnInit, AfterViewInit {
   }
 
   private mapInit(): void {
-    const mapProperties = {
-      center: new google.maps.LatLng(42.69512293711063, 23.321151902018464),
-      zoom: 13,
-      mapId: '46e9a02490e5def9',
-      fullscreenControl: false,
-      mapTypeControl: false
-    };
-
-    this.mapsActionsService.initMap(
-      this.mapElement.nativeElement,
-      mapProperties
-    );
+    this.mapsActionsService.initMap(this.mapElement.nativeElement);
   }
 
   private initSearchBox(): void {
@@ -156,18 +145,82 @@ export class MapsComponent implements OnInit, AfterViewInit {
   }
 
   public onCreateEvent(): void {
-    console.log('create');
+    console.log(this.mapsActionsService.selectedPlace);
 
     const bodyParams: EventCreateData = {
       event_title: this.title.value,
       start_date: this.startDate.value,
       end_date: this.endDate.value,
-      agenda: 'test123',
       description: 'test123',
-      goal: 'test123',
-      location_id: '1234asdf'
+      location: {
+        geometry: {
+          lat: -33.866489,
+          lng: 151.1958561
+        },
+        opening_hours: {
+          weekly_text: [
+            'Monday: 9:00 AM – 5:00 PM',
+            'Tuesday: 9:00 AM – 5:00 PM',
+            'Wednesday: 9:00 AM – 5:00 PM',
+            ' Thursday: 9:00 AM – 5:00 PM',
+            ' Friday: 9:00 AM – 5:00 PM',
+            'Saturday: Closed',
+            'Sunday: Closed'
+          ]
+        },
+        photos: [
+          {
+            height: 3024,
+            width: 4032,
+            html_attributes:
+              '\'<a href="https://maps.google.com/maps/contrib/1050673738'
+          },
+          {
+            height: 3264,
+            width: 4912,
+            html_attributes:
+              '\'<a href="https://maps.google.com/maps/contrib/102493344958625549078">Heyang Li</a>\','
+          },
+          {
+            height: 3,
+            width: 3,
+            html_attributes:
+              '\'<a href="https://maps.google.com/maps/contrib/102493344958625549078">Heyang Li</a>\','
+          }
+        ],
+        reviews: [
+          {
+            author_name: 'Mark Smith (Mark ZZZ Smith)',
+            author_url:
+              'https://www.google.com/maps/contrib/109015045837507592030/reviews',
+            profile_photo_url:
+              'https://lh3.googleusercontent.com/a-/AOh14Gi-thk-CV41Ymw9Udvr0O5WL8Iguf9HYAKKyEWDxw=s128-c0x00000000-cc-rp-mo',
+            rating: 5,
+            relative_time_description: 'a year ago',
+            text: 'Great place to visit, cafeteria great. Also has a good toilet.'
+          },
+          {
+            author_name: 'Agent Cliff (The Mediator)',
+            author_url:
+              'https://www.google.com/maps/contrib/100253428394439543029/reviews',
+            profile_photo_url:
+              'https://lh3.googleusercontent.com/a-/AOh14GhSLTmC1QVzI8oXWkDvqv_fTq1Xmm7_gM2udfRlbw=s128-c0x00000000-cc-rp-mo-ba3',
+            rating: 4,
+            relative_time_description: '5 months ago',
+            text: 'Had an office tour here a few years ago and absolutely loved the look of it , as an AV person I was very impressed with the meeting rooms and loved the themes. Most of the staff were generally friendly and I was offered a range of different waters when waiting at reception.\\n\\nThe office'
+          }
+        ],
+        formatted_address: '48 Pirrama Rd, Pyrmont NSW 2009, Australia',
+        international_phone_number: '+61 2 9374 4000',
+        name: 'Google Workplace 6',
+        place_id: 'ChIJN1t_tDeuEmsRUsoyG83frY4',
+        rating: 4.1,
+        user_rating_total: 932,
+        website: 'http://google.com/'
+      }
     };
 
+    console.log(bodyParams);
     this.eventsActionsFacade.createEvent(bodyParams);
     this.router.navigate(['calendar']);
   }

@@ -1,17 +1,9 @@
 <div class="event_details__info">
     <div class="event_details__info__buttons">
-        <p class="event_details__info--btn text-style-roboto-regular-25" (click)="changeTab('agenda')">Agenda</p>
-        <p class="event_details__info--btn text-style-roboto-regular-25" (click)="changeTab('goals')">Goals</p>
-        <p class="event_details__info--btn text-style-roboto-regular-25" (click)="changeTab('nextSteps')">Next Steps</p>
+        <p class="event_details__info--btn text-style-roboto-regular-25" (click)="changeTab('nextSteps')">Description</p>
     </div>
     <ng-container *ngIf="infoTextData">
         <div class="event_details__info__content">
-            <p *ngIf="isAgendaClicked">
-                <p-editor [style]="{ 'word-break': 'break-word' }" [(ngModel)]="infoTextData.agenda"></p-editor>
-            </p>
-            <p *ngIf="isGoalsClicked">
-                <p-editor [(ngModel)]="infoTextData.goal"></p-editor>
-            </p>
             <p *ngIf="isNextStepsClicked">
                 <p-editor [(ngModel)]="infoTextData.description"></p-editor>
             </p>

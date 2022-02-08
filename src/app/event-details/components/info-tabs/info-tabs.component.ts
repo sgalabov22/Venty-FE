@@ -9,23 +9,12 @@ import { InfoTextData } from '@app/event-details/interfaces';
 })
 export class InfoTabsComponent {
   @Input() infoTextData: InfoTextData;
-
-  public isAgendaClicked = true;
-  public isGoalsClicked = false;
-  public isNextStepsClicked = false;
+  public isNextStepsClicked = true;
 
   public changeTab(tabName: string): void {
-    this.isAgendaClicked = false;
-    this.isGoalsClicked = false;
     this.isNextStepsClicked = false;
 
     switch (tabName) {
-      case 'agenda':
-        this.isAgendaClicked = true;
-        break;
-      case 'goals':
-        this.isGoalsClicked = true;
-        break;
       case 'nextSteps':
         this.isNextStepsClicked = true;
         break;
