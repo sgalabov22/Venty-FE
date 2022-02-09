@@ -3,16 +3,8 @@ export interface EventInfo {
   event_title: string;
   start_date: string;
   end_date: string;
-  goal: string;
-  agenda: string;
   description: string;
   location_id: string;
-}
-
-export interface InfoTextData {
-  agenda: string;
-  goal: string;
-  description: string;
 }
 
 export interface Guest {

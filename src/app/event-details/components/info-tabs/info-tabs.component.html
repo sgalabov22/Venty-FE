@@ -1,15 +1,21 @@
 <div class="event_details__info">
-    <div class="event_details__info__buttons">
-        <p class="event_details__info--btn text-style-roboto-regular-25" (click)="changeTab('nextSteps')">Description</p>
-    </div>
-    <ng-container *ngIf="infoTextData">
-        <div class="event_details__info__content">
-            <p *ngIf="isNextStepsClicked">
-                <p-editor [(ngModel)]="infoTextData.description"></p-editor>
-            </p>
+        <h1 class="text-style-montserrat-medium-20 event_details__info__header">Description</h1>
 
-            <button class="event_details__info__content--save-btn text-style-roboto-regular-20" 
-                (click)="saveText()">Save</button>
+        <div 
+            (click)="openEditor = true"
+            [innerHTML]="description"
+            class="event_details__info__description">
         </div>
-    </ng-container>
+
+        <p-dialog
+            [header]="'Edit Description'"
+            [(visible)]="openEditor"
+            [style]="{ width: '50vw', height: '70vh' }">
+            <p-editor *ngIf="openEditor" [(ngModel)]="description"></p-editor>
+            <button 
+               class="event_details__info--save-btn text-style-roboto-regular-20" 
+               (click)="saveText()">
+               Save
+            </button>
+        </p-dialog>
 </div>

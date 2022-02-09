@@ -1,5 +1,10 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { InfoTextData } from '@app/event-details/interfaces';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 @Component({
   selector: 'app-info-tabs',
@@ -8,20 +13,12 @@ import { InfoTextData } from '@app/event-details/interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InfoTabsComponent {
-  @Input() infoTextData: InfoTextData;
-  public isNextStepsClicked = true;
+  @Input() description: string;
+  @Output() onUpdateDescription = new EventEmitter<string>();
 
-  public changeTab(tabName: string): void {
-    this.isNextStepsClicked = false;
-
-    switch (tabName) {
-      case 'nextSteps':
-        this.isNextStepsClicked = true;
-        break;
-    }
-  }
+  public openEditor = false;
 
   public saveText(): void {
-    // Save new text to DB
+    this.onUpdateDescription.emit(this.description);
   }
 }

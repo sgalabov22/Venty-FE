@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
 import { MapsActionsService } from '@app/maps';
-import { BehaviorSubject } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { BehaviorSubject, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { EventDetailsService } from '.';
-import { EventInfo, Guest, GuestUserAccount } from '../interfaces';
+import {
+  EventInfo,
+  Guest,
+  GuestUserAccount,
+  UpdateEventData
+} from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +32,8 @@ export class EventDetailsFacadeService {
 
   constructor(
     private eventDetailsService: EventDetailsService,
-    private mapsActionsService: MapsActionsService
+    private mapsActionsService: MapsActionsService,
+    private messageService: MessageService
   ) {}
 
   public loadEventInfo(eventId: number): void {
@@ -49,10 +57,40 @@ export class EventDetailsFacadeService {
   }
 
   public loadSearchUsers(term: string, eventId: number): void {
-    this.eventDetailsService.searchUsers(term, eventId).subscribe((users) => {
-      console.log(users);
-      this.users$$.next(users);
-    });
+    this.eventDetailsService
+      .searchUsers(term, eventId)
+      .pipe(
+        switchMap((users) =>
+          of(
+            users.filter((u) => {
+              if (u.fullname) {
+                return u.fullname.toLowerCase().startsWith(term.toLowerCase());
+              }
+            })
+          )
+        )
+      )
+      .subscribe((users) => {
+        this.users$$.next(users);
+      });
+  }
+
+  public updateEventData(updatedData: UpdateEventData, eventId: number): void {
+    this.eventDetailsService
+      .updateEvent(updatedData, eventId)
+      .subscribe((updatedData: UpdateEventData) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success!',
+          detail: 'Event description has been successfully updated!'
+        });
+
+        this.eventInfo$$.next({
+          id: this.eventInfo$$.value.id,
+          location_id: this.eventInfo$$.value.location_id,
+          ...updatedData
+        });
+      });
   }
 
   public addUser(userId: number, eventId: number): void {

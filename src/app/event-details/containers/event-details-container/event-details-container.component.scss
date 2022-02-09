@@ -16,19 +16,14 @@
         'carousel carousel carousel work-board';
     grid-gap: 1.5em;
     padding: 1.5em;
+    height: 100%;
 }
 
 .event-details__title {
     grid-area: title;
     display: flex;
-    align-items: center;
     justify-content: space-between;
     color: #FFF;
-
-    &--marketing {
-        padding: 10px;
-        border-bottom: 5px solid #a050c7;
-    }
 }
 
 .event_details__info {

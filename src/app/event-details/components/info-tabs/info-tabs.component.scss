@@ -1,41 +1,45 @@
 .event_details__info {
     background-color: #13043b;
     border-radius: 25px;
-    padding: 1.25em 0;
-    height: 100%;
+    padding: 1.25em;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    width: 700px;
+    height: 300px;
 }
 
-.event_details__info--btn,
-.event_details__info__content--save-btn {
+.event_details__info__header {
+    padding-bottom: 1em;
+}
+
+.event_details__info__description {
+    border: 2px solid transparent;
+    padding: 1.25em;
+    color: #fff;
+    overflow-y: scroll;
+    height: 100%;
+
+    &:hover {
+        border: 2px solid white;
+        cursor: pointer;
+    }
+}
+
+.event_details__info--save-btn {
     outline: none;
     background-color: #4019a8;
     color: #fff;
     border-radius: 25px;
     padding: 0.5em;
+    align-self: flex-start;
+    border: unset;
     cursor: pointer;
+    margin-top: 1.25em;
     
     &:hover {
       background-color: #a050c7;
-    }
-}
-
-.event_details__info__buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1.25em;
-}
-
-.event_details__info__content {
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
-    gap: 1em;
-    word-wrap: break-word;
-
-    &--save-btn {
-      align-self: flex-start;
-      border: unset;
     }
 }
 
@@ -43,14 +47,5 @@
     .event_details__info {
         padding: 0.5em 0;
         width: 28em;
-    }
-
-    .event_details__info__buttons {
-        gap: 0.6em;
-    }
-
-    .event_details__info--btn {
-        padding: 0.3em 0.6em;
-        font-size: 1.25em;
     }
 }

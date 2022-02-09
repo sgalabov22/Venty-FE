@@ -3,12 +3,20 @@
         <h1 class="event-details__title--marketing">{{eventInfo.event_title}}</h1>
         <p><i class="pi pi-calendar"></i>{{eventInfo.start_date | date: 'HH:mm | dd MMMM yyyy'}}</p>
     </div>
-    <app-info-tabs [infoTextData]="{ description: eventInfo.description }" class="event_details__info"></app-info-tabs>
+    <app-info-tabs 
+        [description]="eventInfo.description"
+        (onUpdateDescription)="updateEventData({
+             start_date: eventInfo.start_date, 
+             end_date: eventInfo.end_date, 
+             event_title: eventInfo.event_title, 
+             description: $event 
+        })"
+         class="event_details__info"></app-info-tabs>
     <app-guests-list
         (onSearchLoadUsers)="loadSearchUsers($event)"
         (onCloseGuestsModal)="clearUsers()" 
         (onAddUser)="addUser($event)"
-        [users]="users$ | async" 
+        [users]="users$ | async"
         [guestList]="(guestList$ | async)" 
         class="event_details__guests">
     </app-guests-list>

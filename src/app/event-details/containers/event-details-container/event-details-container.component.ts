@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UpdateEventData } from '@app/event-details/interfaces';
 import { EventDetailsFacadeService } from '../../services';
 
 @Component({
@@ -43,5 +44,9 @@ export class EventDetailsContainerComponent implements OnDestroy {
 
   public addUser(userId: number): void {
     this.eventDetailsFacade.addUser(userId, this.id);
+  }
+
+  public updateEventData(updatedEvent: UpdateEventData): void {
+    this.eventDetailsFacade.updateEventData(updatedEvent, this.id);
   }
 }
