@@ -9,9 +9,11 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
-import { Guest, GuestUserAccount } from '../../interfaces';
+import { Message } from 'primeng/api';
+import { Guest, GuestStatus, GuestUserAccount } from '../../interfaces';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { CurrentUserData } from '@app/auth';
 
 @Component({
   selector: 'app-guests-list',
@@ -22,10 +24,13 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 export class GuestsListComponent implements OnInit, OnDestroy {
   @Input() guestList: Guest[];
   @Input() users: GuestUserAccount[];
+  @Input() eventOwnerId: number;
+  @Input() currentUser: CurrentUserData;
 
   @Output() onSearchLoadUsers = new EventEmitter<string>();
   @Output() onCloseGuestsModal = new EventEmitter<void>();
   @Output() onAddUser = new EventEmitter<number>();
+  @Output() onMessage = new EventEmitter<Message>();
   @ViewChild('searchBox') searchBox: ElementRef;
 
   public readonly modalTitle = 'All Guests List';
@@ -34,6 +39,7 @@ export class GuestsListComponent implements OnInit, OnDestroy {
   public searchTerms$$ = new Subject<string>();
   public unsubscribe$$ = new Subject<void>();
   public showAllGuests = false;
+  public selectedStatus: GuestStatus;
 
   public searchTerm(term: string): void {
     this.searchTerms$$.next(term);
@@ -54,10 +60,6 @@ export class GuestsListComponent implements OnInit, OnDestroy {
   public addUser(userId: number): void {
     this.onAddUser.emit(userId);
     this.closeModal();
-  }
-
-  public getPicturePath(picture: string): string {
-    return 'https://res.cloudinary.com/dhavld11j/' + picture;
   }
 
   public ngOnDestroy(): void {

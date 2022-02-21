@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthFacadeService } from '@app/auth';
 import { UpdateEventData } from '@app/event-details/interfaces';
+import { MessageService } from 'primeng/api';
 import { EventDetailsFacadeService } from '../../services';
 
 @Component({
@@ -15,13 +17,16 @@ export class EventDetailsContainerComponent implements OnDestroy {
   public locationData$ = this.eventDetailsFacade.locationData$;
   public reviewsList$ = this.eventDetailsFacade.reviewsList$;
   public users$ = this.eventDetailsFacade.users$;
-
+  public currentUser$ = this.authFacade.currentUser$;
   private id: number;
 
   constructor(
+    public messageService: MessageService,
     private eventDetailsFacade: EventDetailsFacadeService,
+    private authFacade: AuthFacadeService,
     private activatedRoute: ActivatedRoute
   ) {
+    this.authFacade.loadCurrentUser();
     this.activatedRoute.paramMap.subscribe((params) => {
       this.id = Number(params.get('id'));
       this.eventDetailsFacade.loadEventInfo(this.id);

@@ -1,0 +1,28 @@
+<div class="event_details__guests__card">
+    <div class="event_details__guests__card__info">
+        <div class="event_details__guests__card--pic">
+            <ng-container *ngIf="guest.guest_user_account.profile_picture !== ''">
+                <img [src]= "getPicturePath(guest.guest_user_account.profile_picture)" />
+            </ng-container>
+            <ng-container *ngIf="guest.guest_user_account.profile_picture === ''">
+                <img src="assets/images/default-user.png" />
+            </ng-container>
+        </div>
+    
+        <div class="event_details__guests__card--text">
+            <h5 class="event_details__guests__card--name text-style-montserrat-medium-15">{{guest.guest_user_account.fullname}}</h5>
+            <p class="event_details__guests__card--email text-style-montserrat-medium-15">{{guest.guest_user_account.email}}</p>
+        </div>
+    </div>
+
+    <div class="event_details__guests__status">
+        <ng-container *ngIf="currentUser.id === eventOwnerId || currentUser.email === guest.guest_user_account.email; else guestStatus">
+            <p-dropdown [options]="statuses" [(ngModel)]="selectedStatus" optionLabel="name" (onChange)="onChangeGuestStatus()"></p-dropdown>
+        </ng-container>
+        <ng-template #guestStatus>
+            <p [ngStyle]="isAttending ? { 'color': '#75ffb6' } : { 'color': 'red' }" 
+                class="text-style-montserrat-medium-15">{{guest.status | capitalizeFirst}}
+            </p>
+        </ng-template>
+    </div>
+</div>

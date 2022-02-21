@@ -1,13 +1,9 @@
 .event_details__guests__titles,
-.event_details__guests__card__container,
-.event_details__guests__card,
-.event_details__guests__card--text,
 .event_details__guests__users__card,
 .event_details__guests__users__card--content {
     display: flex;
 }
 
-.event_details__guests__card__container,
 .event_details__guests__titles {
     justify-content: space-between;
     padding: 1em;
@@ -51,28 +47,6 @@
 
     &--content {
         flex-direction: column;
-    }
-}
-
-.event_details__guests__card {
-    &--pic {
-        img {
-            width: 60px;
-            height: 60px;
-        }
-    }
-
-    &--text {
-        flex-direction: column;
-        padding-left: 10px; 
-    }
-
-    &--name {
-        color: #fff; 
-    }
-
-    &--email {
-        color: #8a8a8f;
     }
 }
 

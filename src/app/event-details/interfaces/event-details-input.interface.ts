@@ -4,10 +4,12 @@ export interface EventInfo {
   start_date: string;
   end_date: string;
   description: string;
-  location_id: string;
+  location: string;
+  event_owner: number;
 }
 
 export interface Guest {
+  id: number;
   guest_user_account: GuestUserAccount;
   event: number;
   status: string;
@@ -20,20 +22,7 @@ export interface GuestUserAccount {
   profile_picture: string;
 }
 
-// export interface LocationWorkingHours {
-//   weekdayText: string[];
-// }
-
-// export interface LocationData {
-//   formattedAddress: string;
-//   geometry: google.maps.LatLng;
-//   internationalPhoneNumber: string;
-//   name: string;
-//   openingHours: LocationWorkingHours;
-//   photos: google.maps.places.PlacePhoto[];
-//   placeId: string;
-//   rating: number;
-//   reviews: google.maps.places.PlaceReview[];
-//   userRatingsTotal: number;
-//   website: string;
-// }
+export interface GuestStatus {
+  name: string;
+  value: string;
+}
