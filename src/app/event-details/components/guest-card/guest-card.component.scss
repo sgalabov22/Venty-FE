@@ -1,0 +1,35 @@
+.event_details__guests__card,
+.event_details__guests__card__info,
+.event_details__guests__card--text {
+    display: flex;
+}
+
+
+.event_details__guests__card,
+.event_details__guests__titles {
+    justify-content: space-between;
+    padding: 1em;
+}
+
+
+.event_details__guests__card {
+    &--pic {
+        img {
+            width: 60px;
+            height: 60px;
+        }
+    }
+
+    &--text {
+        flex-direction: column;
+        padding-left: 10px; 
+    }
+
+    &--name {
+        color: #fff; 
+    }
+
+    &--email {
+        color: #8a8a8f;
+    }
+}

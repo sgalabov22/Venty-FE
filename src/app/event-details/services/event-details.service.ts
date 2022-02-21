@@ -5,7 +5,8 @@ import {
   EventInfo,
   Guest,
   GuestUserAccount,
-  UpdateEventData
+  UpdateEventData,
+  UpdateGuestStatus
 } from '../interfaces';
 
 import { environment } from '@env/environment';
@@ -48,6 +49,17 @@ export class EventDetailsService {
     return this.http.put<UpdateEventData>(
       `${environment.baseApiUrl}/events/${eventId}`,
       updatedEvent
+    );
+  }
+
+  public updateGuestStatus(
+    updatedGuestStatus: UpdateGuestStatus
+  ): Observable<{ status: string }> {
+    const { eventId, guestId, status } = updatedGuestStatus;
+
+    return this.http.put<{ status: string }>(
+      `${environment.baseApiUrl}/events/${eventId}/guests/${guestId}`,
+      { status }
     );
   }
 

@@ -7,6 +7,10 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { EditorModule } from 'primeng/editor';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { EventDetailsContainerComponent } from './containers';
@@ -17,6 +21,8 @@ import { GuestsListComponent } from './components/guests-list/guests-list.compon
 import { EventDetailsCarouselComponent } from './components/event-details-carousel/event-details-carousel.component';
 import { GuestReviewsComponent } from './components/guest-reviews/guest-reviews.component';
 import { WorkBoardComponent } from './components/work-board/work-board.component';
+import { GuestCardComponent } from './components/guest-card/guest-card.component';
+import { CapitalizeFirstPipeModule } from '@app/resources/capitalize-first-pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +31,8 @@ import { WorkBoardComponent } from './components/work-board/work-board.component
     GuestsListComponent,
     EventDetailsCarouselComponent,
     GuestReviewsComponent,
-    WorkBoardComponent
+    WorkBoardComponent,
+    GuestCardComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +45,10 @@ import { WorkBoardComponent } from './components/work-board/work-board.component
     EditorModule,
     FontAwesomeModule,
     DialogModule,
-    InputTextModule
+    InputTextModule,
+    DropdownModule,
+    CapitalizeFirstPipeModule,
+    MessagesModule
   ]
 })
 export class EventDetailsModule {}

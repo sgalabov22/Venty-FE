@@ -8,7 +8,8 @@ import {
   EventInfo,
   Guest,
   GuestUserAccount,
-  UpdateEventData
+  UpdateEventData,
+  UpdateGuestStatus
 } from '../interfaces';
 
 @Injectable({
@@ -87,8 +88,21 @@ export class EventDetailsFacadeService {
 
         this.eventInfo$$.next({
           id: this.eventInfo$$.value.id,
-          location_id: this.eventInfo$$.value.location_id,
+          location: this.eventInfo$$.value.location,
+          event_owner: this.eventInfo$$.value.event_owner,
           ...updatedData
+        });
+      });
+  }
+
+  public updateGuestStatus(updatedGuestStatus: UpdateGuestStatus): void {
+    this.eventDetailsService
+      .updateGuestStatus(updatedGuestStatus)
+      .subscribe(({ status }) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success!',
+          detail: `Guest status has been updated to ${status}`
         });
       });
   }
@@ -106,8 +120,6 @@ export class EventDetailsFacadeService {
   public clearData(): void {
     this.eventInfo$$.next(null);
     this.guestList$$.next(null);
-    // this.locationData$$.next(null);
-    // this.reviewsList$$.next(null);
     this.users$$.next(null);
   }
 }

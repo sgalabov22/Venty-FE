@@ -4,3 +4,9 @@ export interface UpdateEventData {
   event_title: string;
   description: string;
 }
+
+export interface UpdateGuestStatus {
+  eventId: number;
+  guestId: number;
+  status: string;
+}

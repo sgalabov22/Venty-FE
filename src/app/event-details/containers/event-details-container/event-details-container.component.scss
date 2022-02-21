@@ -9,6 +9,7 @@
 }
 
 .event-details__container {
+    position: relative;
     display: grid;
     grid-template-areas: 
         'title title title work-board'
@@ -17,6 +18,12 @@
     grid-gap: 1.5em;
     padding: 1.5em;
     height: 100%;
+}
+
+.event-details__messages {
+    position: absolute;
+    z-index: 10;
+    width: 50%;
 }
 
 .event-details__title {

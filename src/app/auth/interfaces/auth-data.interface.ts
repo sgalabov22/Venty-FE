@@ -11,6 +11,7 @@ export interface UserCredentialsInput {
 }
 
 export interface CurrentUserData {
+  id: number;
   email: string;
   fullname: string;
   profile_picture: string;
