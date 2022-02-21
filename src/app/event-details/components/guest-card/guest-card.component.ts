@@ -2,11 +2,8 @@ import {
   Component,
   ChangeDetectionStrategy,
   Input,
-  OnInit,
-  Output,
-  EventEmitter
+  OnInit
 } from '@angular/core';
-import { Message } from 'primeng/api';
 import { CurrentUserData } from '@app/auth';
 import { ActivatedRoute } from '@angular/router';
 
