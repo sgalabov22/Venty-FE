@@ -22,10 +22,7 @@ export class EventDetailsFacadeService {
   private guestList$$ = new BehaviorSubject<Guest[]>([]);
   public guestList$ = this.guestList$$.asObservable();
 
-  // private locationData$$ = new BehaviorSubject<google.maps.places.PlaceResult>(null);
   public locationData$ = this.mapsActionsService.selectedPlaceDetails$;
-
-  // private reviewsList$$ = new BehaviorSubject<google.maps.places.PlaceReview[]>([]);
   public reviewsList$ = this.mapsActionsService.selectedPlaceReviews$;
 
   private users$$ = new BehaviorSubject<GuestUserAccount[]>([]);
@@ -40,6 +37,9 @@ export class EventDetailsFacadeService {
   public loadEventInfo(eventId: number): void {
     this.eventDetailsService.getEventInfo(eventId).subscribe((eventInfo) => {
       this.eventInfo$$.next(eventInfo);
+      console.log(eventInfo);
+      this.loadGuestList(eventId);
+      this.loadLocationData(eventInfo.location);
     });
   }
 
@@ -49,12 +49,8 @@ export class EventDetailsFacadeService {
     });
   }
 
-  public loadLocationData(): void {
-    this.mapsActionsService.loadPlaceDetails();
-    // this.eventDetailsService.getLocationData().subscribe((locationData) => {
-    //   this.locationData$$.next(locationData);
-    //   this.reviewsList$$.next(locationData.reviews);
-    // });
+  public loadLocationData(placeId: string): void {
+    this.mapsActionsService.loadPlaceDetails(placeId);
   }
 
   public loadSearchUsers(term: string, eventId: number): void {

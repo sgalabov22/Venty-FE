@@ -3,5 +3,5 @@ export interface EventCreateData {
   end_date: Date;
   event_title: string;
   description: string;
-  location: any;
+  location: string;
 }

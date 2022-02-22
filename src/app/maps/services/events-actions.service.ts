@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { EventInfo } from '@app/event-details/interfaces';
 import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { EventCreateData } from '..';
 
 @Injectable({

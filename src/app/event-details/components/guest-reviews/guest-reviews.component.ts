@@ -8,6 +8,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class GuestReviewsComponent {
   @Input() reviewsList: google.maps.places.PlaceReview[];
+  @Input() totalReviews: number;
 
   public showAllReviews = false;
   public modalTitle = 'Place Reviews';

@@ -30,8 +30,6 @@ export class EventDetailsContainerComponent implements OnDestroy {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.id = Number(params.get('id'));
       this.eventDetailsFacade.loadEventInfo(this.id);
-      this.eventDetailsFacade.loadGuestList(this.id);
-      this.eventDetailsFacade.loadLocationData();
     });
   }
 
