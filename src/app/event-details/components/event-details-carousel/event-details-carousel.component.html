@@ -35,6 +35,10 @@
                 </a>
             </p>
         </div>
-        <app-guest-reviews [reviewsList]="reviewsList" class="event_details__carousel__reviews"></app-guest-reviews>
+        <app-guest-reviews 
+            [reviewsList]="reviewsList"
+            [totalReviews]="locationData.user_ratings_total"
+            class="event_details__carousel__reviews">
+        </app-guest-reviews>
     </ng-container>
 </div>

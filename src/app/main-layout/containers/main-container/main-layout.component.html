@@ -6,10 +6,10 @@
                 <div class="header__container">
                     <div class="user__container">
                         <p class="username__container">{{ currentUser.fullname }}</p>
-                        <ng-container *ngIf="currentUser.profile_picture !== 'https://res.cloudinary.com/dhavld11j/'">
+                        <ng-container *ngIf="currentUser.profile_picture !== 'https://res.cloudinary.com/dhavld11j/image/upload/null'">
                             <p-avatar image="{{ currentUser.profile_picture }}" size="large" shape="circle"></p-avatar>
                         </ng-container>
-                        <ng-container *ngIf="currentUser.profile_picture === 'https://res.cloudinary.com/dhavld11j/'">
+                        <ng-container *ngIf="currentUser.profile_picture === 'https://res.cloudinary.com/dhavld11j/image/upload/null'">
                             <p-avatar image="assets/images/default-user.png" size="large" shape="circle"></p-avatar>
                         </ng-container>
                     </div>

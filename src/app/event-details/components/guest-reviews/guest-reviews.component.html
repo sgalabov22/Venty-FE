@@ -1,6 +1,6 @@
 <div class="event_details__guest-reviews">
     <div class="event_details__guest-reviews__titles">
-        <h3 class="text-style-montserrat-medium-20">Reviews ({{ reviewsList.length }})</h3>
+        <h3 class="text-style-montserrat-medium-20">Reviews ({{ totalReviews }})</h3>
     </div>
 
     <ng-container *ngIf="reviewsList">
@@ -43,10 +43,6 @@
                     
                 </div>
             </ng-container>
-
-            <!-- <ng-container *ngTemplateOutlet="
-                guestsTemplate; context:{ count: guestList.length }">
-            </ng-container> -->
         </p-dialog>
     </ng-container>
 </div>

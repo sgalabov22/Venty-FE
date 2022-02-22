@@ -60,7 +60,6 @@ export class MapsActionsService {
 
     this.map$$.value.addListener('click', (mapsMouseEvent) => {
       const position = mapsMouseEvent.latLng;
-      console.log(JSON.stringify(position));
 
       if (this.isIconMouseEvent(mapsMouseEvent)) {
         mapsMouseEvent.stop();
@@ -169,11 +168,10 @@ export class MapsActionsService {
     });
   }
 
-  public loadPlaceDetails(): void {
+  public loadPlaceDetails(placeId: string): void {
     this.initMap(document.createElement('div'));
-    this.selectedPlace = 'ChIJ913ebRWFqkARekJtLA1blj0';
     const request = {
-      placeId: this.selectedPlace
+      placeId: placeId
     };
 
     this.placesService.getDetails(request, (place, status) => {
