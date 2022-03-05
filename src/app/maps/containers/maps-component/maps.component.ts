@@ -2,7 +2,9 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import {
@@ -13,8 +15,16 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventCreateData } from '@app/maps';
+import {
+  faClock,
+  faLink,
+  faMapMarkedAlt,
+  faMapMarker,
+  faPhone,
+  IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { filter, take, takeUntil } from 'rxjs/operators';
 import { EventsActionFacadeService, MapsActionsService } from '../../services';
 
 @Component({
@@ -27,6 +37,8 @@ export class MapsComponent implements OnInit, AfterViewInit {
   @ViewChild('map') mapElement: any;
   public map: Observable<google.maps.Map> = this.mapsActionsService.map$;
 
+  public faIcons: IconDefinition[] = [faClock, faMapMarker, faLink, faPhone];
+
   public locationTypeOptions: string[] = [
     'Restaurant',
     'Lodging',
@@ -37,15 +49,25 @@ export class MapsComponent implements OnInit, AfterViewInit {
   public selectedRadius: string;
   public radiusOptions: string[] = ['500 meters', '1000 meters', '1500 meters'];
 
-  public modalTitle = 'Create event';
+  public previewModalTitle = '';
+  public selectedPlaceDetails$ = this.mapsActionsService.selectedPlaceDetails$;
+
+  public showLocationPreview$: Observable<boolean> =
+    this.mapsActionsService.showPreview$;
+  public showLocationPreview = false;
+
+  public createModalTitle = 'Create Event';
   public showCreateEvent$: Observable<boolean> =
     this.mapsActionsService.showCreateEvent$;
   public showCreateEvent = false;
 
+  public imageUrls: string[];
+
   public createEventForm: FormGroup = this.formBuilder.group({
     title: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
-    endDate: ['', [Validators.required]]
+    endDate: ['', [Validators.required]],
+    description: ['']
   });
 
   private unsubscribe$ = new Subject<void>();
@@ -64,7 +86,29 @@ export class MapsComponent implements OnInit, AfterViewInit {
         this.showCreateEvent = value;
       });
 
-    this.mapsActionsService.changeModalState(false);
+    this.showLocationPreview$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((value: boolean) => {
+        this.showLocationPreview = value;
+      });
+
+    this.selectedPlaceDetails$
+      .pipe(
+        filter((value: google.maps.places.PlaceResult) => !!value),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe((value: google.maps.places.PlaceResult) => {
+        this.previewModalTitle = value.name;
+        this.imageUrls = value.photos.map((i) => {
+          return i.getUrl({
+            maxHeight: 500,
+            maxWidth: 500
+          });
+        });
+      });
+
+    this.mapsActionsService.changeModalState(false, 'create');
+    this.mapsActionsService.changeModalState(false, 'preview');
   }
 
   public ngOnDestroy(): void {
@@ -72,7 +116,7 @@ export class MapsComponent implements OnInit, AfterViewInit {
     this.unsubscribe$.complete();
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.mapInit();
 
     this.initCurrentLocationButton();
@@ -111,13 +155,13 @@ export class MapsComponent implements OnInit, AfterViewInit {
     this.mapsActionsService.setOptions(this.selectedOptions);
   }
 
-  public closeModal(): void {
-    console.log('closing');
-    this.mapsActionsService.changeModalState();
+  public closePreviewModal(): void {
+    this.mapsActionsService.changeModalState(false, 'preview');
   }
 
-  public onKey(value: string): void {
-    console.log(value);
+  public closeCreateModal(): void {
+    this.mapsActionsService.changeModalState(false, 'create');
+    this.createEventForm.reset();
   }
 
   private initCurrentLocationButton(): void {
@@ -144,14 +188,16 @@ export class MapsComponent implements OnInit, AfterViewInit {
     return this.createEventForm.get('endDate') as FormControl;
   }
 
-  public onCreateEvent(): void {
-    console.log(this.mapsActionsService.selectedPlace);
+  public get description(): FormControl {
+    return this.createEventForm.get('description') as FormControl;
+  }
 
+  public onCreateEvent(): void {
     const bodyParams: EventCreateData = {
       event_title: this.title.value,
       start_date: this.startDate.value,
       end_date: this.endDate.value,
-      description: 'test123',
+      description: this.description.value,
       location: this.mapsActionsService.selectedPlace
     };
 
@@ -161,6 +207,21 @@ export class MapsComponent implements OnInit, AfterViewInit {
   }
 
   public getMinDate(): Date {
+    if (!this.startDate) return new Date();
+
     return new Date(this.startDate.value);
+  }
+
+  public getIsOpen(element: google.maps.places.PlaceResult): string {
+    if (element.opening_hours && element.opening_hours.isOpen) {
+      return 'Open now';
+    }
+
+    return 'Closed';
+  }
+
+  public proceedClicked(): void {
+    this.mapsActionsService.changeModalState(false, 'preview');
+    this.mapsActionsService.changeModalState(true, 'create');
   }
 }

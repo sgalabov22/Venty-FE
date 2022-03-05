@@ -1,5 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MapsActionsService } from '@app/maps/services';
+import {
+  faClock,
+  faMapMarkerAlt,
+  IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,6 +16,8 @@ import { Observable } from 'rxjs';
 export class SearchComponentComponent {
   public searchResults$: Observable<google.maps.places.PlaceResult[]> =
     this.mapsActionService.searchResults$;
+
+  public faIcons: IconDefinition[] = [faMapMarkerAlt, faClock];
 
   constructor(private mapsActionService: MapsActionsService) {}
 
@@ -39,9 +46,9 @@ export class SearchComponentComponent {
   }
 
   public elementClicked(place: google.maps.places.PlaceResult): void {
-    console.log(place.place_id);
     this.mapsActionService.selectedPlace = place.place_id;
-    this.mapsActionService.changeModalState();
+    this.mapsActionService.loadPlaceDetails(place.place_id);
+    this.mapsActionService.changeModalState(true, 'preview');
   }
 
   public getLocationReviews(element: google.maps.places.PlaceResult): string {

@@ -18,6 +18,9 @@ export class MapsActionsService {
   public showCreateEvent$: Observable<boolean> =
     this.showCreateEvent$$.asObservable();
 
+  private showPreview$$ = new BehaviorSubject<boolean>(false);
+  public showPreview$: Observable<boolean> = this.showPreview$$.asObservable();
+
   private selectedPlaceDetails$$ =
     new BehaviorSubject<google.maps.places.PlaceResult>(null);
   public selectedPlaceDetails$: Observable<google.maps.places.PlaceResult> =
@@ -64,7 +67,8 @@ export class MapsActionsService {
       if (this.isIconMouseEvent(mapsMouseEvent)) {
         mapsMouseEvent.stop();
         this.selectedPlace = mapsMouseEvent['placeId'];
-        this.showCreateEvent$$.next(true);
+        this.loadPlaceDetails(this.selectedPlace);
+        this.changeModalState(true, 'preview');
         this.searchResults$$.next([]);
       } else {
         this.getNearbyPlaces(position);
@@ -88,11 +92,18 @@ export class MapsActionsService {
     this.categories = options.map((option: string) => option.toLowerCase());
   }
 
-  public changeModalState(value?: boolean): void {
-    this.searchResults$$.next([]);
-    value != null
-      ? this.showCreateEvent$$.next(value)
-      : this.showCreateEvent$$.next(!this.showCreateEvent$$.value);
+  public changeModalState(value: boolean, type: string): void {
+    switch (type) {
+      case 'create': {
+        this.searchResults$$.next([]);
+        this.showCreateEvent$$.next(value);
+        break;
+      }
+      case 'preview': {
+        this.showPreview$$.next(value);
+        break;
+      }
+    }
   }
 
   public setSelectedRadius(radius: string): void {

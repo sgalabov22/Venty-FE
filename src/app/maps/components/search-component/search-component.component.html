@@ -15,23 +15,33 @@
 
                     <div class="location-description__container">
                         <div class="text-content__container">
-                            <div class="location-name text-style-roboto-bold-24">
+                            <div class="location-name text-style-roboto-bold-20">
                                 <p>{{ result.name }}</p>
                             </div>
-                            <div class="location-address text-style-roboto-regular-16">
-                                <p>{{ result.vicinity }}</p>
+                            <div class="location-address text-style-roboto-regular-14">
+                                <p>
+                                    <fa-icon [icon]="faIcons[0]"></fa-icon>
+                                    {{ result.vicinity }}</p>
                             </div>
                         </div>
 
                         <div class="bottom-search-elements__container 
                             text-style-roboto-regular-14"
                             *ngIf="result.rating">
-                            <div class="location-reviews">
+                            <div class="reviews-label__container">
                                 <p>{{ getLocationReviews(result) }}</p>
                             </div>
+                            <div class="location-isOpen__container">
+                                <div class="location-reviews">
+                                    <p-rating [ngModel]="result.rating" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
+                                </div>
 
-                            <div class="location-open" *ngIf="result.opening_hours">
-                                <p>{{ getIsOpen(result) }}</p>
+                                <div class="location-open" *ngIf="result.opening_hours">
+                                    <p>
+                                        <fa-icon [icon]="faIcons[1]"></fa-icon>
+                                        {{ getIsOpen(result) }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

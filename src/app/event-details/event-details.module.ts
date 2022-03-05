@@ -64,6 +64,7 @@ import { ChecklistFormControlComponent } from './components/checklist-form-contr
     CheckboxModule,
     ConfirmPopupModule
   ],
-  providers: [ConfirmationService, DialogService]
+  providers: [ConfirmationService, DialogService],
+  exports: [GuestReviewsComponent]
 })
 export class EventDetailsModule {}

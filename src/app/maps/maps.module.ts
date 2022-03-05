@@ -12,6 +12,11 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RatingModule } from 'primeng/rating';
+import { CarouselModule } from 'primeng/carousel';
+import { EventDetailsModule } from '@app/event-details';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [MapsComponent, SearchComponentComponent],
@@ -27,7 +32,12 @@ import { CalendarModule } from 'primeng/calendar';
     SelectButtonModule,
     DialogModule,
     CalendarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    RatingModule,
+    CarouselModule,
+    EventDetailsModule,
+    InputTextareaModule
   ]
 })
 export class MapsModule {}
