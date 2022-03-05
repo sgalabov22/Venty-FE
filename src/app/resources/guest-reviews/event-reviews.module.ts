@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
     RatingModule,
     DialogModule,
     DynamicDialogModule,
-    FormsModule,
+    FormsModule
   ],
   exports: [GuestReviewsComponent]
 })

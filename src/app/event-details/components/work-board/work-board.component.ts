@@ -28,6 +28,7 @@ import { EventDetailsFacadeService } from '../../services';
 })
 export class WorkBoardComponent implements OnInit, OnChanges {
   @Input() extensionsData: ExtensionsData;
+  @Input() eventId: number;
   @Output() onUpdateChecklistItem = new EventEmitter<UpdateChecklistItem>();
 
   public items: MenuItem[];
@@ -46,7 +47,8 @@ export class WorkBoardComponent implements OnInit, OnChanges {
             {
               ...CHECKLIST_DIALOG_SETTINGS,
               data: {
-                isCreate: true
+                isCreate: true,
+                eventId: this.eventId
               }
             }
           );

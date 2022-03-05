@@ -53,7 +53,8 @@ export class ChecklistItemComponent implements OnInit, OnDestroy {
       {
         ...CHECKLIST_DIALOG_SETTINGS,
         data: {
-          checklistItem: this.checklistItem
+          checklistItem: this.checklistItem,
+          eventId: this.checklistItem.event
         }
       }
     );

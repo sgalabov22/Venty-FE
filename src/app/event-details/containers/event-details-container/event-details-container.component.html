@@ -37,6 +37,7 @@
     </app-event-details-carousel>
     <app-work-board 
         [extensionsData]="extensionsData$ | async"
+        [eventId]="eventId"
         (onUpdateChecklistItem)="updateChecklistItem($event)"
         class="event_details__work-board">
     </app-work-board>

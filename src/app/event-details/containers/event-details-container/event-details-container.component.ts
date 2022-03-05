@@ -19,7 +19,7 @@ export class EventDetailsContainerComponent implements OnDestroy {
   public users$ = this.eventDetailsFacade.users$;
   public extensionsData$ = this.eventDetailsFacade.extensionsData$;
   public currentUser$ = this.authFacade.currentUser$;
-  private id: number;
+  public eventId: number;
 
   constructor(
     public messageService: MessageService,
@@ -29,8 +29,8 @@ export class EventDetailsContainerComponent implements OnDestroy {
   ) {
     this.authFacade.loadCurrentUser();
     this.activatedRoute.paramMap.subscribe((params) => {
-      this.id = Number(params.get('id'));
-      this.eventDetailsFacade.loadAllEventData(this.id);
+      this.eventId = Number(params.get('id'));
+      this.eventDetailsFacade.loadAllEventData(this.eventId);
     });
   }
 
@@ -43,15 +43,15 @@ export class EventDetailsContainerComponent implements OnDestroy {
   }
 
   public loadSearchUsers(term: string): void {
-    this.eventDetailsFacade.loadSearchUsers(term, this.id);
+    this.eventDetailsFacade.loadSearchUsers(term, this.eventId);
   }
 
   public addUser(userId: number): void {
-    this.eventDetailsFacade.addUser(userId, this.id);
+    this.eventDetailsFacade.addUser(userId, this.eventId);
   }
 
   public updateEventData(updatedEvent: UpdateEventData): void {
-    this.eventDetailsFacade.updateEventData(updatedEvent, this.id);
+    this.eventDetailsFacade.updateEventData(updatedEvent, this.eventId);
   }
 
   public updateChecklistItem({
@@ -59,7 +59,7 @@ export class EventDetailsContainerComponent implements OnDestroy {
     updatedChecklistPayload
   }: UpdateChecklistItem): void {
     this.eventDetailsFacade.updateChecklistItem(
-      this.id,
+      this.eventId,
       extensionId,
       updatedChecklistPayload
     );

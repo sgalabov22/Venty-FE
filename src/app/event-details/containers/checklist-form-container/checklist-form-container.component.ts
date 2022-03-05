@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { EventDetailsFacadeService } from '@app/event-details/services';
 import { ConfirmationService } from 'primeng/api';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
@@ -23,17 +22,14 @@ export class ChecklistFormContainerComponent {
     private fb: FormBuilder,
     private eventDetailsFacade: EventDetailsFacadeService,
     public config: DynamicDialogConfig,
-    private activatedRoute: ActivatedRoute,
     private confirmationService: ConfirmationService
   ) {
+    this.eventId = this.config.data?.eventId;
     this.checklistItem = this.config.data?.checklistItem;
     this.isCreate = this.config.data?.isCreate;
     this.header = this.isCreate ? 'Create Checklist' : 'Modify Checklist';
     this.checklistForm = this.fb.group({
       checklistFormControl: [null, Validators.required]
-    });
-    this.activatedRoute.paramMap.subscribe((params) => {
-      this.eventId = Number(params.get('id'));
     });
   }
 

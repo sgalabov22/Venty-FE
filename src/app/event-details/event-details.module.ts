@@ -63,6 +63,6 @@ import { GuestReviewsModule } from '@app/resources/guest-reviews/event-reviews.m
     ConfirmPopupModule,
     GuestReviewsModule
   ],
-  providers: [ConfirmationService, DialogService],
+  providers: [ConfirmationService, DialogService]
 })
 export class EventDetailsModule {}
