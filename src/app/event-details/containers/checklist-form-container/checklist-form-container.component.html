@@ -1,6 +1,13 @@
 <div class="checklist-form__container">
-    <h1 class="checklist-form__header text-style-roboto-regular-35">{{header}}</h1>
-    <div class="checklist-form__group" [formGroup]="checklistForm">
+    <div class="checklist-form__header">
+        <div (click)="showViewers = false" class="checklist-form__header__main">
+            <h1 class="text-style-roboto-regular-35">{{header}}</h1>
+        </div>
+        <div (click)="showViewers = true" *ngIf="!isCreate" class="checklist-form__header__viewers">
+            <h1 class="text-style-roboto-regular-35">Viewers</h1>
+        </div>
+    </div>
+    <div *ngIf="!showViewers" class="checklist-form__group" [formGroup]="checklistForm">
         <app-checklist-form-control 
             [checklistItem]="checklistItem" 
             formControlName="checklistFormControl">
@@ -19,9 +26,27 @@
                 </p-button>
                 <p-button icon="pi pi-trash"
                     label="Delete" type="button" styleClass="p-button p-button-danger text-style-montserrat-medium-20" 
-                    (click)="deleteChecklistExtension()">
+                    (click)="deleteChecklist($event)">
                 </p-button>
             </ng-container>
+        </div>
+    </div>
+    <div *ngIf="showViewers" class="checklist-form__viewers">
+        <app-search-users 
+            [users]="users$ | async"
+            placeholder="Add Viewers"
+            (onSearchLoadUsers)="searchViewers($event)" 
+            (onAddUser)="addViewer($event)">
+        </app-search-users>
+        <h1 class="text-style-roboto-regular-35">Current Viewers</h1>
+        <div class="checklist-form__viewers__card" *ngFor="let viewer of checklistItem.viewers; first as isFirst">
+            <div>
+                <h3 class="text-style-roboto-regular-20">{{viewer.fullname}}</h3>
+                <p>{{viewer.email}}</p>
+            </div>
+            <button *ngIf="!isFirst" (click)="removeViewer(viewer, $event)" pButton pRipple type="button" icon="pi pi-times" 
+                class="p-button-rounded p-button-danger p-button-outlined">
+            </button>
         </div>
     </div>
 </div>

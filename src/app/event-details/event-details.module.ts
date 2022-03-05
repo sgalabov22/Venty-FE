@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
-import { RatingModule } from 'primeng/rating';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { EditorModule } from 'primeng/editor';
 import { DialogModule } from 'primeng/dialog';
@@ -29,6 +28,7 @@ import { ChecklistItemComponent } from './components/checklist-item/checklist-it
 import { ChecklistFormContainerComponent } from './containers/checklist-form-container/checklist-form-container.component';
 import { ChecklistFormControlComponent } from './components/checklist-form-control/checklist-form-control.component';
 import { GuestReviewsModule } from '@app/resources/guest-reviews/event-reviews.module';
+import { SearchUsersComponent } from './components/search-users/search-users.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { GuestReviewsModule } from '@app/resources/guest-reviews/event-reviews.m
     GuestCardComponent,
     ChecklistItemComponent,
     ChecklistFormContainerComponent,
-    ChecklistFormControlComponent
+    ChecklistFormControlComponent,
+    SearchUsersComponent
   ],
   imports: [
     CommonModule,

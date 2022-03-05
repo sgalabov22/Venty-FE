@@ -1,10 +1,5 @@
-.event_details__guests__titles,
-.event_details__guests__users__card,
-.event_details__guests__users__card--content {
-    display: flex;
-}
-
 .event_details__guests__titles {
+    display: flex;
     justify-content: space-between;
     padding: 1em;
 }
@@ -33,23 +28,4 @@
             color: #fff;
         } 
     }
-}
-
-.event_details__guests__users__card {
-    background-color: #13043b;
-    margin-top: 0.5em;
-    padding: 1em 2em;
-    justify-content: space-between;
-
-    &--email {
-        color: #8a8a8f;
-    }
-
-    &--content {
-        flex-direction: column;
-    }
-}
-
-.p-inputgroup {
-    border: 1px solid #3f4b5b;
 }

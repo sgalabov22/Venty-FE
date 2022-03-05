@@ -1,3 +1,5 @@
+import { CurrentUserData } from '@app/auth';
+
 export interface EventInfo {
   id: number;
   event_title: string;
@@ -47,12 +49,5 @@ export interface ChecklistItem {
     value: string;
     status?: boolean;
   }[];
-  viewers?: Viewer[];
-}
-
-export interface Viewer {
-  id: number;
-  fullname: string;
-  email: string;
-  profile_picture: string;
+  viewers?: CurrentUserData[];
 }

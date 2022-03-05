@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CurrentUserData } from '@app/auth';
 import { MapsActionsService } from '@app/maps';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -93,6 +94,28 @@ export class EventDetailsFacadeService {
       });
   }
 
+  public loadSearchChecklistUsers(
+    term: string,
+    eventId: number,
+    extensionId: number
+  ): void {
+    this.eventDetailsService.getGuestsList(eventId),
+      this.eventDetailsService
+        .getCatalogWithAllAvailableUsers(eventId, extensionId)
+        .pipe(
+          switchMap((currentExtensionUsers) =>
+            of(
+              currentExtensionUsers.filter((user) =>
+                user.fullname.toLowerCase().startsWith(term.toLowerCase())
+              )
+            )
+          )
+        )
+        .subscribe((users) => {
+          this.users$$.next(users);
+        });
+  }
+
   public updateEventData(updatedData: UpdateEventData, eventId: number): void {
     this.eventDetailsService
       .updateEvent(updatedData, eventId)
@@ -136,6 +159,18 @@ export class EventDetailsFacadeService {
       });
   }
 
+  public removeChecklistViewers(
+    eventId: number,
+    extensionId: number,
+    viewerToRemove: CurrentUserData
+  ): void {
+    this.eventDetailsService
+      .removeChecklistViewer(eventId, extensionId, viewerToRemove)
+      .subscribe(() => {
+        this.loadAllExtensions(eventId);
+      });
+  }
+
   public addUser(userId: number, eventId: number): void {
     this.eventDetailsService.addUser(userId, eventId).subscribe((value) => {
       this.loadGuestList(eventId);
@@ -147,6 +182,19 @@ export class EventDetailsFacadeService {
       .addChecklist(eventId, checklistItem)
       .subscribe((checklistRes) => {
         this.loadAllExtensions(checklistRes.event);
+      });
+  }
+
+  public addChecklistViewer(
+    eventId: number,
+    extensionId: number,
+    viewer: CurrentUserData
+  ): void {
+    this.eventDetailsService
+      .addViewerToChecklist(eventId, extensionId, viewer)
+      .subscribe(() => {
+        this.clearUsers();
+        this.loadAllExtensions(eventId);
       });
   }
 

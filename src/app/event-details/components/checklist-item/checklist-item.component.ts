@@ -14,6 +14,7 @@ import { ChecklistFormContainerComponent } from '../../containers';
 import { ChecklistItem, UpdateChecklistItem } from '../../interfaces';
 import { EventDetailsFacadeService } from '../../services';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-checklist-item',
@@ -58,6 +59,12 @@ export class ChecklistItemComponent implements OnInit, OnDestroy {
         }
       }
     );
+
+    this.eventDetailsFacade.dialogRef.onClose
+      .pipe(takeUntil(this.unsubscribe$$))
+      .subscribe(() => {
+        this.eventDetailsFacade.clearUsers();
+      });
   }
 
   public checkUncheckItem(itemIndex: number): void {

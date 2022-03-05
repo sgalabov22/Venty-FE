@@ -1,9 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EventDetailsFacadeService } from '@app/event-details/services';
 import { ConfirmationService } from 'primeng/api';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { CurrentUserData } from '@app/auth';
 import { ChecklistItem } from '../../interfaces';
+import { EventDetailsFacadeService } from '../../services';
 
 @Component({
   selector: 'app-checklist-form-container',
@@ -14,9 +16,12 @@ import { ChecklistItem } from '../../interfaces';
 export class ChecklistFormContainerComponent {
   public checklistForm: FormGroup;
   public header: string;
+  public eventId: number;
+  public faHeart = faHeart;
+  public showViewers: boolean;
+  public users$ = this.eventDetailsFacade.users$;
   public checklistItem?: ChecklistItem;
   public isCreate?: boolean;
-  public eventId: number;
 
   constructor(
     private fb: FormBuilder,
@@ -24,9 +29,9 @@ export class ChecklistFormContainerComponent {
     public config: DynamicDialogConfig,
     private confirmationService: ConfirmationService
   ) {
-    this.eventId = this.config.data?.eventId;
     this.checklistItem = this.config.data?.checklistItem;
     this.isCreate = this.config.data?.isCreate;
+    this.eventId = this.config.data?.eventId;
     this.header = this.isCreate ? 'Create Checklist' : 'Modify Checklist';
     this.checklistForm = this.fb.group({
       checklistFormControl: [null, Validators.required]
@@ -65,14 +70,46 @@ export class ChecklistFormContainerComponent {
     );
   }
 
-  public deleteChecklistExtension(): void {
+  public deleteChecklist(event: Event): void {
     this.confirmationService.confirm({
+      target: event.target,
       message: 'Are you sure you want to delete this extension?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.eventDetailsFacade.deleteChecklistExtension(
           this.eventId,
           this.checklistItem.id
+        );
+      }
+    });
+  }
+
+  public searchViewers(term: string): void {
+    this.eventDetailsFacade.loadSearchChecklistUsers(
+      term,
+      this.eventId,
+      this.checklistItem.id
+    );
+  }
+
+  public addViewer(viewer: CurrentUserData): void {
+    this.eventDetailsFacade.addChecklistViewer(
+      this.eventId,
+      this.checklistItem.id,
+      viewer
+    );
+  }
+
+  public removeViewer(viewer: CurrentUserData, event: Event): void {
+    this.confirmationService.confirm({
+      target: event.target,
+      message: 'Are you sure you want to remove this viewer?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.eventDetailsFacade.removeChecklistViewers(
+          this.eventId,
+          this.checklistItem.id,
+          viewer
         );
       }
     });

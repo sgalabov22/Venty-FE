@@ -12,6 +12,7 @@ import {
 } from '../interfaces';
 
 import { environment } from '@env/environment';
+import { CurrentUserData } from '@app/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,15 @@ export class EventDetailsService {
   public getAllExtensionsForEvent(eventId: number): Observable<ExtensionsData> {
     return this.http.get<ExtensionsData>(
       `${environment.baseApiUrl}/events/${eventId}/extensions`
+    );
+  }
+
+  public getCatalogWithAllAvailableUsers(
+    eventId: number,
+    extensionId: number
+  ): Observable<CurrentUserData[]> {
+    return this.http.get<CurrentUserData[]>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}/viewers?type=checklist`
     );
   }
 
@@ -82,6 +92,17 @@ export class EventDetailsService {
     );
   }
 
+  public removeChecklistViewer(
+    eventId: number,
+    extensionId: number,
+    viewerToRemove: CurrentUserData
+  ): Observable<ChecklistItem> {
+    return this.http.put<ChecklistItem>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}/viewers?type=checklist`,
+      viewerToRemove
+    );
+  }
+
   public addUser(userId: number, eventId: number): Observable<any> {
     const params = [
       {
@@ -95,15 +116,6 @@ export class EventDetailsService {
     );
   }
 
-  public deleteChecklistExtension(
-    eventId: number,
-    extensionId: number
-  ): Observable<{ message: string }> {
-    return this.http.delete<{ message: string }>(
-      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}?type=checklist`
-    );
-  }
-
   public addChecklist(
     eventId: number,
     checklistItem: ChecklistItem
@@ -111,6 +123,26 @@ export class EventDetailsService {
     return this.http.post<ChecklistItem>(
       `${environment.baseApiUrl}/events/${eventId}/extensions?type=checklist`,
       checklistItem
+    );
+  }
+
+  public addViewerToChecklist(
+    eventId: number,
+    extensionId: number,
+    viewerPayload: CurrentUserData
+  ): Observable<ChecklistItem> {
+    return this.http.post<ChecklistItem>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}/viewers?type=checklist`,
+      viewerPayload
+    );
+  }
+
+  public deleteChecklistExtension(
+    eventId: number,
+    extensionId: number
+  ): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}?type=checklist`
     );
   }
 }

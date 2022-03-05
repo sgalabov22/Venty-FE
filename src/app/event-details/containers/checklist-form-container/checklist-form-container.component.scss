@@ -1,9 +1,59 @@
-.checklist-form__container {
-    padding: 1rem;
+:host {
+    ::ng-deep {
+        .search-users__input {
+            span,
+            input {
+                background: transparent;
+                border: unset;
+                border-bottom: 1px solid white;
+            }
+
+            input {
+                &:hover {
+                    border-bottom: 1px solid black;
+                }
+            }
+        }
+    }
+}
+
+.checklist-form__header {
+    color: black;
+    background-color: white;
+    padding: 0.5em 1em;
+    border-radius: 25px;
+
+    .checklist-form__header__main,
+    .checklist-form__header__viewers {
+        display: inline-block;
+        width: 50%;
+        cursor: pointer;
+        text-align: center;
+
+        &:hover {
+            background-color: #7647f5;
+            color: white;
+            border-radius: 25px;
+        }
+    }
 }
 
 .checklist-form__group {
     display: flex;
     flex-direction: column;
-    padding: 1em 0 0 1em;
+    padding: 1em;
+}
+
+.checklist-form__viewers {
+    padding: 1em;
+
+    h1 {
+        padding: 0.5em 0;
+    }
+
+    &__card {
+        display: flex;
+        justify-content: space-between;
+        padding: 1em;
+    }
 }

@@ -1,0 +1,25 @@
+:host {
+    .p-inputgroup {
+        border: 1px solid #3f4b5b;
+    }
+}
+
+.search-users__card,
+.search-users__card--content {
+    display: flex;
+}
+
+.search-users__card {
+    background-color: #13043b;
+    margin-top: 0.5em;
+    padding: 1em 2em;
+    justify-content: space-between;
+
+    &--email {
+        color: #8a8a8f;
+    }
+
+    &--content {
+        flex-direction: column;
+    }
+}
