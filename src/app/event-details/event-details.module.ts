@@ -49,6 +49,7 @@ import { CapitalizeFirstPipeModule } from '@app/resources/capitalize-first-pipe'
     DropdownModule,
     CapitalizeFirstPipeModule,
     MessagesModule
-  ]
+  ],
+  exports: [GuestReviewsComponent]
 })
 export class EventDetailsModule {}

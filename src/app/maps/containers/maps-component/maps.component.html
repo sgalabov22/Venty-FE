@@ -1,69 +1,180 @@
 <div #map class="map__container">
 </div>
 <div id="search-container" class="search-elements__container">
-        <div class="search-header__container">
-            <div class="p-input-icon-right">
-                <i class="pi pi-search"></i>
-                <input 
-                    id="pac-input"
-                    class="pac-input"
-                    pInputText
-                    #searchInput
-                    (keyup)="onKey(searchInput.value)"
-                    placeholder="Search">      
-            </div>
+    <div class="search-header__container">
+        <div class="p-input-icon-right">
+            <i class="pi pi-search"></i>
+            <input 
+                id="pac-input"
+                class="pac-input text-style-montserrat-regular-20"
+                pInputText
+                #searchInput
+                placeholder="Search for a place">      
+        </div>
+        <div class="multiselect__container text-style-montserrat-regular-20">
             <p-multiSelect [options]="locationTypeOptions"
                 [(ngModel)]="selectedOptions"
                 (onChange)="changedOptions()"
                 defaultLabel="Categories"></p-multiSelect>
         </div>
-    <app-search-component class="search-results__container">
+    </div>
+
+    <app-search-component
+        class="search-results__container">
     </app-search-component>
 
     <p-dialog
-        (onHide)="closeModal()"
-        [header]="modalTitle"
+        (onHide)="closePreviewModal()"
+        [header]="previewModalTitle"
+        [(visible)]="showLocationPreview"
+        [style]="{ width: '55vw', height: '60vh' }">
+
+        <div class="preview-dialog__container" 
+            *ngIf="(selectedPlaceDetails$ | async) as selectedPlaceDetails">
+            <div class="location-details__container">
+                <div class="left-side-items__container">
+                    <div class="location-working-hours__container text-style-montserrat-medium-15">
+                        <div class="icon__container text-style-montserrat-medium-20">
+                            <fa-icon [icon]="faIcons[0]"></fa-icon>
+                            {{ getIsOpen(selectedPlaceDetails) }}
+                        </div>
+                        <div class="working-hours__container" *ngIf="selectedPlaceDetails.opening_hours">
+                            <div *ngFor="let weekday of selectedPlaceDetails.opening_hours.weekday_text">
+                                {{ weekday }}
+                            </div>
+
+                            <div class="reviews-label__container">
+                                <p-rating [ngModel]="selectedPlaceDetails.rating" [readonly]="true" [stars]="5" [cancel]="false"></p-rating>
+                                <p>({{ selectedPlaceDetails.user_ratings_total }} reviews)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="location-adrress__container">
+                        <p class="text-style-montserrat-medium-20">
+                            Location Contacts
+                        </p>
+
+                        <div class="location-address-data__container">
+                            <div class="location-website">
+                                <fa-icon [icon]="faIcons[2]"></fa-icon>
+                                <a [href]="selectedPlaceDetails.website">
+                                    {{selectedPlaceDetails.website}}
+                                </a>
+                            </div>
+
+                            <div>
+                                <fa-icon [icon]="faIcons[1]"></fa-icon>
+                                {{selectedPlaceDetails.formatted_address}}
+                            </div>
+                            
+                            <div>
+                                <fa-icon [icon]="faIcons[3]"></fa-icon>
+                                {{selectedPlaceDetails.international_phone_number}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-side-items__container">
+                    <div class="event_details__carousel__pictures">
+                        <p-carousel 
+                            [value]="imageUrls" 
+                            [numVisible]="1" 
+                            [numScroll]="1" 
+                            [showNavigators]="false">
+                        <ng-template let-image pTemplate="content">
+                            <div class="image__container">
+                                <img [src]="image" />
+                            </div>
+                        </ng-template>
+                        </p-carousel>
+                    </div>
+
+
+                    <div class="app-guest-reviews__container">
+                        <app-guest-reviews 
+                            [reviewsList]="selectedPlaceDetails.reviews"
+                            [totalReviews]="selectedPlaceDetails.user_ratings_total"
+                            class="event_details__carousel__reviews">
+                        </app-guest-reviews>
+                    </div>
+                </div>
+            </div>
+
+            <div class="proceed-button__container">
+                <button pButton pRipple
+                    type="button" label="Proceed"
+                    (click)="proceedClicked()"
+                    class="p-button-rounded text-style-roboto-bold-16">
+                </button>
+            </div>
+        </div>
+    </p-dialog>
+
+    <p-dialog
+        (onHide)="closeCreateModal()"
+        [header]="createModalTitle"
         [(visible)]="showCreateEvent"
-        [style]="{ width: '30vw', height: '50vh' }">
+        [style]="{ width: '30vw', height: '65vh' }">
 
         <form class="create-event__form" [formGroup]="createEventForm">
-            <div class="form-control p-float-label p-float-label">
-                <input 
-                    class="p-inputtext-lg" 
-                    id="title-input" 
-                    formControlName="title" 
-                    pInputText type="text" />
-                <label for="title-input" class="text-style-montserrat-regular-20">Event Title</label>
-                <div *ngIf="title.invalid && title.touched" class="input__error p-invalid text-style-montserrat-regular-12">Event title should exist</div>
+            <div class="form-controls__container">
+                <div class="form-control p-float-label p-float-label">
+                    <input 
+                        class="p-inputtext-lg" 
+                        id="title-input" 
+                        formControlName="title" 
+                        pInputText type="text" />
+                    <label for="title-input" class="text-style-montserrat-regular-24">Event Title</label>
+                    <div *ngIf="title.invalid && title.touched" class="input__error p-invalid text-style-montserrat-regular-12">Event title should exist</div>
+                </div>
+                
+                <div class="form-control start-date__container p-float-label">
+                    <p-calendar 
+                        formControlName="startDate"
+                        dateFormat="mm-dd-yy"
+                        inputId="startDate-input"
+                        [showTime]="true"
+                        [showSeconds]="true">
+                    </p-calendar>
+                    <label for="startDate-input" class="text-style-montserrat-regular-24">Start Date</label>
+                    <div *ngIf="startDate.invalid && startDate.touched" class="input__error p-invalid text-style-montserrat-regular-12">Start date should exist</div>
+                </div>
+
+                <div class="form-control end-date__container p-float-label">
+                    <p-calendar 
+                        formControlName="endDate"
+                        [minDate]="getMinDate()"
+                        dateFormat="mm-dd-yy"
+                        inputId="endDate-input"
+                        [showTime]="true"
+                        [showSeconds]="true">
+                    </p-calendar>
+                    <label for="endDate-input" class="text-style-montserrat-regular-24">End Date</label>
+                    <div *ngIf="endDate.invalid && endDate.touched" class="input__error p-invalid text-style-montserrat-regular-12">End date should exist</div>
+                </div>
+                
+                <div class="form-control description__container p-float-label">
+                    <textarea id="description-input" 
+                        formControlName="description"
+                        rows="5" 
+                        cols="30" 
+                        pInputTextarea>
+                    </textarea>
+                    <label for="description-input" class="text-style-montserrat-regular-24">Description (Optional)</label>
+                    <div *ngIf="description.invalid && description.touched" class="input__error p-invalid text-style-montserrat-regular-12">Description should exist</div>
+                </div>
             </div>
-            
-            <div class="form-control start-date__container p-float-label">
-                <p-calendar 
-                    formControlName="startDate"
-                    dateFormat="mm-dd-yy"
-                    inputId="startDate-input">
-                </p-calendar>
-                <label for="startDate-input" class="text-style-montserrat-regular-20">Start Date</label>
-                <div *ngIf="startDate.invalid && startDate.touched" class="input__error p-invalid text-style-montserrat-regular-12">Start date should exist</div>
-            </div>
-            <div class="form-control end-date__container p-float-label">
-                <p-calendar 
-                    formControlName="endDate"
-                    [minDate]="getMinDate()"
-                    [defaultDate]="getMinDate()"
-                    dateFormat="mm-dd-yy"
-                    inputId="endDate-input">
-                </p-calendar>
-                <label for="endDate-input" class="text-style-montserrat-regular-20">End Date</label>
-                <div *ngIf="endDate.invalid && endDate.touched" class="input__error p-invalid text-style-montserrat-regular-12">End date should exist</div>
-            </div>
-            <div class="form-control submit-button">
-                <p-button class="p-button-lg" 
+
+            <div class="submit-button">
+                <button pButton pRipple 
                     type="button"
                     label="Create event"
                     (click)="onCreateEvent()"
-                    [disabled]="createEventForm.invalid">
-                </p-button>
+                    [disabled]="createEventForm.invalid"
+                    class="p-button-rounded text-style-roboto-bold-16">
+                </button>
             </div>
         </form>
     </p-dialog>

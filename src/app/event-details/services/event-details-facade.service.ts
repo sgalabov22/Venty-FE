@@ -37,7 +37,6 @@ export class EventDetailsFacadeService {
   public loadEventInfo(eventId: number): void {
     this.eventDetailsService.getEventInfo(eventId).subscribe((eventInfo) => {
       this.eventInfo$$.next(eventInfo);
-      console.log(eventInfo);
       this.loadGuestList(eventId);
       this.loadLocationData(eventInfo.location);
     });
