@@ -1,0 +1,24 @@
+<div class="checklist-form__group" [formGroup]="checklistForm">
+    <div class="checklist-form__control">
+        <span class="p-float-label text-style-montserrat-medium-15">
+            <input class="text-style-montserrat-medium-20" id="name-input" type="text" pInputText formControlName="name"> 
+            <label for="name-input">Name</label>
+        </span>
+    </div>
+    <div class="checklist-form__control" *ngFor="let item of items.controls; last as isLast; index as idx; first as isFirst">
+        <span class="p-float-label text-style-montserrat-medium-15">
+            <input class="text-style-montserrat-medium-20" (keyup.enter)="addNewValueInput()" id="value-input" type="text" pInputText [formControl]="item"> 
+            <label for="value-input">Item</label>
+        </span>
+        <ng-container *ngIf="isLast">
+            <button (click)="addNewValueInput()" pButton pRipple type="button" icon="pi pi-check" 
+                class="p-button-rounded p-button-success p-button-outlined">
+            </button>
+        </ng-container>
+        <ng-container *ngIf="!isFirst || items.controls.length > 1">
+            <button (click)="removeValueInput(idx)" pButton pRipple type="button" icon="pi pi-times" 
+                class="p-button-rounded p-button-danger p-button-outlined">
+            </button>
+        </ng-container>
+    </div>
+</div>

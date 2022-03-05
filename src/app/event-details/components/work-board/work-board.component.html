@@ -1,8 +1,16 @@
-<div class="event_details__work-board">
-    <div class="event_details__work-board__header">
+<div class="work-board">
+    <div class="work-board__header">
         <div>
-            <p class="event_details__work-board__title text-style-roboto-regular-25">Extensions</p>
+            <p class="work-board__title text-style-roboto-regular-25">Extensions</p>
         </div>
-        <p-speedDial [model]="items" direction="down"></p-speedDial>
+        <p-speedDial [buttonStyle]="{ 'background-color': '#a050c7', 'width': '3.5rem', 'height': '3.5rem', 'margin-top': '0.2em' }" [model]="items" direction="down"></p-speedDial>
+    </div>
+    <div cdkDropList class="work-board__items" (cdkDropListDropped)="dropExtension($event)">
+        <app-checklist-item 
+            *ngFor="let checklistItem of checklistItems"
+            [checklistItem]="checklistItem"
+            (onUpdateChecklistItem)="onUpdateChecklistItem.emit($event)"
+            cdkDrag>
+        </app-checklist-item>
     </div>
 </div>

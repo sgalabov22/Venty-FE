@@ -1,6 +1,8 @@
 <section class="event-details__container" *ngIf="(eventInfo$ | async) as eventInfo">
     <div class="event-details__messages">
         <p-messages></p-messages>
+        <p-confirmPopup></p-confirmPopup>
+
     </div>
     <div class="event-details__title text-style-roboto-regular-35">
         <h1 class="event-details__title--marketing">{{eventInfo.event_title}}</h1>
@@ -33,5 +35,9 @@
         [reviewsList]="reviewsList$ | async"
         class="event_details__carousel">
     </app-event-details-carousel>
-    <app-work-board class="event_details__work-board"></app-work-board>
+    <app-work-board 
+        [extensionsData]="extensionsData$ | async"
+        (onUpdateChecklistItem)="updateChecklistItem($event)"
+        class="event_details__work-board">
+    </app-work-board>
 </section>

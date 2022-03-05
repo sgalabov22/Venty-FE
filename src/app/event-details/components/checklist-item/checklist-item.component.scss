@@ -1,0 +1,66 @@
+:host {
+    ::-webkit-scrollbar {
+        width: 0;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+
+    ::ng-deep {
+        .p-checkbox .p-checkbox-box {
+            background-color: white;
+            border-radius: 25px;
+        }
+    }
+}
+
+.checklist-item__container {
+    color: white;
+    background-color: #7647f5;
+    border-radius: 25px;
+    width: 300px;
+    height: 200px;
+    cursor: pointer;
+    overflow-y: scroll;
+    transition: transform .2s;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.checklist-item__title,
+.checklist-item__content-item {
+    display: flex;
+}
+
+.checklist-item__title {
+    align-items: center;
+    color: black;
+    background-color: white;
+    padding: 0.5em 1em;
+    border-radius: 25px;
+    position: sticky;
+    top: 0;
+
+    &__icon {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+    }
+
+    &:hover {
+        color: white;
+        background-color: #a050c7;
+    }
+}
+
+.checklist-item__content-item {
+    padding-top: 0.5em;
+    padding-left: 2em;
+    margin-top: 0.5em;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.checklist-item__content-item--done {
+    text-decoration: line-through;
+}

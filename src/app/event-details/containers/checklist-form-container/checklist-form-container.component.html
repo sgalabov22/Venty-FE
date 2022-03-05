@@ -1,0 +1,27 @@
+<div class="checklist-form__container">
+    <h1 class="checklist-form__header text-style-roboto-regular-35">{{header}}</h1>
+    <div class="checklist-form__group" [formGroup]="checklistForm">
+        <app-checklist-form-control 
+            [checklistItem]="checklistItem" 
+            formControlName="checklistFormControl">
+        </app-checklist-form-control>
+        <div class="checklist-form__submit-btn p-buttonset">
+            <p-button *ngIf="isCreate" icon="pi pi-check"
+                label="Create" type="button" styleClass="p-button text-style-montserrat-medium-20" 
+                [disabled]="checklistForm.invalid"
+                (click)="createChecklist()">
+            </p-button>
+            <ng-container *ngIf="!isCreate">
+                <p-button icon="pi pi-check"
+                    label="Modify" type="button" styleClass="p-button text-style-montserrat-medium-20" 
+                    [disabled]="checklistForm.invalid"
+                    (click)="modifyChecklist()">
+                </p-button>
+                <p-button icon="pi pi-trash"
+                    label="Delete" type="button" styleClass="p-button p-button-danger text-style-montserrat-medium-20" 
+                    (click)="deleteChecklistExtension()">
+                </p-button>
+            </ng-container>
+        </div>
+    </div>
+</div>

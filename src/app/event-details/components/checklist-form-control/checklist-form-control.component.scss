@@ -1,0 +1,35 @@
+.checklist-form__group,
+.checklist-form__control {
+    display: flex;
+}
+
+.checklist-form__group {
+    padding: 2em;
+    flex-direction: column;
+}
+
+.checklist-form__control {
+    display: flex;
+    width: 100%;
+    gap: 0.5em;
+
+    span {
+        width: 100%;
+
+        input {
+            width: 100%;
+            background: transparent;
+            border: unset;
+            border-bottom: 1px solid white;
+
+            &:hover {
+                border-bottom: 1px solid black;
+            }
+        }
+    }
+
+    &:nth-child(n+2) {
+        padding-top: 2em;
+        padding-left: 1em;
+    }
+}

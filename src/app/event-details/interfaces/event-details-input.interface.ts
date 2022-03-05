@@ -26,3 +26,33 @@ export interface GuestStatus {
   name: string;
   value: string;
 }
+
+export interface ExtensionsData {
+  checklist: ChecklistItem[];
+  reminder: ReminderItem[];
+}
+
+export interface ReminderItem {
+  name: string;
+  scheduled: string;
+  email_body: string;
+}
+
+export interface ChecklistItem {
+  id?: number;
+  name: string;
+  event?: number;
+  items: {
+    id?: number;
+    value: string;
+    status?: boolean;
+  }[];
+  viewers?: Viewer[];
+}
+
+export interface Viewer {
+  id: number;
+  fullname: string;
+  email: string;
+  profile_picture: string;
+}

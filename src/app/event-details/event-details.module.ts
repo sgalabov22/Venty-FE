@@ -1,28 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { RatingModule } from 'primeng/rating';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { EditorModule } from 'primeng/editor';
 import { DialogModule } from 'primeng/dialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { MessagesModule } from 'primeng/messages';
-import { MessageModule } from 'primeng/message';
-
+import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService } from 'primeng/api';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { CapitalizeFirstPipeModule } from '@app/resources/capitalize-first-pipe';
+import { PurpleBackgroundModule } from '@app/resources/purple-background';
 import { EventDetailsContainerComponent } from './containers';
 import { EventDetailsRoutingModule } from './event-details-routing.module';
-import { PurpleBackgroundModule } from '@app/resources/purple-background';
 import { InfoTabsComponent } from './components/info-tabs/info-tabs.component';
 import { GuestsListComponent } from './components/guests-list/guests-list.component';
 import { EventDetailsCarouselComponent } from './components/event-details-carousel/event-details-carousel.component';
 import { GuestReviewsComponent } from './components/guest-reviews/guest-reviews.component';
 import { WorkBoardComponent } from './components/work-board/work-board.component';
 import { GuestCardComponent } from './components/guest-card/guest-card.component';
-import { CapitalizeFirstPipeModule } from '@app/resources/capitalize-first-pipe';
+import { ChecklistItemComponent } from './components/checklist-item/checklist-item.component';
+import { ChecklistFormContainerComponent } from './containers/checklist-form-container/checklist-form-container.component';
+import { ChecklistFormControlComponent } from './components/checklist-form-control/checklist-form-control.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +38,10 @@ import { CapitalizeFirstPipeModule } from '@app/resources/capitalize-first-pipe'
     EventDetailsCarouselComponent,
     GuestReviewsComponent,
     WorkBoardComponent,
-    GuestCardComponent
+    GuestCardComponent,
+    ChecklistItemComponent,
+    ChecklistFormContainerComponent,
+    ChecklistFormControlComponent
   ],
   imports: [
     CommonModule,
@@ -45,10 +54,16 @@ import { CapitalizeFirstPipeModule } from '@app/resources/capitalize-first-pipe'
     EditorModule,
     FontAwesomeModule,
     DialogModule,
+    DynamicDialogModule,
     InputTextModule,
     DropdownModule,
     CapitalizeFirstPipeModule,
-    MessagesModule
-  ]
+    MessagesModule,
+    DragDropModule,
+    ReactiveFormsModule,
+    CheckboxModule,
+    ConfirmPopupModule
+  ],
+  providers: [ConfirmationService, DialogService]
 })
 export class EventDetailsModule {}

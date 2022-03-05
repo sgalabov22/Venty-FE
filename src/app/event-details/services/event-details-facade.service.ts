@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MapsActionsService } from '@app/maps';
 import { MessageService } from 'primeng/api';
-import { BehaviorSubject, of } from 'rxjs';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { BehaviorSubject, forkJoin, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { EventDetailsService } from '.';
 import {
+  ChecklistItem,
   EventInfo,
+  ExtensionsData,
   Guest,
   GuestUserAccount,
   UpdateEventData,
@@ -28,19 +31,37 @@ export class EventDetailsFacadeService {
   private users$$ = new BehaviorSubject<GuestUserAccount[]>([]);
   public users$ = this.users$$.asObservable();
 
+  private extensionsData$$ = new BehaviorSubject<ExtensionsData>(null);
+  public extensionsData$ = this.extensionsData$$.asObservable();
+
+  public dialogRef?: DynamicDialogRef;
+
   constructor(
     private eventDetailsService: EventDetailsService,
     private mapsActionsService: MapsActionsService,
     private messageService: MessageService
   ) {}
 
-  public loadEventInfo(eventId: number): void {
-    this.eventDetailsService.getEventInfo(eventId).subscribe((eventInfo) => {
-      this.eventInfo$$.next(eventInfo);
-      console.log(eventInfo);
-      this.loadGuestList(eventId);
+  public loadAllEventData(eventId: number): void {
+    forkJoin([
+      this.eventDetailsService.getEventInfo(eventId),
+      this.eventDetailsService.getAllExtensionsForEvent(eventId),
+      this.eventDetailsService.getGuestsList(eventId)
+    ]).subscribe(([eventInfo, eventExtensions, guestList]) => {
       this.loadLocationData(eventInfo.location);
+      this.eventInfo$$.next(eventInfo);
+      this.extensionsData$$.next(eventExtensions);
+      this.guestList$$.next(guestList);
     });
+  }
+
+  public loadAllExtensions(eventId: number): void {
+    this.eventDetailsService
+      .getAllExtensionsForEvent(eventId)
+      .subscribe((eventExtensions) => {
+        this.extensionsData$$.next(eventExtensions);
+        this.dialogRef?.close();
+      });
   }
 
   public loadGuestList(eventId: number): void {
@@ -103,10 +124,38 @@ export class EventDetailsFacadeService {
       });
   }
 
+  public updateChecklistItem(
+    eventId: number,
+    extensionId: number,
+    updatedChecklistItem: ChecklistItem
+  ): void {
+    this.eventDetailsService
+      .updateChecklistItem(eventId, extensionId, updatedChecklistItem)
+      .subscribe((updatedRes) => {
+        this.loadAllExtensions(updatedRes.event);
+      });
+  }
+
   public addUser(userId: number, eventId: number): void {
     this.eventDetailsService.addUser(userId, eventId).subscribe((value) => {
       this.loadGuestList(eventId);
     });
+  }
+
+  public addChecklist(eventId: number, checklistItem: ChecklistItem): void {
+    this.eventDetailsService
+      .addChecklist(eventId, checklistItem)
+      .subscribe((checklistRes) => {
+        this.loadAllExtensions(checklistRes.event);
+      });
+  }
+
+  public deleteChecklistExtension(eventId: number, extensionId: number): void {
+    this.eventDetailsService
+      .deleteChecklistExtension(eventId, extensionId)
+      .subscribe(() => {
+        this.loadAllExtensions(eventId);
+      });
   }
 
   public clearUsers(): void {
@@ -117,5 +166,6 @@ export class EventDetailsFacadeService {
     this.eventInfo$$.next(null);
     this.guestList$$.next(null);
     this.users$$.next(null);
+    this.extensionsData$$.next(null);
   }
 }

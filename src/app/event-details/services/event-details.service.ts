@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {
+  ChecklistItem,
   EventInfo,
+  ExtensionsData,
   Guest,
   GuestUserAccount,
   UpdateEventData,
@@ -26,6 +28,12 @@ export class EventDetailsService {
   public getGuestsList(eventId: number): Observable<Guest[]> {
     return this.http.get<Guest[]>(
       `${environment.baseApiUrl}/events/${eventId}/guests`
+    );
+  }
+
+  public getAllExtensionsForEvent(eventId: number): Observable<ExtensionsData> {
+    return this.http.get<ExtensionsData>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions`
     );
   }
 
@@ -63,6 +71,17 @@ export class EventDetailsService {
     );
   }
 
+  public updateChecklistItem(
+    eventId: number,
+    extensionId: number,
+    updatedChecklistItem: ChecklistItem
+  ): Observable<ChecklistItem> {
+    return this.http.put<ChecklistItem>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}?type=checklist`,
+      updatedChecklistItem
+    );
+  }
+
   public addUser(userId: number, eventId: number): Observable<any> {
     const params = [
       {
@@ -73,6 +92,25 @@ export class EventDetailsService {
     return this.http.post<any>(
       `${environment.baseApiUrl}/events/${eventId}/guests`,
       params
+    );
+  }
+
+  public deleteChecklistExtension(
+    eventId: number,
+    extensionId: number
+  ): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}?type=checklist`
+    );
+  }
+
+  public addChecklist(
+    eventId: number,
+    checklistItem: ChecklistItem
+  ): Observable<ChecklistItem> {
+    return this.http.post<ChecklistItem>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions?type=checklist`,
+      checklistItem
     );
   }
 }

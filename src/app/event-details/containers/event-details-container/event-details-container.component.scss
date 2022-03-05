@@ -6,6 +6,11 @@
             margin-right: 5px;
         }
     }
+
+    ::-webkit-scrollbar {
+        width: 0;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
 }
 
 .event-details__container {
@@ -47,4 +52,5 @@
 
 .event_details__work-board {
     grid-area: work-board;
+    overflow-y: scroll;
 }

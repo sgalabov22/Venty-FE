@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthFacadeService } from '@app/auth';
-import { UpdateEventData } from '@app/event-details/interfaces';
 import { MessageService } from 'primeng/api';
+import { UpdateChecklistItem, UpdateEventData } from '../../interfaces';
 import { EventDetailsFacadeService } from '../../services';
 
 @Component({
@@ -17,6 +17,7 @@ export class EventDetailsContainerComponent implements OnDestroy {
   public locationData$ = this.eventDetailsFacade.locationData$;
   public reviewsList$ = this.eventDetailsFacade.reviewsList$;
   public users$ = this.eventDetailsFacade.users$;
+  public extensionsData$ = this.eventDetailsFacade.extensionsData$;
   public currentUser$ = this.authFacade.currentUser$;
   private id: number;
 
@@ -29,7 +30,7 @@ export class EventDetailsContainerComponent implements OnDestroy {
     this.authFacade.loadCurrentUser();
     this.activatedRoute.paramMap.subscribe((params) => {
       this.id = Number(params.get('id'));
-      this.eventDetailsFacade.loadEventInfo(this.id);
+      this.eventDetailsFacade.loadAllEventData(this.id);
     });
   }
 
@@ -51,5 +52,16 @@ export class EventDetailsContainerComponent implements OnDestroy {
 
   public updateEventData(updatedEvent: UpdateEventData): void {
     this.eventDetailsFacade.updateEventData(updatedEvent, this.id);
+  }
+
+  public updateChecklistItem({
+    extensionId,
+    updatedChecklistPayload
+  }: UpdateChecklistItem): void {
+    this.eventDetailsFacade.updateChecklistItem(
+      this.id,
+      extensionId,
+      updatedChecklistPayload
+    );
   }
 }
