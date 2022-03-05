@@ -15,8 +15,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RatingModule } from 'primeng/rating';
 import { CarouselModule } from 'primeng/carousel';
-import { EventDetailsModule } from '@app/event-details';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { GuestReviewsModule } from '@app/resources/guest-reviews/event-reviews.module';
 
 @NgModule({
   declarations: [MapsComponent, SearchComponentComponent],
@@ -36,8 +36,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     FontAwesomeModule,
     RatingModule,
     CarouselModule,
-    EventDetailsModule,
-    InputTextareaModule
+    InputTextareaModule,
+    GuestReviewsModule
   ]
 })
 export class MapsModule {}

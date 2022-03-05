@@ -23,12 +23,12 @@ import { EventDetailsRoutingModule } from './event-details-routing.module';
 import { InfoTabsComponent } from './components/info-tabs/info-tabs.component';
 import { GuestsListComponent } from './components/guests-list/guests-list.component';
 import { EventDetailsCarouselComponent } from './components/event-details-carousel/event-details-carousel.component';
-import { GuestReviewsComponent } from './components/guest-reviews/guest-reviews.component';
 import { WorkBoardComponent } from './components/work-board/work-board.component';
 import { GuestCardComponent } from './components/guest-card/guest-card.component';
 import { ChecklistItemComponent } from './components/checklist-item/checklist-item.component';
 import { ChecklistFormContainerComponent } from './containers/checklist-form-container/checklist-form-container.component';
 import { ChecklistFormControlComponent } from './components/checklist-form-control/checklist-form-control.component';
+import { GuestReviewsModule } from '@app/resources/guest-reviews/event-reviews.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,6 @@ import { ChecklistFormControlComponent } from './components/checklist-form-contr
     InfoTabsComponent,
     GuestsListComponent,
     EventDetailsCarouselComponent,
-    GuestReviewsComponent,
     WorkBoardComponent,
     GuestCardComponent,
     ChecklistItemComponent,
@@ -48,7 +47,6 @@ import { ChecklistFormControlComponent } from './components/checklist-form-contr
     EventDetailsRoutingModule,
     PurpleBackgroundModule,
     CarouselModule,
-    RatingModule,
     FormsModule,
     SpeedDialModule,
     EditorModule,
@@ -62,9 +60,9 @@ import { ChecklistFormControlComponent } from './components/checklist-form-contr
     DragDropModule,
     ReactiveFormsModule,
     CheckboxModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    GuestReviewsModule
   ],
   providers: [ConfirmationService, DialogService],
-  exports: [GuestReviewsComponent]
 })
 export class EventDetailsModule {}

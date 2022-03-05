@@ -1,21 +1,21 @@
 <div class="event_details__info">
-        <h1 class="text-style-montserrat-medium-20 event_details__info__header">Description</h1>
+    <h1 class="text-style-montserrat-medium-20 event_details__info__header">Description</h1>
 
-        <div 
-            (click)="checkIfCanOpenEditor()"
-            [innerHTML]="description"
-            class="event_details__info__description">
-        </div>
+    <div 
+        (click)="checkIfCanOpenEditor()"
+        [innerHTML]="description"
+        class="event_details__info__description">
+    </div>
 
-        <p-dialog
-            [header]="'Edit Description'"
-            [(visible)]="openEditor"
-            [style]="{ width: '50vw', height: '70vh' }">
-            <p-editor *ngIf="openEditor" [(ngModel)]="description"></p-editor>
-            <button 
-               class="event_details__info--save-btn text-style-roboto-regular-20" 
-               (click)="saveText()">
-               Save
-            </button>
-        </p-dialog>
+    <p-dialog
+        [header]="'Edit Description'"
+        [(visible)]="openEditor"
+        [style]="{ width: '50vw', height: '70vh' }">
+        <p-editor *ngIf="openEditor" [(ngModel)]="description"></p-editor>
+        <button 
+            class="event_details__info--save-btn text-style-roboto-regular-20" 
+            (click)="saveText()">
+            Save
+        </button>
+    </p-dialog>
 </div>
