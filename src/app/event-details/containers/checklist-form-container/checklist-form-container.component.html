@@ -19,15 +19,15 @@
                 (click)="createChecklist()">
             </p-button>
             <ng-container *ngIf="!isCreate">
-                <p-button icon="pi pi-check"
-                    label="Modify" type="button" styleClass="p-button text-style-montserrat-medium-20" 
+                <button pButton pRipple
+                    label="Delete" type="button" class="text-style-montserrat-medium-20" 
+                    (click)="deleteChecklist($event)">
+                </button>
+                <button pButton pRipple
+                    label="Modify" type="button" class="text-style-montserrat-medium-20" 
                     [disabled]="checklistForm.invalid"
                     (click)="modifyChecklist()">
-                </p-button>
-                <p-button icon="pi pi-trash"
-                    label="Delete" type="button" styleClass="p-button p-button-danger text-style-montserrat-medium-20" 
-                    (click)="deleteChecklist($event)">
-                </p-button>
+                </button>
             </ng-container>
         </div>
     </div>

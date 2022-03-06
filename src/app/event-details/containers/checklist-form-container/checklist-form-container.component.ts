@@ -11,7 +11,7 @@ import { EventDetailsFacadeService } from '../../services';
   selector: 'app-checklist-form-container',
   templateUrl: './checklist-form-container.component.html',
   styleUrls: ['./checklist-form-container.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChecklistFormContainerComponent {
   public checklistForm: FormGroup;

@@ -4,18 +4,23 @@
     <div 
         (click)="checkIfCanOpenEditor()"
         [innerHTML]="description"
-        class="event_details__info__description">
+        class="event_details__info__description text-style-montserrat-regular-15">
     </div>
 
     <p-dialog
         [header]="'Edit Description'"
         [(visible)]="openEditor"
-        [style]="{ width: '50vw', height: '70vh' }">
-        <p-editor *ngIf="openEditor" [(ngModel)]="description"></p-editor>
-        <button 
-            class="event_details__info--save-btn text-style-roboto-regular-20" 
-            (click)="saveText()">
-            Save
-        </button>
+        [style]="{ width: '40vw', height: '60vh' }">
+        <div class="description-dialog-content__container">
+            <p-editor *ngIf="openEditor" [(ngModel)]="description"></p-editor>
+            
+            <div class="description-save-btn__container">
+                <button 
+                    class="event_details__info--save-btn text-style-roboto-regular-20" 
+                    (click)="saveText()">
+                    Save
+                </button>
+            </div>
+        </div>
     </p-dialog>
 </div>

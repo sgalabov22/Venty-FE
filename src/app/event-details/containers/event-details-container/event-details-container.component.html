@@ -8,18 +8,20 @@
         <h1 class="event-details__title--marketing">{{eventInfo.event_title}}</h1>
         <p><i class="pi pi-calendar"></i>{{eventInfo.start_date | date: 'HH:mm | dd MMMM yyyy'}}</p>
     </div>
-    <app-info-tabs 
-        [description]="eventInfo.description"
-        [eventOwnerId]="eventInfo.event_owner"
-        [currentUser]="currentUser$ | async"
-        (onUpdateDescription)="updateEventData({
-             start_date: eventInfo.start_date, 
-             end_date: eventInfo.end_date, 
-             event_title: eventInfo.event_title, 
-             description: $event 
-        })"
-        (onMessage)="this.messageService.add($event)"
-         class="event_details__info"></app-info-tabs>
+    <div class="info-tabs__container">
+        <app-info-tabs
+            [description]="eventInfo.description"
+            [eventOwnerId]="eventInfo.event_owner"
+            [currentUser]="currentUser$ | async"
+            (onUpdateDescription)="updateEventData({
+                start_date: eventInfo.start_date, 
+                end_date: eventInfo.end_date, 
+                event_title: eventInfo.event_title, 
+                description: $event 
+            })"
+            (onMessage)="this.messageService.add($event)"
+            class="event_details__info"></app-info-tabs>
+    </div>
     <app-guests-list
         [users]="users$ | async"
         [guestList]="(guestList$ | async)"
