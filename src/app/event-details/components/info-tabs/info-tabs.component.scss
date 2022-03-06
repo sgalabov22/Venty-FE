@@ -1,3 +1,51 @@
+::ng-deep {
+    .p-dialog {
+        border: none;
+    }
+    
+    .p-dialog-header, .p-dialog-content {
+        background: #13043b !important;
+    }
+
+    .p-dialog-header {
+        border-radius: 25px 25px 0 0 !important;
+        border-bottom: 2px solid #9f4bff !important;
+        padding: 1rem 2rem !important;
+    }
+
+    .p-dialog-header-icon {
+        color: #9f4bff !important;
+    }
+
+    .p-dialog-content {
+        overflow-y: inherit !important;
+        border-radius: 0 0 25px 25px !important;
+    }  
+
+    .p-editor-container {
+        height: 12rem;
+    }
+
+    .p-editor-container .p-editor-toolbar,
+    .p-editor-container .p-editor-content.ql-snow {
+        background: transparent;
+        border: 1px solid #9f4bff;
+    }
+
+    .p-editor-container .p-editor-content .ql-editor {
+        background: transparent;
+    }
+
+    .p-editor-container .p-editor-toolbar.ql-snow {
+        border: 1px solid #9f4bff;
+    }
+
+    .p-dropdown {
+        background: transparent;
+        border: 1px solid #8a8a8fb4;
+    }
+}
+
 .event_details__info {
     background-color: #13043b;
     border-radius: 25px;
@@ -7,7 +55,7 @@
     flex-direction: column;
     word-wrap: break-word;
     width: 45rem;
-    height: 23rem;
+    height: 23.6rem;
 }
 
 .event_details__info__header {
@@ -20,26 +68,27 @@
     color: #fff;
     overflow-y: scroll;
     height: 100%;
+    border-radius: 25px;
 
     &:hover {
-        border: 2px solid white;
+        border: 2px solid #a050c7;
         cursor: pointer;
     }
 }
 
 .event_details__info--save-btn {
     outline: none;
-    background-color: #4019a8;
+    background-color: #a050c7;
     color: #fff;
-    border-radius: 25px;
+    border-radius: 15px;
     padding: 0.5em;
     align-self: flex-start;
     border: unset;
     cursor: pointer;
-    margin-top: 1.25em;
+    width: 7rem;
     
     &:hover {
-      background-color: #a050c7;
+      background-color: #4019a8;
     }
 }
 
@@ -47,5 +96,21 @@
     .event_details__info {
         padding: 0.5em 0;
         width: 28em;
+    }
+}
+
+.description-dialog-content__container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .description-save-btn__container {
+        width: 100%;
+        height: 4rem;
+        display: flex;
+        justify-content: flex-end;
+        padding: 3.5rem 0;
     }
 }

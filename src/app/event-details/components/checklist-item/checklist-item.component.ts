@@ -53,6 +53,7 @@ export class ChecklistItemComponent implements OnInit, OnDestroy {
       ChecklistFormContainerComponent,
       {
         ...CHECKLIST_DIALOG_SETTINGS,
+        header: this.checklistItem.name,
         data: {
           checklistItem: this.checklistItem,
           eventId: this.checklistItem.event

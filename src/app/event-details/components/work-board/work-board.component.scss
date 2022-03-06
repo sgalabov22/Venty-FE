@@ -3,6 +3,10 @@
       .p-speeddial {
           position: static;
       }
+
+      .p-speeddial-direction-down .p-speeddial-list {
+          z-index: 1;
+      }
     }
     
     ::-webkit-scrollbar {
@@ -36,14 +40,21 @@
 .work-board__header {
     justify-content: center;
     gap: 1em;
+    height: 5rem;
+}
+
+.work-board-text__container {
+    width: 14rem;
 }
 
 .work-board__items {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0.5em 1em;
+    padding: 0.5em 2.5em;
     gap: 1.5em;
+    z-index: 0;
+    position: absolute;
 }
 
 .cdk-drag-preview {
