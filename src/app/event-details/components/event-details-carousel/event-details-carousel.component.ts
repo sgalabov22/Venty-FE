@@ -9,7 +9,7 @@ import {
   faMapMarkerAlt,
   faClock,
   faLink,
-  IconDefinition,
+  IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

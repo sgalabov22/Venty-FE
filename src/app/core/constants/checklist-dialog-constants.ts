@@ -3,5 +3,5 @@ export const CHECKLIST_DIALOG_SETTINGS = {
   closeOnEscape: true,
   width: '50vw',
   height: '70vh',
-  styleClass: 'checklist-form-dialog',
+  styleClass: 'checklist-form-dialog'
 };

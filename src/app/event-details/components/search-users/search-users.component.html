@@ -1,12 +1,16 @@
-<div class="search-users__input p-inputgroup">
-    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-    <input class="text-style-montserrat-medium-20" #searchBox type="text" pInputText [placeholder]="placeholder" (input)="searchTerm(searchBox.value)">         
-</div>
-
-<div class="search-users__card" *ngFor="let user of users">
-    <div class="search-users__card--content">
-        <p class="text-style-montserrat-medium-15">{{user.fullname}}</p>
-        <p class="search-users__card--email">{{user.email}}</p>
+<div class="search-users">
+    <div class="search-users__input p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+        <input class="text-style-montserrat-medium-20" #searchBox type="text" pInputText [placeholder]="placeholder" (input)="searchTerm(searchBox.value)">         
     </div>
-    <p-button (click)="onAddUser.emit(user); searchBox.value = ''" icon="pi pi-plus"></p-button>
+    
+    <div class="search-users__cards">
+        <div class="search-users__card" *ngFor="let user of users">
+            <div class="search-users__card--content">
+                <p class="text-style-montserrat-medium-15">{{user.fullname}}</p>
+                <p class="search-users__card--email">{{user.email}}</p>
+            </div>
+            <p-button (click)="onAddUser.emit(user); searchBox.value = ''" icon="pi pi-plus"></p-button>
+        </div>
+    </div>
 </div>

@@ -4,6 +4,16 @@
     }
 }
 
+.search-users {
+    position: relative;
+}
+
+.search-users__cards {
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
 .search-users__card,
 .search-users__card--content {
     display: flex;
@@ -11,7 +21,6 @@
 
 .search-users__card {
     background-color: #13043b;
-    margin-top: 0.5em;
     padding: 1em 2em;
     justify-content: space-between;
 
