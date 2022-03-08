@@ -13,6 +13,7 @@ import { Observable, Subject } from 'rxjs';
 import dateFormat from 'dateformat';
 import { CalendarEventsFacadeService } from '@app/calendar';
 import { Router } from '@angular/router';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calendar-container',
@@ -50,7 +51,7 @@ export class CalendarContainerComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.document.body.classList.add(this.darkThemeClass);
-
+    delay(2000);
     this.calendarEventsFacade.loadEvents();
   }
 

@@ -222,7 +222,7 @@ export class MapsActionsService {
         map.fitBounds(place.geometry.viewport);
       } else {
         map.setCenter(place.geometry.location);
-        map.setZoom(17);
+        map.setZoom(18);
       }
 
       this.marker.setPosition(place.geometry.location);

@@ -116,49 +116,55 @@
         (onHide)="closeCreateModal()"
         [header]="createModalTitle"
         [(visible)]="showCreateEvent"
-        [style]="{ width: '30vw', height: '80vh' }">
+        [style]="{ width: '30vw', height: '90vh' }">
 
         <form class="create-event__form" [formGroup]="createEventForm">
             <div class="form-controls__container">
-                <div class="form-control p-float-label">
+                <div class="form-control p-float-label text-style-montserrat-medium-15">
                     <input 
                         class="p-inputtext-lg" 
                         id="title-input" 
                         formControlName="title" 
                         pInputText type="text" />
-                    <label for="title-input" class="text-style-montserrat-regular-24">Event Title</label>
+                    <label for="title-input">Event Title</label>
                     <div *ngIf="title.invalid && title.touched" class="input__error p-invalid text-style-montserrat-regular-12">Event title should exist</div>
                 </div>
                 
-                <div class="form-control start-date__container p-float-label">
+                <div class="form-control start-date__container p-float-label text-style-montserrat-medium-15">
                     <p-calendar 
                         formControlName="startDate"
                         dateFormat="mm-dd-yy"
-                        inputId="startDate-input">
+                        inputId="startDate-input"            
+                        [showTime]="true"
+                        [showSeconds]="false" 
+                        [hourFormat]="12">
                     </p-calendar>
-                    <label for="startDate-input" class="text-style-montserrat-regular-24">Start Date</label>
+                    <label for="startDate-input">Start Date</label>
                     <div *ngIf="startDate.invalid && startDate.touched" class="input__error p-invalid text-style-montserrat-regular-12">Start date should exist</div>
                 </div>
 
-                <div class="form-control end-date__container p-float-label">
+                <div class="form-control end-date__container p-float-label text-style-montserrat-medium-15">
                     <p-calendar 
                         formControlName="endDate"
                         [minDate]="startDate?.value"
                         dateFormat="mm-dd-yy"
-                        inputId="endDate-input">
+                        inputId="endDate-input"            
+                        [showTime]="true"
+                        [showSeconds]="false" 
+                        [hourFormat]="12">
                     </p-calendar>
-                    <label for="endDate-input" class="text-style-montserrat-regular-24">End Date</label>
+                    <label for="endDate-input">End Date</label>
                     <div *ngIf="endDate.invalid && endDate.touched" class="input__error p-invalid text-style-montserrat-regular-12">End date should exist</div>
                 </div>
                 
-                <div class="form-control description__container p-float-label">
+                <div class="form-control description__container p-float-label text-style-montserrat-medium-15">
                     <textarea id="description-input" 
                         formControlName="description"
                         rows="5" 
                         cols="30" 
                         pInputTextarea>
                     </textarea>
-                    <label for="description-input" class="text-style-montserrat-regular-24">Description (Optional)</label>
+                    <label for="description-input">Description (Optional)</label>
                     <div *ngIf="description.invalid && description.touched" class="input__error p-invalid text-style-montserrat-regular-12">Description should exist</div>
                 </div>
             </div>

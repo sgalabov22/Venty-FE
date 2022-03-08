@@ -18,6 +18,7 @@
 
        .p-dialog {
             border: none;
+            z-index: 1;
         }
         
         .p-dialog-header, .p-dialog-content {
@@ -86,6 +87,7 @@
 
         .create-event__form .p-inputtextarea {
             border: 1px solid #9f4bff;
+            height: 22rem;
         }
     }
 }
@@ -202,7 +204,7 @@
     width: 100%;
     color: #e6e7e8;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .event_details__carousel__pictures {
