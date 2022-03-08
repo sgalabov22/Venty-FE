@@ -34,7 +34,10 @@ export interface ExtensionsData {
   reminder: ReminderItem[];
 }
 
-export interface ChecklistItem {
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface DragAndDropBoardItem {}
+
+export interface ChecklistItem extends DragAndDropBoardItem {
   id?: number;
   name: string;
   event?: number;
@@ -46,7 +49,7 @@ export interface ChecklistItem {
   viewers?: CurrentUserData[];
 }
 
-export interface ReminderItem {
+export interface ReminderItem extends DragAndDropBoardItem {
   id?: number;
   name: string;
   scheduled: Date;

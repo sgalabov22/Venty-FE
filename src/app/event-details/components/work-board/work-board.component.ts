@@ -13,9 +13,8 @@ import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DIALOG_SETTINGS } from '@app/core/constants';
 import {
-  ChecklistItem,
+  DragAndDropBoardItem,
   ExtensionsData,
-  ReminderItem,
   UpdateChecklistItem
 } from '../../interfaces';
 import {
@@ -36,8 +35,7 @@ export class WorkBoardComponent implements OnInit, OnChanges {
   @Output() onUpdateChecklistItem = new EventEmitter<UpdateChecklistItem>();
 
   public items: MenuItem[];
-  public checklistItems: ChecklistItem[];
-  public reminderItems: ReminderItem[];
+  public allExtensions: DragAndDropBoardItem[];
 
   constructor(
     private dialogService: DialogService,
@@ -78,23 +76,27 @@ export class WorkBoardComponent implements OnInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this.checklistItems = (
+    const checklistItems = (
       changes['extensionsData'].currentValue as ExtensionsData
     ).checklist;
 
-    this.reminderItems = (
+    const reminderItems = (
       changes['extensionsData'].currentValue as ExtensionsData
     ).reminder;
+
+    this.allExtensions = [...checklistItems, ...reminderItems];
   }
 
   public ngOnInit(): void {
-    this.checklistItems = this.extensionsData.checklist;
-    this.reminderItems = this.extensionsData.reminder;
+    this.allExtensions = [
+      ...this.extensionsData.checklist,
+      ...this.extensionsData.reminder
+    ];
   }
 
-  public dropExtension(event: CdkDragDrop<any[]>): void {
+  public dropExtension(event: CdkDragDrop<DragAndDropBoardItem[]>): void {
     moveItemInArray(
-      this.checklistItems,
+      this.allExtensions,
       event.previousIndex,
       event.currentIndex
     );

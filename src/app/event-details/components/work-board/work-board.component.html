@@ -6,16 +6,18 @@
         <p-speedDial [buttonStyle]="{ 'background-color': '#a050c7', 'width': '3.5rem', 'height': '3.5rem', 'margin-top': '0.2em', 'color': 'white', 'border': 'none' }" [model]="items" direction="down"></p-speedDial>
     </div>
     <div cdkDropList class="work-board__items" (cdkDropListDropped)="dropExtension($event)">
-        <app-checklist-item 
-            *ngFor="let checklistItem of checklistItems"
-            [checklistItem]="checklistItem"
-            (onUpdateChecklistItem)="onUpdateChecklistItem.emit($event)"
-            cdkDrag>
-        </app-checklist-item>
-        <app-reminder-item
-            *ngFor="let reminderItem of reminderItems"
-            [reminderItem]="reminderItem"
-            cdkDrag>            
-        </app-reminder-item>
+        <div *ngFor="let extensionItem of allExtensions" cdkDrag>
+            <ng-container *ngIf="extensionItem.items">
+                <app-checklist-item 
+                    [checklistItem]="extensionItem"
+                    (onUpdateChecklistItem)="onUpdateChecklistItem.emit($event)">
+                </app-checklist-item>
+            </ng-container>
+            <ng-container *ngIf="extensionItem.scheduled">
+                <app-reminder-item
+                    [reminderItem]="extensionItem">            
+                </app-reminder-item>
+            </ng-container>
+        </div>
     </div>
 </div>
