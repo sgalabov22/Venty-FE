@@ -27,7 +27,7 @@
         (onHide)="closePreviewModal()"
         [header]="previewModalTitle"
         [(visible)]="showLocationPreview"
-        [style]="{ width: '55vw', height: '60vh' }">
+        [style]="{ width: '55vw', height: '80vh' }">
 
         <div class="preview-dialog__container" 
             *ngIf="(selectedPlaceDetails$ | async) as selectedPlaceDetails">
@@ -116,11 +116,11 @@
         (onHide)="closeCreateModal()"
         [header]="createModalTitle"
         [(visible)]="showCreateEvent"
-        [style]="{ width: '30vw', height: '65vh' }">
+        [style]="{ width: '30vw', height: '80vh' }">
 
         <form class="create-event__form" [formGroup]="createEventForm">
             <div class="form-controls__container">
-                <div class="form-control p-float-label p-float-label">
+                <div class="form-control p-float-label">
                     <input 
                         class="p-inputtext-lg" 
                         id="title-input" 
@@ -134,9 +134,7 @@
                     <p-calendar 
                         formControlName="startDate"
                         dateFormat="mm-dd-yy"
-                        inputId="startDate-input"
-                        [showTime]="true"
-                        [showSeconds]="true">
+                        inputId="startDate-input">
                     </p-calendar>
                     <label for="startDate-input" class="text-style-montserrat-regular-24">Start Date</label>
                     <div *ngIf="startDate.invalid && startDate.touched" class="input__error p-invalid text-style-montserrat-regular-12">Start date should exist</div>
@@ -145,11 +143,9 @@
                 <div class="form-control end-date__container p-float-label">
                     <p-calendar 
                         formControlName="endDate"
-                        [minDate]="getMinDate()"
+                        [minDate]="startDate?.value"
                         dateFormat="mm-dd-yy"
-                        inputId="endDate-input"
-                        [showTime]="true"
-                        [showSeconds]="true">
+                        inputId="endDate-input">
                     </p-calendar>
                     <label for="endDate-input" class="text-style-montserrat-regular-24">End Date</label>
                     <div *ngIf="endDate.invalid && endDate.touched" class="input__error p-invalid text-style-montserrat-regular-12">End date should exist</div>

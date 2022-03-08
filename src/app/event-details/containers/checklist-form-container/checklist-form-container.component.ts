@@ -11,7 +11,7 @@ import { EventDetailsFacadeService } from '../../services';
   selector: 'app-checklist-form-container',
   templateUrl: './checklist-form-container.component.html',
   styleUrls: ['./checklist-form-container.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChecklistFormContainerComponent {
   public checklistForm: FormGroup;
@@ -33,6 +33,7 @@ export class ChecklistFormContainerComponent {
     this.isCreate = this.config.data?.isCreate;
     this.eventId = this.config.data?.eventId;
     this.header = this.isCreate ? 'Create Checklist' : 'Modify Checklist';
+
     this.checklistForm = this.fb.group({
       checklistFormControl: [null, Validators.required]
     });

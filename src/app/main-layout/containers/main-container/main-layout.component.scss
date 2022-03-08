@@ -70,3 +70,9 @@ fa-icon {
     color: #fff;
     cursor: pointer;
 }
+
+::ng-deep {
+    .p-avatar img {
+        object-fit: cover !important;
+    }
+}

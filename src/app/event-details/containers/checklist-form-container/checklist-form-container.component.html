@@ -13,11 +13,12 @@
             formControlName="checklistFormControl">
         </app-checklist-form-control>
         <div class="checklist-form__submit-btn p-buttonset">
-            <p-button *ngIf="isCreate" icon="pi pi-check"
-                label="Create" type="button" styleClass="p-button text-style-montserrat-medium-20" 
+            <button pButton pRipple
+                *ngIf="isCreate" icon="pi pi-check"
+                label="Create" type="button" class="p-button text-style-montserrat-medium-20" 
                 [disabled]="checklistForm.invalid"
                 (click)="createChecklist()">
-            </p-button>
+            </button>
             <ng-container *ngIf="!isCreate">
                 <button pButton pRipple
                     label="Delete" type="button" class="text-style-montserrat-medium-20" 

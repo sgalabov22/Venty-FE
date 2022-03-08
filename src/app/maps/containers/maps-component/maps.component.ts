@@ -201,15 +201,8 @@ export class MapsComponent implements OnInit, AfterViewInit {
       location: this.mapsActionsService.selectedPlace
     };
 
-    console.log(bodyParams);
     this.eventsActionsFacade.createEvent(bodyParams);
     this.router.navigate(['calendar']);
-  }
-
-  public getMinDate(): Date {
-    if (!this.startDate) return new Date();
-
-    return new Date(this.startDate.value);
   }
 
   public getIsOpen(element: google.maps.places.PlaceResult): string {

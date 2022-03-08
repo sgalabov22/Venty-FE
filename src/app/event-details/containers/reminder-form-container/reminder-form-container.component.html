@@ -1,0 +1,59 @@
+<div class="reminder-form__container">
+    <div class="reminder-form__header">
+        <div (click)="showViewers = false" class="reminder-form__header__main">
+            <h1 class="text-style-roboto-regular-35">{{header}}</h1>
+        </div>
+        <div (click)="showViewers = true" *ngIf="!isCreate" class="reminder-form__header__viewers">
+            <h1 class="text-style-roboto-regular-35">Viewers</h1>
+        </div>
+    </div>
+    <div *ngIf="!showViewers" class="reminder-form__group" [formGroup]="reminderForm">
+        <app-reminder-form-control
+            [reminderItem]="reminderItem"
+            formControlName="reminderFormControl">
+        </app-reminder-form-control>
+        <div class="reminder-form__submit-btn p-buttonset">
+            <button pButton pRipple
+                *ngIf="isCreate" icon="pi pi-check"
+                label="Create" type="button" class="p-button text-style-montserrat-medium-20" 
+                [disabled]="reminderForm.invalid"
+                (click)="createReminder()">
+            </button>
+
+            <ng-container *ngIf="!isCreate">
+                <button pButton pRipple
+                    label="Delete" type="button"
+                    class="text-style-montserrat-medium-20"
+                    (click)="deleteReminder($event)">
+                </button>
+                <button pButton pRipple
+                    label="Modify" type="button" 
+                    class="text-style-montserrat-medium-20" 
+                    [disabled]="reminderForm.invalid"
+                    (click)="modifyReminder()">
+                </button>
+            </ng-container>
+        </div>
+    </div>
+
+    <div *ngIf="showViewers" class="reminder-form__viewers">
+        <app-search-users 
+            [users]="users$ | async"
+            placeholder="Add Viewers"
+            (onSearchLoadUsers)="searchViewers($event)" 
+            (onAddUser)="addViewer($event)">
+        </app-search-users>
+
+        <h1 class="text-style-roboto-regular-35">Current Users</h1>
+        <div class="reminder-form__viewers__card"
+            *ngFor="let viewer of reminderItem.viewers; first as isFirst">
+            <div>
+                <h3 class="text-style-roboto-regular-20">{{viewer.fullname}}</h3>
+                <p>{{viewer.email}}</p>
+            </div>
+            <button *ngIf="!isFirst" (click)="removeViewer(viewer, $event)" pButton pRipple type="button" icon="pi pi-times" 
+                class="p-button-rounded p-button-danger p-button-outlined">
+            </button>
+        </div>
+    </div>
+</div>

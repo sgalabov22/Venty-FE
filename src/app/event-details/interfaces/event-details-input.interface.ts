@@ -34,12 +34,6 @@ export interface ExtensionsData {
   reminder: ReminderItem[];
 }
 
-export interface ReminderItem {
-  name: string;
-  scheduled: string;
-  email_body: string;
-}
-
 export interface ChecklistItem {
   id?: number;
   name: string;
@@ -49,5 +43,14 @@ export interface ChecklistItem {
     value: string;
     status?: boolean;
   }[];
+  viewers?: CurrentUserData[];
+}
+
+export interface ReminderItem {
+  id?: number;
+  name: string;
+  scheduled: Date;
+  email_body: string;
+  event?: number;
   viewers?: CurrentUserData[];
 }

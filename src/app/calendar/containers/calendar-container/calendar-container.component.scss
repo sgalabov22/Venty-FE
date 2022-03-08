@@ -1,10 +1,74 @@
+:host {
+    ::ng-deep {
+        .p-inputtext {
+            border: none;
+            background-color: transparent;
+        }
+        
+        .p-inputtext:enabled:focus {
+            border: none;
+            box-shadow: none;
+        }
+        
+        .p-button:enabled:focus {
+            border: none;
+            box-shadow: none;
+        }
+        
+        .p-button:enabled:hover {
+            color: white;
+        }
+
+        .p-dialog {
+            border: none;
+        }
+        
+        .p-dialog-header, .p-dialog-content {
+            background: #13043b !important;
+        }
+
+        .p-dialog-header {
+            border-radius: 25px 25px 0 0 !important;
+            border-bottom: 2px solid #9f4bff !important;
+            padding: 1rem 2rem !important;
+        }
+
+        .p-dialog-header-icon {
+            color: #9f4bff !important;
+        }
+
+        .p-dialog-content {
+            border-radius: 0 0 25px 25px !important;
+            padding: 1rem 2rem;
+        }  
+
+        .p-dialog .p-button {
+            background: #a253c8;
+            border: 1px solid #450067;
+            color: white;
+            width: 10rem;
+            height: 2rem;
+        }
+
+        .p-button-icon-only {
+            background-color: transparent !important;
+            color: white;
+            border: none;
+        }
+
+        .header__datepicker .p-calendar-w-btn .p-inputtext {
+            cursor: pointer;
+        }
+    }
+}
+
+
 .calendar-header__container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     height: 3.05rem;
-    // background-color: rgba(37, 38, 40, 1);
     border-top: 2px solid #532a68;
     border-bottom: 2px solid #532a68;
 }
@@ -22,31 +86,6 @@
 
 .header__datepicker {
     width: 11rem;
-}
-
-::ng-deep .p-inputtext {
-    border: none;
-    background-color: transparent;
-}
-
-::ng-deep .p-inputtext:enabled:focus {
-    border: none;
-    box-shadow: none;
-}
-
-::ng-deep .p-button:enabled:focus {
-    border: none;
-    box-shadow: none;
-}
-
-::ng-deep .p-button:enabled:hover {
-    color: white;
-}
-
-::ng-deep .p-button-icon-only {
-    background-color: transparent !important;
-    color: white;
-    border: none;
 }
 
 .today-button {

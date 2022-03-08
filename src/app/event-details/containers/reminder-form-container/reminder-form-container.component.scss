@@ -17,12 +17,12 @@
     }
 }
 
-.checklist-form__container {
+.reminder-form__container {
     display: flex;
     flex-direction: column;
 }
 
-.checklist-form__header {
+.reminder-form__header {
     color: white;
     background-color: #4019a8;
     width: 100%;
@@ -33,8 +33,8 @@
     top: 0;
     z-index: 1;
 
-    .checklist-form__header__main,
-    .checklist-form__header__viewers {
+    .reminder-form__header__main,
+    .reminder-form__header__viewers {
         display: flex;
         width: 50%;
         height: 100%;
@@ -48,7 +48,7 @@
         }
     }
 
-    .checklist-form__header__main {
+    .reminder-form__header__main {
         justify-content: flex-start;
 
         &:hover {
@@ -56,7 +56,7 @@
         }
     }
 
-    .checklist-form__header__viewers {
+    .reminder-form__header__viewers {
         justify-content: flex-end;
 
         &:hover {
@@ -65,14 +65,14 @@
     }
 }
 
-.checklist-form__group {
+.reminder-form__group {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 1em;
 }
 
-.checklist-form__viewers {
+.reminder-form__viewers {
     padding: 1em 3em;
 
     h1 {
@@ -86,7 +86,7 @@
     }
 }
 
-.checklist-form__submit-btn {
+.reminder-form__submit-btn {
     width: 100%;
     display: flex;
     justify-content: flex-end;

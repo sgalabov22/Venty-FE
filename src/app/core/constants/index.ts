@@ -1,1 +1,1 @@
-export * from './checklist-dialog-constants';
+export * from './dialog-constants';

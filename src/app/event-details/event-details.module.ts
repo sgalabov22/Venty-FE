@@ -29,6 +29,11 @@ import { ChecklistFormContainerComponent } from './containers/checklist-form-con
 import { ChecklistFormControlComponent } from './components/checklist-form-control/checklist-form-control.component';
 import { GuestReviewsModule } from '@app/resources/guest-reviews/event-reviews.module';
 import { SearchUsersComponent } from './components/search-users/search-users.component';
+import { ReminderFormContainerComponent } from './containers/reminder-form-container/reminder-form-container.component';
+import { ReminderFormControlComponent } from './components/reminder-form-control/reminder-form-control.component';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ReminderItemComponent } from './components/reminder-item/reminder-item.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,10 @@ import { SearchUsersComponent } from './components/search-users/search-users.com
     ChecklistItemComponent,
     ChecklistFormContainerComponent,
     ChecklistFormControlComponent,
-    SearchUsersComponent
+    SearchUsersComponent,
+    ReminderFormContainerComponent,
+    ReminderFormControlComponent,
+    ReminderItemComponent
   ],
   imports: [
     CommonModule,
@@ -62,7 +70,9 @@ import { SearchUsersComponent } from './components/search-users/search-users.com
     ReactiveFormsModule,
     CheckboxModule,
     ConfirmPopupModule,
-    GuestReviewsModule
+    GuestReviewsModule,
+    CalendarModule,
+    InputTextareaModule
   ],
   providers: [ConfirmationService, DialogService]
 })

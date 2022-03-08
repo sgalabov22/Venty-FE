@@ -7,12 +7,14 @@ import {
   ExtensionsData,
   Guest,
   GuestUserAccount,
+  ReminderItem,
   UpdateEventData,
   UpdateGuestStatus
 } from '../interfaces';
 
 import { environment } from '@env/environment';
 import { CurrentUserData } from '@app/auth';
+import { ExtensionTypeEnum } from '../enums';
 
 @Injectable({
   providedIn: 'root'
@@ -40,10 +42,11 @@ export class EventDetailsService {
 
   public getCatalogWithAllAvailableUsers(
     eventId: number,
-    extensionId: number
+    extensionId: number,
+    extensionType: ExtensionTypeEnum
   ): Observable<CurrentUserData[]> {
     return this.http.get<CurrentUserData[]>(
-      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}/viewers?type=checklist`
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}/viewers?type=${extensionType}`
     );
   }
 
@@ -92,13 +95,25 @@ export class EventDetailsService {
     );
   }
 
-  public removeChecklistViewer(
+  public updateReminderItem(
     eventId: number,
     extensionId: number,
-    viewerToRemove: CurrentUserData
+    updatedReminderItem: ReminderItem
+  ): Observable<ReminderItem> {
+    return this.http.put<ReminderItem>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}?type=reminder`,
+      updatedReminderItem
+    );
+  }
+
+  public removeExtensionViewer(
+    eventId: number,
+    extensionId: number,
+    viewerToRemove: CurrentUserData,
+    extensionType: ExtensionTypeEnum
   ): Observable<ChecklistItem> {
     return this.http.put<ChecklistItem>(
-      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}/viewers?type=checklist`,
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}/viewers?type=${extensionType}`,
       viewerToRemove
     );
   }
@@ -126,6 +141,16 @@ export class EventDetailsService {
     );
   }
 
+  public addReminder(
+    eventId: number,
+    reminderItem: ReminderItem
+  ): Observable<ReminderItem> {
+    return this.http.post<ReminderItem>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions?type=reminder`,
+      reminderItem
+    );
+  }
+
   public addViewerToChecklist(
     eventId: number,
     extensionId: number,
@@ -137,12 +162,24 @@ export class EventDetailsService {
     );
   }
 
-  public deleteChecklistExtension(
+  public addViewerToReminder(
     eventId: number,
-    extensionId: number
+    extensionId: number,
+    viewerPayload: CurrentUserData
+  ): Observable<ReminderItem> {
+    return this.http.post<ReminderItem>(
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}/viewers?type=reminder`,
+      viewerPayload
+    );
+  }
+
+  public deleteExtension(
+    eventId: number,
+    extensionId: number,
+    extensionType: ExtensionTypeEnum
   ): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(
-      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}?type=checklist`
+      `${environment.baseApiUrl}/events/${eventId}/extensions/${extensionId}?type=${extensionType}`
     );
   }
 }

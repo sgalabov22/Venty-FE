@@ -6,12 +6,14 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { BehaviorSubject, forkJoin, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { EventDetailsService } from '.';
+import { ExtensionTypeEnum } from '../enums';
 import {
   ChecklistItem,
   EventInfo,
   ExtensionsData,
   Guest,
   GuestUserAccount,
+  ReminderItem,
   UpdateEventData,
   UpdateGuestStatus
 } from '../interfaces';
@@ -53,6 +55,8 @@ export class EventDetailsFacadeService {
       this.eventInfo$$.next(eventInfo);
       this.extensionsData$$.next(eventExtensions);
       this.guestList$$.next(guestList);
+
+      console.log(this.extensionsData$$.value);
     });
   }
 
@@ -101,7 +105,37 @@ export class EventDetailsFacadeService {
   ): void {
     this.eventDetailsService.getGuestsList(eventId),
       this.eventDetailsService
-        .getCatalogWithAllAvailableUsers(eventId, extensionId)
+        .getCatalogWithAllAvailableUsers(
+          eventId,
+          extensionId,
+          ExtensionTypeEnum.CHECKLIST
+        )
+        .pipe(
+          switchMap((currentExtensionUsers) =>
+            of(
+              currentExtensionUsers.filter((user) =>
+                user.fullname.toLowerCase().startsWith(term.toLowerCase())
+              )
+            )
+          )
+        )
+        .subscribe((users) => {
+          this.users$$.next(users);
+        });
+  }
+
+  public loadSearchReminderUsers(
+    term: string,
+    eventId: number,
+    extensionId: number
+  ): void {
+    this.eventDetailsService.getGuestsList(eventId),
+      this.eventDetailsService
+        .getCatalogWithAllAvailableUsers(
+          eventId,
+          extensionId,
+          ExtensionTypeEnum.REMINDER
+        )
         .pipe(
           switchMap((currentExtensionUsers) =>
             of(
@@ -159,13 +193,47 @@ export class EventDetailsFacadeService {
       });
   }
 
+  public updateReminderItem(
+    eventId: number,
+    extensionId: number,
+    updatedReminderItem: ReminderItem
+  ): void {
+    this.eventDetailsService
+      .updateReminderItem(eventId, extensionId, updatedReminderItem)
+      .subscribe((updatedRes) => {
+        this.loadAllExtensions(updatedRes.event);
+      });
+  }
+
   public removeChecklistViewers(
     eventId: number,
     extensionId: number,
     viewerToRemove: CurrentUserData
   ): void {
     this.eventDetailsService
-      .removeChecklistViewer(eventId, extensionId, viewerToRemove)
+      .removeExtensionViewer(
+        eventId,
+        extensionId,
+        viewerToRemove,
+        ExtensionTypeEnum.CHECKLIST
+      )
+      .subscribe(() => {
+        this.loadAllExtensions(eventId);
+      });
+  }
+
+  public removeReminderViewers(
+    eventId: number,
+    extensionId: number,
+    viewerToRemove: CurrentUserData
+  ): void {
+    this.eventDetailsService
+      .removeExtensionViewer(
+        eventId,
+        extensionId,
+        viewerToRemove,
+        ExtensionTypeEnum.REMINDER
+      )
       .subscribe(() => {
         this.loadAllExtensions(eventId);
       });
@@ -185,6 +253,14 @@ export class EventDetailsFacadeService {
       });
   }
 
+  public addReminder(eventId: number, reminderItem: ReminderItem): void {
+    this.eventDetailsService
+      .addReminder(eventId, reminderItem)
+      .subscribe((checklistRes) => {
+        this.loadAllExtensions(checklistRes.event);
+      });
+  }
+
   public addChecklistViewer(
     eventId: number,
     extensionId: number,
@@ -198,9 +274,30 @@ export class EventDetailsFacadeService {
       });
   }
 
+  public addReminderViewer(
+    eventId: number,
+    extensionId: number,
+    viewer: CurrentUserData
+  ): void {
+    this.eventDetailsService
+      .addViewerToReminder(eventId, extensionId, viewer)
+      .subscribe(() => {
+        this.clearUsers();
+        this.loadAllExtensions(eventId);
+      });
+  }
+
   public deleteChecklistExtension(eventId: number, extensionId: number): void {
     this.eventDetailsService
-      .deleteChecklistExtension(eventId, extensionId)
+      .deleteExtension(eventId, extensionId, ExtensionTypeEnum.CHECKLIST)
+      .subscribe(() => {
+        this.loadAllExtensions(eventId);
+      });
+  }
+
+  public deleteReminderExtension(eventId: number, extensionId: number): void {
+    this.eventDetailsService
+      .deleteExtension(eventId, extensionId, ExtensionTypeEnum.REMINDER)
       .subscribe(() => {
         this.loadAllExtensions(eventId);
       });
