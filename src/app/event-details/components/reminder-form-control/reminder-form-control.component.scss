@@ -1,0 +1,50 @@
+:host {
+    ::ng-deep {
+        .reminder-form__group .p-calendar .p-inputtext,
+        .reminder-form__group .p-inputtext,
+        .reminder-form__group .p-inputtextarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid white;
+            outline: none;
+            padding: 0.75rem;
+
+            &:hover {
+                border-bottom: 1px solid #a050c7;
+            }
+        }
+
+        .reminder-form__group .p-calendar {
+            width: 100%;
+            outline: none;
+        }
+
+        .reminder-form__group .p-inputtextarea {
+            border: 1px solid white;
+            height: 20rem;
+
+            &:hover {
+                border: 1px solid white;
+            }
+        }
+    }
+}
+
+.reminder-form__group {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem 2rem 0 2rem;
+}
+
+.reminder-form__control {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 0 2rem 0;
+}
+
+.event-body__container {
+    margin: 1rem 0 0 0;
+}

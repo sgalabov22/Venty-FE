@@ -1,0 +1,30 @@
+<div class="reminder-form__group" [formGroup]="reminderForm">
+    <div class="reminder-form__control p-float-label text-style-montserrat-medium-15">
+        <input 
+            class="p-inputtext-lg text-style-montserrat-medium-20" 
+            id="name-input" 
+            formControlName="name" 
+            pInputText type="text" />
+        <label for="name-input">Name</label>
+    </div>
+    <div class="reminder-form__control p-float-label text-style-montserrat-medium-15">
+        <p-calendar 
+            formControlName="scheduled"
+            dateFormat="mm-dd-yy"
+            inputId="scheduled-input"
+            [showTime]="true"
+            [showSeconds]="false" 
+            [hourFormat]="12">
+        </p-calendar>
+        <label for="scheduled-input">Scheduled for</label>
+    </div>
+    <div class="reminder-form__control p-float-label event-body__container text-style-montserrat-medium-15">
+        <textarea id="emailBody-input" 
+            formControlName="emailBody"
+            rows="5" 
+            cols="30" 
+            pInputTextarea>
+        </textarea>
+        <label for="emailBody-input">Email Body</label>
+    </div>
+</div>

@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { faHeart, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CHECKLIST_DIALOG_SETTINGS } from '@app/core/constants';
+import { DIALOG_SETTINGS } from '@app/core/constants';
 import { ChecklistFormContainerComponent } from '../../containers';
 import { ChecklistItem, UpdateChecklistItem } from '../../interfaces';
 import { EventDetailsFacadeService } from '../../services';
@@ -52,8 +52,7 @@ export class ChecklistItemComponent implements OnInit, OnDestroy {
     this.eventDetailsFacade.dialogRef = this.dialogService.open(
       ChecklistFormContainerComponent,
       {
-        ...CHECKLIST_DIALOG_SETTINGS,
-        header: this.checklistItem.name,
+        ...DIALOG_SETTINGS,
         data: {
           checklistItem: this.checklistItem,
           eventId: this.checklistItem.event

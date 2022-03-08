@@ -3,7 +3,7 @@
         <div class="work-board-text__container">
             <p class="work-board__title text-style-roboto-regular-25">Extensions</p>
         </div>
-        <p-speedDial [buttonStyle]="{ 'background-color': '#a050c7', 'width': '3.5rem', 'height': '3.5rem', 'margin-top': '0.2em', 'color': 'white' }" [model]="items" direction="down"></p-speedDial>
+        <p-speedDial [buttonStyle]="{ 'background-color': '#a050c7', 'width': '3.5rem', 'height': '3.5rem', 'margin-top': '0.2em', 'color': 'white', 'border': 'none' }" [model]="items" direction="down"></p-speedDial>
     </div>
     <div cdkDropList class="work-board__items" (cdkDropListDropped)="dropExtension($event)">
         <app-checklist-item 
@@ -12,5 +12,10 @@
             (onUpdateChecklistItem)="onUpdateChecklistItem.emit($event)"
             cdkDrag>
         </app-checklist-item>
+        <app-reminder-item
+            *ngFor="let reminderItem of reminderItems"
+            [reminderItem]="reminderItem"
+            cdkDrag>            
+        </app-reminder-item>
     </div>
 </div>

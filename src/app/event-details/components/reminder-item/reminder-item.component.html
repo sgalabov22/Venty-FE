@@ -1,0 +1,10 @@
+<div class="reminder-item__container">
+    <div (click)="openModifyReminder()" (mouseenter)="showModify = true" (mouseleave)="showModify = false" class="reminder-item__title">
+        <h3 *ngIf="!showModify" class="text-style-roboto-regular-20">{{reminderItem.name}}</h3>
+        <h3 *ngIf="showModify" class="text-style-roboto-regular-20">Modify</h3>
+    </div>
+    <div class="reminder-item__content-item">
+        <p class="text-style-roboto-regular-16">Reminder scheduled for:</p>
+        <p class="text-style-roboto-regular-16">{{reminderItem.scheduled | date:' h:mm a MMMM dd, y'}}</p>
+    </div>
+</div>

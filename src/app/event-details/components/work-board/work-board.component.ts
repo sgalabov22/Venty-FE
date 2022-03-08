@@ -11,13 +11,17 @@ import {
 } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { CHECKLIST_DIALOG_SETTINGS } from '@app/core/constants';
+import { DIALOG_SETTINGS } from '@app/core/constants';
 import {
   ChecklistItem,
   ExtensionsData,
+  ReminderItem,
   UpdateChecklistItem
 } from '../../interfaces';
-import { ChecklistFormContainerComponent } from '../../containers';
+import {
+  ChecklistFormContainerComponent,
+  ReminderFormContainerComponent
+} from '../../containers';
 import { EventDetailsFacadeService } from '../../services';
 
 @Component({
@@ -33,6 +37,7 @@ export class WorkBoardComponent implements OnInit, OnChanges {
 
   public items: MenuItem[];
   public checklistItems: ChecklistItem[];
+  public reminderItems: ReminderItem[];
 
   constructor(
     private dialogService: DialogService,
@@ -45,7 +50,22 @@ export class WorkBoardComponent implements OnInit, OnChanges {
           this.eventDetailsFacade.dialogRef = this.dialogService.open(
             ChecklistFormContainerComponent,
             {
-              ...CHECKLIST_DIALOG_SETTINGS,
+              ...DIALOG_SETTINGS,
+              data: {
+                isCreate: true,
+                eventId: this.eventId
+              }
+            }
+          );
+        }
+      },
+      {
+        icon: 'pi pi-history',
+        command: () => {
+          this.eventDetailsFacade.dialogRef = this.dialogService.open(
+            ReminderFormContainerComponent,
+            {
+              ...DIALOG_SETTINGS,
               data: {
                 isCreate: true,
                 eventId: this.eventId
@@ -61,13 +81,18 @@ export class WorkBoardComponent implements OnInit, OnChanges {
     this.checklistItems = (
       changes['extensionsData'].currentValue as ExtensionsData
     ).checklist;
+
+    this.reminderItems = (
+      changes['extensionsData'].currentValue as ExtensionsData
+    ).reminder;
   }
 
   public ngOnInit(): void {
     this.checklistItems = this.extensionsData.checklist;
+    this.reminderItems = this.extensionsData.reminder;
   }
 
-  public dropExtension(event: CdkDragDrop<ChecklistItem[]>): void {
+  public dropExtension(event: CdkDragDrop<any[]>): void {
     moveItemInArray(
       this.checklistItems,
       event.previousIndex,

@@ -51,10 +51,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0.5em 2.5em;
     gap: 1.5em;
     z-index: 0;
-    position: absolute;
+    position: relative;
 }
 
 .cdk-drag-preview {

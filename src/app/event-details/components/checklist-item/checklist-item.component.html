@@ -2,9 +2,6 @@
     <div (click)="openModifyChecklist()" (mouseenter)="showModify = true" (mouseleave)="showModify = false" class="checklist-item__title">
         <h3 *ngIf="!showModify" class="text-style-roboto-regular-20">{{checklistItem.name}}</h3>
         <h3 *ngIf="showModify" class="text-style-roboto-regular-20">Modify</h3>
-        <div class="checklist-item__title__icon">
-            <fa-icon [icon]="faHeart"></fa-icon>
-        </div>
     </div>
     <div *ngFor="let contentItem of checklistItem.items; let i=index;" class="checklist-item__content-item">
         <p-checkbox [value]="contentItem.value" [(ngModel)]="selectedItems" (onChange)="checkUncheckItem(i)"></p-checkbox>
